@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Lens 协议分析 | 链上数据分析实战</title>
+  <meta name="description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Lens 协议分析 | 链上数据分析实战" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Lens 协议分析 | 链上数据分析实战" />
+  
+  <meta name="twitter:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+<meta name="author" content="米霖" />
+
+
+<meta name="date" content="2025-02-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="polygon区块链概况分析.html"/>
+<link rel="next" href="nft-数据分析.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">链上数据分析</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 链上数据分析简介</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#什么是链上数据分析"><i class="fa fa-check"></i><b>1.1</b> 什么是链上数据分析</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#为什么要进行链上数据分析"><i class="fa fa-check"></i><b>1.2</b> 为什么要进行链上数据分析</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#谁需要做链上数据分析"><i class="fa fa-check"></i><b>1.3</b> 谁需要做链上数据分析</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#如何进行链上数据分析"><i class="fa fa-check"></i><b>1.4</b> 如何进行链上数据分析</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dune-简介.html"><a href="dune-简介.html"><i class="fa fa-check"></i><b>2</b> Dune 简介</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-核心功能"><i class="fa fa-check"></i><b>2.1</b> Dune 核心功能</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dune-简介.html"><a href="dune-简介.html#query-查询"><i class="fa fa-check"></i><b>2.1.1</b> Query 查询</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dune-简介.html"><a href="dune-简介.html#创建可视化结果"><i class="fa fa-check"></i><b>2.1.2</b> 创建可视化结果</a></li>
+<li class="chapter" data-level="2.1.3" data-path="dune-简介.html"><a href="dune-简介.html#创建dashboard"><i class="fa fa-check"></i><b>2.1.3</b> 创建dashboard</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dune-简介.html"><a href="dune-简介.html#dune-看板案例"><i class="fa fa-check"></i><b>2.2</b> Dune 看板案例</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-中-uniswap流动资金池表"><i class="fa fa-check"></i><b>2.2.1</b> Dune 中 Uniswap流动资金池表</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dune-简介.html"><a href="dune-简介.html#dune-数据表"><i class="fa fa-check"></i><b>2.3</b> Dune 数据表</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dune-简介.html"><a href="dune-简介.html#常用原始表包括"><i class="fa fa-check"></i><b>2.3.1</b> 常用原始表包括:</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dune-简介.html"><a href="dune-简介.html#常用的魔法表-spellbook"><i class="fa fa-check"></i><b>2.3.2</b> 常用的魔法表 spellbook</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dune-sql.html"><a href="dune-sql.html"><i class="fa fa-check"></i><b>3</b> Dune SQL</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见语法以及使用案例"><i class="fa fa-check"></i><b>3.1</b> Dune 常见语法以及使用案例</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dune-sql.html"><a href="dune-sql.html#排序"><i class="fa fa-check"></i><b>3.1.1</b> 排序</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dune-sql.html"><a href="dune-sql.html#聚合"><i class="fa fa-check"></i><b>3.1.2</b> 聚合</a></li>
+<li class="chapter" data-level="3.1.3" data-path="dune-sql.html"><a href="dune-sql.html#分组聚合"><i class="fa fa-check"></i><b>3.1.3</b> 分组聚合</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dune-sql.html"><a href="dune-sql.html#子查询"><i class="fa fa-check"></i><b>3.1.4</b> 子查询</a></li>
+<li class="chapter" data-level="3.1.5" data-path="dune-sql.html"><a href="dune-sql.html#current_timestamp和-current_date函数"><i class="fa fa-check"></i><b>3.1.5</b> CURRENT_TIMESTAMP和 CURRENT_DATE函数</a></li>
+<li class="chapter" data-level="3.1.6" data-path="dune-sql.html"><a href="dune-sql.html#dateadd-和datediff"><i class="fa fa-check"></i><b>3.1.6</b> dateadd 和datediff</a></li>
+<li class="chapter" data-level="3.1.7" data-path="dune-sql.html"><a href="dune-sql.html#interval"><i class="fa fa-check"></i><b>3.1.7</b> INTERVAL</a></li>
+<li class="chapter" data-level="3.1.8" data-path="dune-sql.html"><a href="dune-sql.html#条件判断"><i class="fa fa-check"></i><b>3.1.8</b> 条件判断</a></li>
+<li class="chapter" data-level="3.1.9" data-path="dune-sql.html"><a href="dune-sql.html#字符串处理"><i class="fa fa-check"></i><b>3.1.9</b> 字符串处理</a></li>
+<li class="chapter" data-level="3.1.10" data-path="dune-sql.html"><a href="dune-sql.html#窗口函数"><i class="fa fa-check"></i><b>3.1.10</b> 窗口函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见查询"><i class="fa fa-check"></i><b>3.2</b> Dune 常见查询</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dune-sql.html"><a href="dune-sql.html#erc20-代币价格"><i class="fa fa-check"></i><b>3.2.1</b> ERC20 代币价格</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dune-sql.html"><a href="dune-sql.html#代币持有者相关数据"><i class="fa fa-check"></i><b>3.2.2</b> 代币持有者相关数据</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dune-sql.html"><a href="dune-sql.html#查询代币持有者数量和代币的总流通量"><i class="fa fa-check"></i><b>3.2.3</b> 查询代币持有者数量和代币的总流通量</a></li>
+<li class="chapter" data-level="3.2.4" data-path="dune-sql.html"><a href="dune-sql.html#查询持有代币最多的地址"><i class="fa fa-check"></i><b>3.2.4</b> 查询持有代币最多的地址</a></li>
+<li class="chapter" data-level="3.2.5" data-path="dune-sql.html"><a href="dune-sql.html#查询不同代币持有者的持有金额分布"><i class="fa fa-check"></i><b>3.2.5</b> 查询不同代币持有者的持有金额分布</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dune-sql.html"><a href="dune-sql.html#其他常用查询"><i class="fa fa-check"></i><b>3.3</b> 其他常用查询</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dune-sql.html"><a href="dune-sql.html#使用cte自定义数据表"><i class="fa fa-check"></i><b>3.3.1</b> 使用CTE自定义数据表</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dune-sql.html"><a href="dune-sql.html#读取数组和结构体"><i class="fa fa-check"></i><b>3.3.2</b> 读取数组和结构体</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dune-sql.html"><a href="dune-sql.html#读取json数据"><i class="fa fa-check"></i><b>3.3.3</b> 读取JSON数据</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html"><i class="fa fa-check"></i><b>4</b> 链上数据分析常见指标</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#用户行为指标"><i class="fa fa-check"></i><b>4.1</b> 用户行为指标</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃地址数量"><i class="fa fa-check"></i><b>4.1.1</b> 活跃地址数量</a></li>
+<li class="chapter" data-level="4.1.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#新增地址数量"><i class="fa fa-check"></i><b>4.1.2</b> 新增地址数量</a></li>
+<li class="chapter" data-level="4.1.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#持仓地址数量"><i class="fa fa-check"></i><b>4.1.3</b> 持仓地址数量</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流动"><i class="fa fa-check"></i><b>4.2</b> 资金流动</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流入fund-inflow"><i class="fa fa-check"></i><b>4.2.1</b> 资金流入（Fund Inflow）</a></li>
+<li class="chapter" data-level="4.2.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流出fund-outflow"><i class="fa fa-check"></i><b>4.2.2</b> 资金流出（Fund Outflow）</a></li>
+<li class="chapter" data-level="4.2.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金净流量net-flow"><i class="fa fa-check"></i><b>4.2.3</b> 资金净流量（Net Flow）</a></li>
+<li class="chapter" data-level="4.2.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#巨鲸交易whale-transactions"><i class="fa fa-check"></i><b>4.2.4</b> 巨鲸交易（Whale Transactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#智能合约交互"><i class="fa fa-check"></i><b>4.3</b> 智能合约交互</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#合约调用次数smart-contract-calls"><i class="fa fa-check"></i><b>4.3.1</b> 合约调用次数（Smart Contract Calls）</a></li>
+<li class="chapter" data-level="4.3.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃智能合约active-smart-contracts"><i class="fa fa-check"></i><b>4.3.2</b> 活跃智能合约（Active Smart Contracts）</a></li>
+<li class="chapter" data-level="4.3.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#gas-消耗量gas-consumption"><i class="fa fa-check"></i><b>4.3.3</b> Gas 消耗量（Gas Consumption）</a></li>
+<li class="chapter" data-level="4.3.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#nft-铸造量nft-minting-volume"><i class="fa fa-check"></i><b>4.3.4</b> NFT 铸造量（NFT Minting Volume）</a></li>
+<li class="chapter" data-level="4.3.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#defi-交互量defi-interactions"><i class="fa fa-check"></i><b>4.3.5</b> DeFi 交互量（DeFi Interactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#市场表现"><i class="fa fa-check"></i><b>4.4</b> 市场表现</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#tvltotal-value-locked锁定总价值"><i class="fa fa-check"></i><b>4.4.1</b> TVL（Total Value Locked，锁定总价值）</a></li>
+<li class="chapter" data-level="4.4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#流通总量-circulating-supply"><i class="fa fa-check"></i><b>4.4.2</b> 流通总量 Circulating Supply</a></li>
+<li class="chapter" data-level="4.4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#总市值market-capitalization"><i class="fa fa-check"></i><b>4.4.3</b> 总市值（Market Capitalization）</a></li>
+<li class="chapter" data-level="4.4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#代币持仓分布token-distribution"><i class="fa fa-check"></i><b>4.4.4</b> 代币持仓分布（Token Distribution）</a></li>
+<li class="chapter" data-level="4.4.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#波动率volatility"><i class="fa fa-check"></i><b>4.4.5</b> 波动率（Volatility）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html"><i class="fa fa-check"></i><b>5</b> Polygon区块链概况分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块分析"><i class="fa fa-check"></i><b>5.1</b> 区块分析</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块总数和gas-总消耗总量"><i class="fa fa-check"></i><b>5.1.1</b> 区块总数和Gas 总消耗总量</a></li>
+<li class="chapter" data-level="5.1.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#周期内新区块生成趋势和gas消耗"><i class="fa fa-check"></i><b>5.1.2</b> 周期内新区块生成趋势和Gas消耗</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易和用户分析"><i class="fa fa-check"></i><b>5.2</b> 交易和用户分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易总量和用户总数-2024-05-至今"><i class="fa fa-check"></i><b>5.2.1</b> 交易总量和用户总数( 2024-05 至今)</a></li>
+<li class="chapter" data-level="5.2.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.2</b> 每月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.3</b> 月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#活跃用户和新用户统计分析"><i class="fa fa-check"></i><b>5.2.4</b> 活跃用户和新用户统计分析</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#原生代币分析"><i class="fa fa-check"></i><b>5.3</b> 原生代币分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#matic-价格走势"><i class="fa fa-check"></i><b>5.3.1</b> MATIC 价格走势</a></li>
+<li class="chapter" data-level="5.3.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#持有最多matic-token的地址"><i class="fa fa-check"></i><b>5.3.2</b> 持有最多MATIC Token的地址</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#智能合约分析"><i class="fa fa-check"></i><b>5.4</b> 智能合约分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#创建和已销毁的合约数量"><i class="fa fa-check"></i><b>5.4.1</b> 创建和已销毁的合约数量</a></li>
+<li class="chapter" data-level="5.4.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月创建和销毁数量"><i class="fa fa-check"></i><b>5.4.2</b> 每月创建和销毁数量</a></li>
+<li class="chapter" data-level="5.4.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易次数最多的智能合约统计"><i class="fa fa-check"></i><b>5.4.3</b> 交易次数最多的智能合约统计</a></li>
+<li class="chapter" data-level="5.4.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最活跃智能合约每日交易数量分析"><i class="fa fa-check"></i><b>5.4.4</b> 最活跃智能合约每日交易数量分析</a></li>
+<li class="chapter" data-level="5.4.5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最近30天最活跃智能合约"><i class="fa fa-check"></i><b>5.4.5</b> 最近30天最活跃智能合约</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lens-协议分析.html"><a href="lens-协议分析.html"><i class="fa fa-check"></i><b>6</b> Lens 协议分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#lens协议概览分析"><i class="fa fa-check"></i><b>6.1</b> Lens协议概览分析</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#总交易数量和总用户数量"><i class="fa fa-check"></i><b>6.1.1</b> 总交易数量和总用户数量</a></li>
+<li class="chapter" data-level="6.1.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#按天统计的交易数量和独立用户数量"><i class="fa fa-check"></i><b>6.1.2</b> 按天统计的交易数量和独立用户数量</a></li>
+<li class="chapter" data-level="6.1.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料profile数据分析"><i class="fa fa-check"></i><b>6.1.3</b> 创作者个人资料（Profile）数据分析</a></li>
+<li class="chapter" data-level="6.1.4" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料域名分析"><i class="fa fa-check"></i><b>6.1.4</b> 创作者个人资料域名分析</a></li>
+<li class="chapter" data-level="6.1.5" data-path="lens-协议分析.html"><a href="lens-协议分析.html#同一个地址创建多个profile分析"><i class="fa fa-check"></i><b>6.1.5</b> 同一个地址创建多个Profile分析</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖数据分析"><i class="fa fa-check"></i><b>6.2</b> 发帖数据分析</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖最多的账号数据分析"><i class="fa fa-check"></i><b>6.2.1</b> 发帖最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.2.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#每日新发帖数量统计"><i class="fa fa-check"></i><b>6.2.2</b> 每日新发帖数量统计</a></li>
+<li class="chapter" data-level="6.2.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#近30天发帖最活跃的profile统计"><i class="fa fa-check"></i><b>6.2.3</b> 近30天发帖最活跃的Profile统计</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论数据分析"><i class="fa fa-check"></i><b>6.3</b> 评论数据分析</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的账号数据分析"><i class="fa fa-check"></i><b>6.3.1</b> 评论最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的publication统计"><i class="fa fa-check"></i><b>6.3.2</b> 评论最多的Publication统计</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#收藏数据分析"><i class="fa fa-check"></i><b>6.3.3</b> 收藏数据分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="nft-数据分析.html"><a href="nft-数据分析.html"><i class="fa fa-check"></i><b>7</b> NFT 数据分析</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#nft-合约讲解"><i class="fa fa-check"></i><b>7.1</b> NFT 合约讲解</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#erc721合约"><i class="fa fa-check"></i><b>7.1.1</b> ERC721合约</a></li>
+<li class="chapter" data-level="7.1.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#交易市场合约"><i class="fa fa-check"></i><b>7.1.2</b> 交易市场合约</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#常用表说明"><i class="fa fa-check"></i><b>7.2</b> 常用表说明</a></li>
+<li class="chapter" data-level="7.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#核心指标"><i class="fa fa-check"></i><b>7.3</b> 核心指标</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交价格走势"><i class="fa fa-check"></i><b>7.3.1</b> 成交价格走势</a></li>
+<li class="chapter" data-level="7.3.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#地板价"><i class="fa fa-check"></i><b>7.3.2</b> 地板价</a></li>
+<li class="chapter" data-level="7.3.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交量总成交额度总交易笔数等24小时7天1月成交额度"><i class="fa fa-check"></i><b>7.3.3</b> 成交量、总成交额度、总交易笔数等、24小时/7天/1月成交额度</a></li>
+<li class="chapter" data-level="7.3.4" data-path="nft-数据分析.html"><a href="nft-数据分析.html#每日每月每周成交量"><i class="fa fa-check"></i><b>7.3.4</b> 每日/每月/每周成交量</a></li>
+<li class="chapter" data-level="7.3.5" data-path="nft-数据分析.html"><a href="nft-数据分析.html#当前持有人数总token数量holder的分布等"><i class="fa fa-check"></i><b>7.3.5</b> 当前持有人数，总token数量，holder的分布等</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html"><i class="fa fa-check"></i><b>8</b> 借贷协议数据分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的意义"><i class="fa fa-check"></i><b>8.1</b> 借贷协议的意义</a></li>
+<li class="chapter" data-level="8.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的运作模式"><i class="fa fa-check"></i><b>8.2</b> 借贷协议的运作模式</a></li>
+<li class="chapter" data-level="8.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#重点指标"><i class="fa fa-check"></i><b>8.3</b> 重点指标</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#总锁仓量-tvltotal-value-locked"><i class="fa fa-check"></i><b>8.3.1</b> 总锁仓量 TVL（Total Value Locked）</a></li>
+<li class="chapter" data-level="8.3.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#未偿贷款outstanding-loan"><i class="fa fa-check"></i><b>8.3.2</b> 未偿贷款（Outstanding Loan）</a></li>
+<li class="chapter" data-level="8.3.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#资本效率utilization-ratio"><i class="fa fa-check"></i><b>8.3.3</b> 资本效率（Utilization Ratio）</a></li>
+<li class="chapter" data-level="8.3.4" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#详细分类"><i class="fa fa-check"></i><b>8.3.4</b> 详细分类</a></li>
+<li class="chapter" data-level="8.3.5" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#基础指标"><i class="fa fa-check"></i><b>8.3.5</b> 基础指标</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="defi-数据分析.html"><a href="defi-数据分析.html"><i class="fa fa-check"></i><b>9</b> Defi 数据分析</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-表相关"><i class="fa fa-check"></i><b>9.1</b> Defi 表相关</a></li>
+<li class="chapter" data-level="9.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-行业分析"><i class="fa fa-check"></i><b>9.2</b> Defi 行业分析</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-概况"><i class="fa fa-check"></i><b>9.2.1</b> Defi 概况</a></li>
+<li class="chapter" data-level="9.2.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按项目的统计分析"><i class="fa fa-check"></i><b>9.2.2</b> 按项目的统计分析</a></li>
+<li class="chapter" data-level="9.2.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按代币交易对token-pair进行分类汇总"><i class="fa fa-check"></i><b>9.2.3</b> 按代币交易对（Token Pair）进行分类汇总</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#单个defi项目的分析"><i class="fa fa-check"></i><b>9.3</b> 单个DeFi项目的分析</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#交易次数活跃用户交易金额"><i class="fa fa-check"></i><b>9.3.1</b> 交易次数、活跃用户、交易金额</a></li>
+<li class="chapter" data-level="9.3.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃交易对分析"><i class="fa fa-check"></i><b>9.3.2</b> 活跃交易对分析</a></li>
+<li class="chapter" data-level="9.3.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃用户分析"><i class="fa fa-check"></i><b>9.3.3</b> 活跃用户分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mev数据分析.html"><a href="mev数据分析.html"><i class="fa fa-check"></i><b>10</b> MEV数据分析</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的提取过程"><i class="fa fa-check"></i><b>10.1</b> MEV的提取过程</a></li>
+<li class="chapter" data-level="10.2" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的分类"><i class="fa fa-check"></i><b>10.2</b> MEV的分类</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="mev数据分析.html"><a href="mev数据分析.html#套利"><i class="fa fa-check"></i><b>10.2.1</b> 套利</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mev数据分析.html"><a href="mev数据分析.html#清算"><i class="fa fa-check"></i><b>10.2.2</b> 清算</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mev数据分析.html"><a href="mev数据分析.html#frontrunningbackrunning-和-sandwiching"><i class="fa fa-check"></i><b>10.2.3</b> Frontrunning、Backrunning 和 Sandwich(ing)</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mev数据分析.html"><a href="mev数据分析.html#just-in-time-liquidity-attack"><i class="fa fa-check"></i><b>10.2.4</b> Just-in-Time liquidity attack</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="mev数据分析.html"><a href="mev数据分析.html#用dune做mev的分析"><i class="fa fa-check"></i><b>10.3</b> 用Dune做MEV的分析</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html"><i class="fa fa-check"></i><b>11</b> Uniswap多链数据对比分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总交易概况"><i class="fa fa-check"></i><b>11.1</b> 总交易概况</a></li>
+<li class="chapter" data-level="11.2" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日交易数据对比分析"><i class="fa fa-check"></i><b>11.2</b> 每日交易数据对比分析</a></li>
+<li class="chapter" data-level="11.3" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新用户对比分析"><i class="fa fa-check"></i><b>11.3</b> 每日新用户对比分析</a></li>
+<li class="chapter" data-level="11.4" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#年度新建流动资金池对比分析"><i class="fa fa-check"></i><b>11.4</b> 年度新建流动资金池对比分析</a></li>
+<li class="chapter" data-level="11.5" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新增流动资金池对比"><i class="fa fa-check"></i><b>11.5</b> 每日新增流动资金池对比</a></li>
+<li class="chapter" data-level="11.6" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总锁仓价值tvl对比分析"><i class="fa fa-check"></i><b>11.6</b> 总锁仓价值（TVL）对比分析</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="区块链网络分析.html"><a href="区块链网络分析.html"><i class="fa fa-check"></i><b>12</b> 区块链网络分析</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#什么是区块链网络分析"><i class="fa fa-check"></i><b>12.0.1</b> 什么是区块链网络分析？</a></li>
+<li class="chapter" data-level="12.0.2" data-path="区块链网络分析.html"><a href="区块链网络分析.html#区块链网络分析的核心方向"><i class="fa fa-check"></i><b>12.0.2</b> 区块链网络分析的核心方向</a></li>
+<li class="chapter" data-level="12.0.3" data-path="区块链网络分析.html"><a href="区块链网络分析.html#如何使用-dune-进行区块链网络分析"><i class="fa fa-check"></i><b>12.0.3</b> 如何使用 Dune 进行区块链网络分析？</a></li>
+<li class="chapter" data-level="12.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#获取网络数据"><i class="fa fa-check"></i><b>12.1</b> 获取网络数据</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html"><i class="fa fa-check"></i><b>13</b> 如何快速找到想要的魔法表</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#直接在-dune-的-data-explorer-搜索"><i class="fa fa-check"></i><b>13.1</b> 📌 1. 直接在 Dune 的 “Data Explorer” 搜索</a></li>
+<li class="chapter" data-level="13.2" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-sql-查询-information_schema.tables"><i class="fa fa-check"></i><b>13.2</b> 📌 2. 通过 SQL 查询 <code>information_schema.tables</code></a></li>
+<li class="chapter" data-level="13.3" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#查看-spellbook-文档"><i class="fa fa-check"></i><b>13.3</b> 📌 3. 查看 Spellbook 文档</a></li>
+<li class="chapter" data-level="13.4" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-show-tables-快速查找"><i class="fa fa-check"></i><b>13.4</b> 📌 4. 通过 <code>SHOW TABLES</code> 快速查找</a></li>
+<li class="chapter" data-level="13.5" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#在-dune-社区或-github-讨论区搜索"><i class="fa fa-check"></i><b>13.5</b> 📌 5. 在 Dune 社区或 GitHub 讨论区搜索</a></li>
+<li class="chapter" data-level="13.6" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结合-dune-dashboards"><i class="fa fa-check"></i><b>13.6</b> 📌 6. 结合 Dune Dashboards</a></li>
+<li class="chapter" data-level="13.7" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#示例查询"><i class="fa fa-check"></i><b>13.7</b> 📌 7. 示例查询</a></li>
+<li class="chapter" data-level="13.8" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结论"><i class="fa fa-check"></i><b>13.8</b> 📌 结论</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/liamamilin" target="blank">Liamamilin github</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">链上数据分析实战</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lens-协议分析" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Lens 协议分析<a href="lens-协议分析.html#lens-协议分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Lens Protocol（简称 Lens） 是基于 Polygon 区块链 构建的 Web3 社交图谱生态系统，旨在赋予创作者对自己社交关系的所有权，打造一个 可组合、用户主导的社交网络。Lens 采用模块化设计，使其能够灵活扩展新功能、修复问题，同时确保用户的内容和社交关系保持不可变。</p>
+<p>当前的 Web2 社交平台 依赖于 中心化数据库，用户的个人资料、社交关系和内容被锁定在特定平台，所有权归平台运营方所有。不同平台之间彼此竞争，争夺用户注意力，形成零和游戏。</p>
+<p>Lens Protocol 颠覆了这一模式，通过提供一个 开放的、用户拥有的社交图谱，任何应用程序都可以接入并共享数据。由于 用户真正拥有自己的数据，他们可以自由地将其带入任何基于 Lens 构建的应用，而不会受到单一平台算法和政策变动的限制。</p>
+<p>此外，Lens 生态中的每个应用都能为整个网络带来价值，使得社交生态从“零和博弈”转变为 协作共赢。</p>
+<p>Lens 主要由以下 社交实体 组成：</p>
+<ul>
+<li>个人资料（Profile）：用户在 Lens 上的身份，存储用户的所有社交活动。<br />
+</li>
+<li>出版物（Publication）：创作者发布的内容，包括帖子（Post）、镜像（Mirror）、评论（Comment）等。<br />
+</li>
+<li>评论（Comment）：用户对出版物的互动回复。<br />
+</li>
+<li>镜像（Mirror）：相当于 Web2 中的“转发”功能，使用户可以推广他人的内容。<br />
+</li>
+<li>收藏（Collect）：用户可以收藏自己感兴趣的出版物，并可能形成独特的 NFT 资产。<br />
+</li>
+<li>关注（Follow）：用户可以关注创作者，并通过 NFT 机制形成经济激励。</li>
+</ul>
+<p>此外，Lens 生态内包含 三种类型的 NFT：</p>
+<ol style="list-style-type: decimal">
+<li>个人资料 NFT（Profile NFT）：用户的唯一身份，存储其社交活动和粉丝关系。<br />
+</li>
+<li>关注 NFT（Follow NFT）：当用户关注某个 Profile 时，自动铸造的 NFT，可用于特定的收益分配或社交功能。<br />
+</li>
+<li>收藏 NFT（Collect NFT）：用户收藏某个出版物时生成的 NFT，使内容具备链上可交易属性。</li>
+</ol>
+<p>Lens 典型使用场景</p>
+<ol style="list-style-type: decimal">
+<li>创作者入驻
+<ul>
+<li>注册并创建 Profile，铸造Profile NFT 作为独特身份标识。<br />
+</li>
+<li>设置个性化名称（Profile Handle Name，类似“Lens 域名”）。<br />
+</li>
+<li>设定账号头像、关注规则（例如，关注者需支付费用才能 Follow）。<br />
+</li>
+<li>目前仅限 许可名单内的地址 可创建 Profile 账号。</li>
+</ul></li>
+<li>内容创作与互动
+<ul>
+<li>创作者发布 各类内容（Publication），如帖子（Post）、镜像（Mirror） 和 评论（Comment）。<br />
+</li>
+<li>普通用户可以关注创作者，并 收藏自己喜欢的内容，形成链上资产。</li>
+</ul></li>
+<li>NFT 经济系统
+<ul>
+<li>在关注、收藏等操作中，不同类型的 NFT 被铸造并分配 给用户。<br />
+</li>
+<li>这些 NFT 可能带有经济激励，允许创作者通过订阅、内容收藏等方式变现。</li>
+</ul></li>
+</ol>
+<div id="lens协议概览分析" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Lens协议概览分析<a href="lens-协议分析.html#lens协议概览分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="总交易数量和总用户数量" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> 总交易数量和总用户数量<a href="lens-协议分析.html#总交易数量和总用户数量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>最准确的查询用户数量的数据源是polygon.transactions原始表，我们可以使用如下的query来查询Lens当前的交易数量和总用户数量。我们直接查询发送给LensHub智能合约的全部交易记录，通过distinct关键字来统计独立用户地址数量。由于我们已知该智能合约的创建日期，所以用这个日期作为过滤条件来优化查询性能。</p>
+<pre><code>select count(*) as transaction_count,
+    count(distinct &quot;from&quot;) as user_count    -- count unique users
+from polygon.transactions
+where &quot;to&quot; = 0xdb46d1dc155634fbc732f92e853b10b288ad5a1d   -- LensHub
+    and block_time &gt;= date(&#39;2022-05-16&#39;)  -- contract creation date
+</code></pre>
+</div>
+<div id="按天统计的交易数量和独立用户数量" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> 按天统计的交易数量和独立用户数量<a href="lens-协议分析.html#按天统计的交易数量和独立用户数量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>要想分析Lens协议在活跃度方面的增长变化趋势，我们可以创建一个查询，按日期来统计每天的交易数量和活跃用户地址数量。通过在查询中添加block_time字段并使用date_trunc()函数将其转换为日期（不含时分秒数值部分），结合group by查询子句，我们就可以统计出每天的数据。查询代码如下所示：</p>
+<pre><code>select date_trunc(&#39;day&#39;, block_time) as block_date,
+    count(*) as transaction_count,
+    count(distinct &quot;from&quot;) as user_count
+from polygon.transactions
+where &quot;to&quot; = 0xdb46d1dc155634fbc732f92e853b10b288ad5a1d   -- LensHub
+    and block_time &gt;= date(&#39;2022-05-16&#39;)  -- contract creation date
+group by 1
+order by 1</code></pre>
+</div>
+<div id="创作者个人资料profile数据分析" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> 创作者个人资料（Profile）数据分析<a href="lens-协议分析.html#创作者个人资料profile数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lens的创作者个人资料账号目前仅限于许可白名单内的用户来创建，创建个人资料的数据保存在createProfile表中。用下面的查询，我们可以计算出当前已经创建的个人资料的数量。</p>
+<pre><code>select count(*) as profile_count
+from lens_polygon.LensHub_call_createProfile
+where call_success = true   -- Only count success calls</code></pre>
+<p>我们同样关心创作者个人资料随日期的变化和增长情况。用下面的查询可以统计出每日、每月的个人资料创建情况。</p>
+<pre><code>with daily_profile_count as (
+    select date_trunc(&#39;day&#39;, call_block_time) as block_date,
+        count(*) as profile_count
+    from lens_polygon.LensHub_call_createProfile
+    where call_success = true
+    group by 1
+    order by 1
+)
+
+select block_date,
+    profile_count,
+    sum(profile_count) over (order by block_date) as accumulate_profile_count
+from daily_profile_count
+order by block_date</code></pre>
+</div>
+<div id="创作者个人资料域名分析" class="section level3 hasAnchor" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> 创作者个人资料域名分析<a href="lens-协议分析.html#创作者个人资料域名分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lens致力于打造一个社交图谱生态系统，每个创作者可以给自己的账号设置一个个性化的名称（Profile Handle Name），这也是通常大家说的Lens域名。与ENS等其他域名系统类似，我们会关注一些短域名、纯数字域名等的注册情况、不同字符长度的域名已注册数量等信息。</p>
+<p>使用下面的SQL，我们可以获取已注册Lens域名的详细信息：</p>
+<pre><code>select json_value(vars, &#39;lax $.to&#39;) as user_address,
+    json_value(vars, &#39;lax $.handle&#39;)  as handle_name,
+    replace(json_value(vars, &#39;lax $.handle&#39;) , &#39;.lens&#39;, &#39;&#39;) as short_handle_name,
+    call_block_time,
+    output_0 as profile_id,
+    call_tx_hash
+from lens_polygon.LensHub_call_createProfile
+where call_success = true</code></pre>
+<p>为了统计不同长度、不同类型（纯数字、纯字母、混合）Lens域名的数量以及各类型下已注册域名的总数量，我们可以将上面的查询放到一个CTE中。使用CTE的好处是可以简化逻辑（你可以按顺序分别调试、测试每一个CTE）。同时，CTE一经定义，就可以在同一个查询的后续SQL脚本中多次使用，非常便捷。鉴于查询各类域名的已注册总数量和对应不同字符长度的已注册数量都基于上面的查询，我们可以在同一个查询中将它们放到一起。因为前述统计都需要区分域名类型，我们在这个查询中增加了一个字段handle_type来代表域名的类型。修改后的查询代码如下：</p>
+<pre><code>with profile_created as (
+    select json_value(vars, &#39;lax $.to&#39;) as user_address,
+        json_value(vars, &#39;lax $.handle&#39;) as handle_name,
+        replace(json_value(vars, &#39;lax $.handle&#39;), &#39;.lens&#39;, &#39;&#39;) as short_name,
+        (case when regexp_like(replace(json_value(vars, &#39;lax $.handle&#39;), &#39;.lens&#39;, &#39;&#39;), &#39;^[0-9]+$&#39;) then &#39;Pure Digits&#39;
+            when regexp_like(replace(json_value(vars, &#39;lax $.handle&#39;), &#39;.lens&#39;, &#39;&#39;), &#39;^[a-z]+$&#39;) then &#39;Pure Letters&#39;
+            else &#39;Mixed&#39;
+        end) as handle_type,
+        call_block_time,
+        output_0 as profile_id,
+        call_tx_hash
+    from lens_polygon.LensHub_call_createProfile
+    where call_success = true    
+),
+
+profiles_summary as (
+    select (case when length(short_name) &gt;= 20 then 20 else length(short_name) end) as name_length,
+        handle_type,
+        count(*) as name_count
+    from profile_created
+    group by 1, 2
+),
+
+profiles_total as (
+    select count(*) as total_profile_count,
+        sum(case when handle_type = &#39;Pure Digits&#39; then 1 else 0 end) as pure_digit_profile_count,
+        sum(case when handle_type = &#39;Pure Letters&#39; then 1 else 0 end) as pure_letter_profile_count
+    from profile_created
+)
+
+select cast(name_length as varchar) || &#39; Chars&#39; as name_length_type,
+    handle_type,
+    name_count,
+    total_profile_count,
+    pure_digit_profile_count,
+    pure_letter_profile_count
+from profiles_summary
+join profiles_total on true
+order by handle_type, name_length</code></pre>
+</div>
+<div id="同一个地址创建多个profile分析" class="section level3 hasAnchor" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> 同一个地址创建多个Profile分析<a href="lens-协议分析.html#同一个地址创建多个profile分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lens协议允许一个地址创建多个Profile。我们可以编写一个查询来统计创建了多个Profile的地址的数据分布情况。在下面的查询中，我们先用CTE profile_created取得所有已创建的Profile的数据详情，然后使用multiple_profiles_addresses来统计每一个地址创建的Profile数量。最后，我们使用CASE语句，按每个地址创建的Profile的数量对其进行归类，返回综合的统计数据。</p>
+<pre><code>
+with profile_created as (
+    select json_value(vars, &#39;lax $.to&#39;) as user_address,
+        json_value(vars, &#39;lax $.handle&#39;) as handle_name,
+        replace(json_value(vars, &#39;lax $.handle&#39;), &#39;.lens&#39;, &#39;&#39;) as short_name,
+        call_block_time,
+        output_0 as profile_id,
+        call_tx_hash
+    from lens_polygon.LensHub_call_createProfile
+    where call_success = true    
+),
+
+multiple_profiles_addresses as (
+    select user_address,
+        count(profile_id) as profile_count
+    from profile_created
+    group by 1
+    order by 2 desc
+)
+
+select (case when profile_count &gt;= 10 then &#39;10+ Profiles&#39;
+            when profile_count &gt;= 3 then &#39;5+ Profiles&#39;
+            when profile_count = 2 then &#39;2 Profiles&#39;
+            else &#39;1 Profile&#39;
+        end) as profile_count_type,
+    count(user_address) as user_address_count,
+    sum(profile_count) as profile_count
+from multiple_profiles_addresses
+group by 1</code></pre>
+</div>
+</div>
+<div id="发帖数据分析" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 发帖数据分析<a href="lens-协议分析.html#发帖数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="发帖最多的账号数据分析" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> 发帖最多的账号数据分析<a href="lens-协议分析.html#发帖最多的账号数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lens的创作者有两种发帖（Post）的方式，一直是直接用自己的账号发布Post，另一种是委托其他账号或者通过API的方式来发布。Post数据分别保存在LensHub_call_post和LensHub_call_postWithSig表中。每一个主题Post的内容以JSON字符串的形式保存在字段vars中，包括作者的ProfileID，帖子内容的URL等信息。对于字符串形式的JSON内容，我们可以使用:操作符来访问其中的值。下面的查询可以获得部分示范数据：</p>
+<pre><code>select call_block_time,
+    call_tx_hash,
+    output_0 as post_id,
+    json_value(vars, &#39;lax $.profileId&#39;) as profile_id, -- Access element in json string
+    json_value(vars, &#39;lax $.contentURI&#39;) as content_url,
+    json_value(vars, &#39;lax $.collectModule&#39;) as collection_module,
+    json_value(vars, &#39;lax $.referenceModule&#39;) as reference_module,
+    vars
+from lens_polygon.LensHub_call_post
+where call_success = true
+limit 10</code></pre>
+<p>鉴于发帖的Profile数量很多，我们可以像前面分析“同一个地址创建多个Profile”那样，对不同发帖数量的Profile做一个分类统计，还可以关注头部用户，即发帖最多的那些账号的数据。这里我们对发帖最多的账号进行分析，同时将这部分账号的发帖数量和总体发帖数量的进行对照，输出Counter图表。完整的SQL如下：</p>
+<pre><code>with post_data as (
+    select call_block_time,
+        call_tx_hash,
+        output_0 as post_id,
+        json_value(vars, &#39;lax $.profileId&#39;) as profile_id, -- Access element in json string
+        json_value(vars, &#39;lax $.contentURI&#39;) as content_url,
+        json_value(vars, &#39;lax $.collectModule&#39;) as collection_module,
+        json_value(vars, &#39;lax $.referenceModule&#39;) as reference_module,
+    from lens_polygon.LensHub_call_post
+    where call_success = true
+    
+    union all
+    
+    select call_block_time,
+        call_tx_hash,
+        output_0 as post_id,
+        json_value(vars, &#39;lax $.profileId&#39;) as profile_id, -- Access element in json string
+        json_value(vars, &#39;lax $.contentURI&#39;) as content_url,
+        json_value(vars, &#39;lax $.collectModule&#39;) as collection_module,
+        json_value(vars, &#39;lax $.referenceModule&#39;) as reference_module,
+    from lens_polygon.LensHub_call_postWithSig
+    where call_success = true
+),
+
+posts_summary as (
+    select count(*) as total_post_count,
+        count(distinct profile_id) as posted_profile_count
+    from post_data
+),
+
+top_post_profiles as (
+    select profile_id,
+        count(*) as post_count
+    from post_data
+    group by 1
+    order by 2 desc
+    limit 1000
+)
+
+select profile_id,
+    post_count,
+    sum(post_count) over () as top_profile_post_count,
+    total_post_count,
+    posted_profile_count,
+    cast(sum(post_count) over () as double) / total_post_count * 100 as top_profile_posts_ratio
+from top_post_profiles
+inner join posts_summary on true
+order by 2 desc</code></pre>
+</div>
+<div id="每日新发帖数量统计" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> 每日新发帖数量统计<a href="lens-协议分析.html#每日新发帖数量统计" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lens用户每日的新发帖数量是观察整体活跃度变化趋势的一个重要指标，我们编写一个查询来统计每天的发帖数量。</p>
+<pre><code>with post_data as (
+    -- Get post data from LensHub_call_post and LensHub_call_postWithSig tables
+),
+
+post_daily_summary as (
+    select date_trunc(&#39;day&#39;, call_block_time) as block_date,
+        count(*) post_count,
+        count(distinct profile_id) as profile_count
+    from post_data
+    group by 1
+)
+
+select block_date,
+    post_count,
+    profile_count,
+    sum(post_count) over (order by block_date) as accumulate_post_count
+from post_daily_summary
+order by block_date</code></pre>
+</div>
+<div id="近30天发帖最活跃的profile统计" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> 近30天发帖最活跃的Profile统计<a href="lens-协议分析.html#近30天发帖最活跃的profile统计" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>同样，我们可能关心最近一段时间内发帖最活跃的Profile的情况。</p>
+<pre><code>with post_data as (
+    select call_block_time,
+        call_tx_hash,
+        output_0 as post_id,
+        json_value(vars, &#39;lax $.profileId&#39;) as profile_id, -- Access element in json string
+        json_value(vars, &#39;lax $.contentURI&#39;) as content_url,
+        json_value(vars, &#39;lax $.collectModule&#39;) as collection_module,
+        json_value(vars, &#39;lax $.referenceModule&#39;) as reference_module
+    from lens_polygon.LensHub_call_post
+    where call_success = true
+        and call_block_time &gt;= now() - interval &#39;30&#39; day
+    
+    union all
+    
+    select call_block_time,
+        call_tx_hash,
+        output_0 as post_id,
+        json_value(vars, &#39;lax $.profileId&#39;) as profile_id, -- Access element in json string
+        json_value(vars, &#39;lax $.contentURI&#39;) as content_url,
+        json_value(vars, &#39;lax $.collectModule&#39;) as collection_module,
+        json_value(vars, &#39;lax $.referenceModule&#39;) as reference_module
+    from lens_polygon.LensHub_call_postWithSig
+    where call_success = true
+        and call_block_time &gt;= now() - interval &#39;30&#39; day
+)
+
+select profile_id,
+    count(*) as post_count
+from post_data
+group by 1
+order by 2 desc
+limit 100
+</code></pre>
+</div>
+</div>
+<div id="评论数据分析" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> 评论数据分析<a href="lens-协议分析.html#评论数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="评论最多的账号数据分析" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> 评论最多的账号数据分析<a href="lens-协议分析.html#评论最多的账号数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>ens的评论数据与发帖数据类似，按数据产生来源不同，分别保存在LensHub_call_comment和LensHub_call_commentWithSig表中。基于Lens协议目前的功能，用户必须已经创建了自己的Profile才能对其他人创作者对Post进行评论。在评论数据表中，是通过评论者的Profile ID来进行追踪的。同时，每个创作者的发帖，其编号是从1开始累加的。</p>
+<pre><code>select call_block_time,
+    call_tx_hash,
+    output_0 as comment_id, -- 评论编号
+    json_value(vars, &#39;lax $.profileId&#39;) as profile_id_from, -- 评论者的Profile ID
+    json_value(vars, &#39;lax $.contentURI&#39;) as content_url, -- 评论内容链接
+    json_value(vars, &#39;lax $.pubIdPointed&#39;) as publication_id_pointed, -- 被评论的Publication ID
+    json_value(vars, &#39;lax $.profileIdPointed&#39;) as profile_id_pointed, -- 被评论的创作者的Profile ID
+    json_value(vars, &#39;lax $.profileIdPointed&#39;) || &#39;-&#39; || json_value(vars, &#39;lax $.pubIdPointed&#39;) as unique_publication_id  -- 组合生成唯一编号
+from lens_polygon.LensHub_call_comment
+where call_success = true
+limit 10
+</code></pre>
+</div>
+<div id="评论最多的publication统计" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> 评论最多的Publication统计<a href="lens-协议分析.html#评论最多的publication统计" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>每个评论都是针对一个具体的对象（Publication）:</p>
+<pre><code>with comment_data as (
+    -- get comment data from LensHub_call_comment and LensHub_call_commentWithSig tables
+)
+
+select profile_id_pointed,
+    publication_id_pointed,
+    unique_publication_id,
+    count(*) as comment_count
+from comment_data
+group by 1, 2, 3
+order by 4 desc
+limit 500</code></pre>
+</div>
+<div id="收藏数据分析" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> 收藏数据分析<a href="lens-协议分析.html#收藏数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>select call_block_time,
+    t.&quot;from&quot; as collector,
+    c.profileId as profile_id,
+    c.pubId as publication_id,
+    cast(c.profileId as varchar) || &#39;-&#39; || cast(c.pubId as varchar) as unique_publication_id,
+    c.output_0 as collection_id
+from lens_polygon.LensHub_call_collect c
+inner join polygon.transactions t on c.call_tx_hash = t.hash -- 关联交易表获取用户地址
+where call_block_time &gt;= date(&#39;2022-05-18&#39;) -- Lens合约的发布日期，提升查询效率
+    and block_time &gt;= date(&#39;2022-05-18&#39;)
+    and c.call_success = true
+limit 10</code></pre>
+<p>由于交易表记录相当庞大，查询耗时将明显增加。一个经验法则是，能避免针对原始数据表（transactions, logs, traces）的join操作就尽量避免。</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="polygon区块链概况分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nft-数据分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/liamamilin/05-blocks.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 借贷协议数据分析 | 链上数据分析实战</title>
+  <meta name="description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 借贷协议数据分析 | 链上数据分析实战" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 借贷协议数据分析 | 链上数据分析实战" />
+  
+  <meta name="twitter:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+<meta name="author" content="米霖" />
+
+
+<meta name="date" content="2025-02-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="nft-数据分析.html"/>
+<link rel="next" href="defi-数据分析.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">链上数据分析</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 链上数据分析简介</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#什么是链上数据分析"><i class="fa fa-check"></i><b>1.1</b> 什么是链上数据分析</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#为什么要进行链上数据分析"><i class="fa fa-check"></i><b>1.2</b> 为什么要进行链上数据分析</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#谁需要做链上数据分析"><i class="fa fa-check"></i><b>1.3</b> 谁需要做链上数据分析</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#如何进行链上数据分析"><i class="fa fa-check"></i><b>1.4</b> 如何进行链上数据分析</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dune-简介.html"><a href="dune-简介.html"><i class="fa fa-check"></i><b>2</b> Dune 简介</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-核心功能"><i class="fa fa-check"></i><b>2.1</b> Dune 核心功能</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dune-简介.html"><a href="dune-简介.html#query-查询"><i class="fa fa-check"></i><b>2.1.1</b> Query 查询</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dune-简介.html"><a href="dune-简介.html#创建可视化结果"><i class="fa fa-check"></i><b>2.1.2</b> 创建可视化结果</a></li>
+<li class="chapter" data-level="2.1.3" data-path="dune-简介.html"><a href="dune-简介.html#创建dashboard"><i class="fa fa-check"></i><b>2.1.3</b> 创建dashboard</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dune-简介.html"><a href="dune-简介.html#dune-看板案例"><i class="fa fa-check"></i><b>2.2</b> Dune 看板案例</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-中-uniswap流动资金池表"><i class="fa fa-check"></i><b>2.2.1</b> Dune 中 Uniswap流动资金池表</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dune-简介.html"><a href="dune-简介.html#dune-数据表"><i class="fa fa-check"></i><b>2.3</b> Dune 数据表</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dune-简介.html"><a href="dune-简介.html#常用原始表包括"><i class="fa fa-check"></i><b>2.3.1</b> 常用原始表包括:</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dune-简介.html"><a href="dune-简介.html#常用的魔法表-spellbook"><i class="fa fa-check"></i><b>2.3.2</b> 常用的魔法表 spellbook</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dune-sql.html"><a href="dune-sql.html"><i class="fa fa-check"></i><b>3</b> Dune SQL</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见语法以及使用案例"><i class="fa fa-check"></i><b>3.1</b> Dune 常见语法以及使用案例</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dune-sql.html"><a href="dune-sql.html#排序"><i class="fa fa-check"></i><b>3.1.1</b> 排序</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dune-sql.html"><a href="dune-sql.html#聚合"><i class="fa fa-check"></i><b>3.1.2</b> 聚合</a></li>
+<li class="chapter" data-level="3.1.3" data-path="dune-sql.html"><a href="dune-sql.html#分组聚合"><i class="fa fa-check"></i><b>3.1.3</b> 分组聚合</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dune-sql.html"><a href="dune-sql.html#子查询"><i class="fa fa-check"></i><b>3.1.4</b> 子查询</a></li>
+<li class="chapter" data-level="3.1.5" data-path="dune-sql.html"><a href="dune-sql.html#current_timestamp和-current_date函数"><i class="fa fa-check"></i><b>3.1.5</b> CURRENT_TIMESTAMP和 CURRENT_DATE函数</a></li>
+<li class="chapter" data-level="3.1.6" data-path="dune-sql.html"><a href="dune-sql.html#dateadd-和datediff"><i class="fa fa-check"></i><b>3.1.6</b> dateadd 和datediff</a></li>
+<li class="chapter" data-level="3.1.7" data-path="dune-sql.html"><a href="dune-sql.html#interval"><i class="fa fa-check"></i><b>3.1.7</b> INTERVAL</a></li>
+<li class="chapter" data-level="3.1.8" data-path="dune-sql.html"><a href="dune-sql.html#条件判断"><i class="fa fa-check"></i><b>3.1.8</b> 条件判断</a></li>
+<li class="chapter" data-level="3.1.9" data-path="dune-sql.html"><a href="dune-sql.html#字符串处理"><i class="fa fa-check"></i><b>3.1.9</b> 字符串处理</a></li>
+<li class="chapter" data-level="3.1.10" data-path="dune-sql.html"><a href="dune-sql.html#窗口函数"><i class="fa fa-check"></i><b>3.1.10</b> 窗口函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见查询"><i class="fa fa-check"></i><b>3.2</b> Dune 常见查询</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dune-sql.html"><a href="dune-sql.html#erc20-代币价格"><i class="fa fa-check"></i><b>3.2.1</b> ERC20 代币价格</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dune-sql.html"><a href="dune-sql.html#代币持有者相关数据"><i class="fa fa-check"></i><b>3.2.2</b> 代币持有者相关数据</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dune-sql.html"><a href="dune-sql.html#查询代币持有者数量和代币的总流通量"><i class="fa fa-check"></i><b>3.2.3</b> 查询代币持有者数量和代币的总流通量</a></li>
+<li class="chapter" data-level="3.2.4" data-path="dune-sql.html"><a href="dune-sql.html#查询持有代币最多的地址"><i class="fa fa-check"></i><b>3.2.4</b> 查询持有代币最多的地址</a></li>
+<li class="chapter" data-level="3.2.5" data-path="dune-sql.html"><a href="dune-sql.html#查询不同代币持有者的持有金额分布"><i class="fa fa-check"></i><b>3.2.5</b> 查询不同代币持有者的持有金额分布</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dune-sql.html"><a href="dune-sql.html#其他常用查询"><i class="fa fa-check"></i><b>3.3</b> 其他常用查询</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dune-sql.html"><a href="dune-sql.html#使用cte自定义数据表"><i class="fa fa-check"></i><b>3.3.1</b> 使用CTE自定义数据表</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dune-sql.html"><a href="dune-sql.html#读取数组和结构体"><i class="fa fa-check"></i><b>3.3.2</b> 读取数组和结构体</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dune-sql.html"><a href="dune-sql.html#读取json数据"><i class="fa fa-check"></i><b>3.3.3</b> 读取JSON数据</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html"><i class="fa fa-check"></i><b>4</b> 链上数据分析常见指标</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#用户行为指标"><i class="fa fa-check"></i><b>4.1</b> 用户行为指标</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃地址数量"><i class="fa fa-check"></i><b>4.1.1</b> 活跃地址数量</a></li>
+<li class="chapter" data-level="4.1.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#新增地址数量"><i class="fa fa-check"></i><b>4.1.2</b> 新增地址数量</a></li>
+<li class="chapter" data-level="4.1.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#持仓地址数量"><i class="fa fa-check"></i><b>4.1.3</b> 持仓地址数量</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流动"><i class="fa fa-check"></i><b>4.2</b> 资金流动</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流入fund-inflow"><i class="fa fa-check"></i><b>4.2.1</b> 资金流入（Fund Inflow）</a></li>
+<li class="chapter" data-level="4.2.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流出fund-outflow"><i class="fa fa-check"></i><b>4.2.2</b> 资金流出（Fund Outflow）</a></li>
+<li class="chapter" data-level="4.2.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金净流量net-flow"><i class="fa fa-check"></i><b>4.2.3</b> 资金净流量（Net Flow）</a></li>
+<li class="chapter" data-level="4.2.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#巨鲸交易whale-transactions"><i class="fa fa-check"></i><b>4.2.4</b> 巨鲸交易（Whale Transactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#智能合约交互"><i class="fa fa-check"></i><b>4.3</b> 智能合约交互</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#合约调用次数smart-contract-calls"><i class="fa fa-check"></i><b>4.3.1</b> 合约调用次数（Smart Contract Calls）</a></li>
+<li class="chapter" data-level="4.3.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃智能合约active-smart-contracts"><i class="fa fa-check"></i><b>4.3.2</b> 活跃智能合约（Active Smart Contracts）</a></li>
+<li class="chapter" data-level="4.3.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#gas-消耗量gas-consumption"><i class="fa fa-check"></i><b>4.3.3</b> Gas 消耗量（Gas Consumption）</a></li>
+<li class="chapter" data-level="4.3.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#nft-铸造量nft-minting-volume"><i class="fa fa-check"></i><b>4.3.4</b> NFT 铸造量（NFT Minting Volume）</a></li>
+<li class="chapter" data-level="4.3.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#defi-交互量defi-interactions"><i class="fa fa-check"></i><b>4.3.5</b> DeFi 交互量（DeFi Interactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#市场表现"><i class="fa fa-check"></i><b>4.4</b> 市场表现</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#tvltotal-value-locked锁定总价值"><i class="fa fa-check"></i><b>4.4.1</b> TVL（Total Value Locked，锁定总价值）</a></li>
+<li class="chapter" data-level="4.4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#流通总量-circulating-supply"><i class="fa fa-check"></i><b>4.4.2</b> 流通总量 Circulating Supply</a></li>
+<li class="chapter" data-level="4.4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#总市值market-capitalization"><i class="fa fa-check"></i><b>4.4.3</b> 总市值（Market Capitalization）</a></li>
+<li class="chapter" data-level="4.4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#代币持仓分布token-distribution"><i class="fa fa-check"></i><b>4.4.4</b> 代币持仓分布（Token Distribution）</a></li>
+<li class="chapter" data-level="4.4.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#波动率volatility"><i class="fa fa-check"></i><b>4.4.5</b> 波动率（Volatility）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html"><i class="fa fa-check"></i><b>5</b> Polygon区块链概况分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块分析"><i class="fa fa-check"></i><b>5.1</b> 区块分析</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块总数和gas-总消耗总量"><i class="fa fa-check"></i><b>5.1.1</b> 区块总数和Gas 总消耗总量</a></li>
+<li class="chapter" data-level="5.1.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#周期内新区块生成趋势和gas消耗"><i class="fa fa-check"></i><b>5.1.2</b> 周期内新区块生成趋势和Gas消耗</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易和用户分析"><i class="fa fa-check"></i><b>5.2</b> 交易和用户分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易总量和用户总数-2024-05-至今"><i class="fa fa-check"></i><b>5.2.1</b> 交易总量和用户总数( 2024-05 至今)</a></li>
+<li class="chapter" data-level="5.2.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.2</b> 每月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.3</b> 月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#活跃用户和新用户统计分析"><i class="fa fa-check"></i><b>5.2.4</b> 活跃用户和新用户统计分析</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#原生代币分析"><i class="fa fa-check"></i><b>5.3</b> 原生代币分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#matic-价格走势"><i class="fa fa-check"></i><b>5.3.1</b> MATIC 价格走势</a></li>
+<li class="chapter" data-level="5.3.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#持有最多matic-token的地址"><i class="fa fa-check"></i><b>5.3.2</b> 持有最多MATIC Token的地址</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#智能合约分析"><i class="fa fa-check"></i><b>5.4</b> 智能合约分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#创建和已销毁的合约数量"><i class="fa fa-check"></i><b>5.4.1</b> 创建和已销毁的合约数量</a></li>
+<li class="chapter" data-level="5.4.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月创建和销毁数量"><i class="fa fa-check"></i><b>5.4.2</b> 每月创建和销毁数量</a></li>
+<li class="chapter" data-level="5.4.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易次数最多的智能合约统计"><i class="fa fa-check"></i><b>5.4.3</b> 交易次数最多的智能合约统计</a></li>
+<li class="chapter" data-level="5.4.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最活跃智能合约每日交易数量分析"><i class="fa fa-check"></i><b>5.4.4</b> 最活跃智能合约每日交易数量分析</a></li>
+<li class="chapter" data-level="5.4.5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最近30天最活跃智能合约"><i class="fa fa-check"></i><b>5.4.5</b> 最近30天最活跃智能合约</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lens-协议分析.html"><a href="lens-协议分析.html"><i class="fa fa-check"></i><b>6</b> Lens 协议分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#lens协议概览分析"><i class="fa fa-check"></i><b>6.1</b> Lens协议概览分析</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#总交易数量和总用户数量"><i class="fa fa-check"></i><b>6.1.1</b> 总交易数量和总用户数量</a></li>
+<li class="chapter" data-level="6.1.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#按天统计的交易数量和独立用户数量"><i class="fa fa-check"></i><b>6.1.2</b> 按天统计的交易数量和独立用户数量</a></li>
+<li class="chapter" data-level="6.1.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料profile数据分析"><i class="fa fa-check"></i><b>6.1.3</b> 创作者个人资料（Profile）数据分析</a></li>
+<li class="chapter" data-level="6.1.4" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料域名分析"><i class="fa fa-check"></i><b>6.1.4</b> 创作者个人资料域名分析</a></li>
+<li class="chapter" data-level="6.1.5" data-path="lens-协议分析.html"><a href="lens-协议分析.html#同一个地址创建多个profile分析"><i class="fa fa-check"></i><b>6.1.5</b> 同一个地址创建多个Profile分析</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖数据分析"><i class="fa fa-check"></i><b>6.2</b> 发帖数据分析</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖最多的账号数据分析"><i class="fa fa-check"></i><b>6.2.1</b> 发帖最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.2.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#每日新发帖数量统计"><i class="fa fa-check"></i><b>6.2.2</b> 每日新发帖数量统计</a></li>
+<li class="chapter" data-level="6.2.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#近30天发帖最活跃的profile统计"><i class="fa fa-check"></i><b>6.2.3</b> 近30天发帖最活跃的Profile统计</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论数据分析"><i class="fa fa-check"></i><b>6.3</b> 评论数据分析</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的账号数据分析"><i class="fa fa-check"></i><b>6.3.1</b> 评论最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的publication统计"><i class="fa fa-check"></i><b>6.3.2</b> 评论最多的Publication统计</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#收藏数据分析"><i class="fa fa-check"></i><b>6.3.3</b> 收藏数据分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="nft-数据分析.html"><a href="nft-数据分析.html"><i class="fa fa-check"></i><b>7</b> NFT 数据分析</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#nft-合约讲解"><i class="fa fa-check"></i><b>7.1</b> NFT 合约讲解</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#erc721合约"><i class="fa fa-check"></i><b>7.1.1</b> ERC721合约</a></li>
+<li class="chapter" data-level="7.1.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#交易市场合约"><i class="fa fa-check"></i><b>7.1.2</b> 交易市场合约</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#常用表说明"><i class="fa fa-check"></i><b>7.2</b> 常用表说明</a></li>
+<li class="chapter" data-level="7.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#核心指标"><i class="fa fa-check"></i><b>7.3</b> 核心指标</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交价格走势"><i class="fa fa-check"></i><b>7.3.1</b> 成交价格走势</a></li>
+<li class="chapter" data-level="7.3.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#地板价"><i class="fa fa-check"></i><b>7.3.2</b> 地板价</a></li>
+<li class="chapter" data-level="7.3.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交量总成交额度总交易笔数等24小时7天1月成交额度"><i class="fa fa-check"></i><b>7.3.3</b> 成交量、总成交额度、总交易笔数等、24小时/7天/1月成交额度</a></li>
+<li class="chapter" data-level="7.3.4" data-path="nft-数据分析.html"><a href="nft-数据分析.html#每日每月每周成交量"><i class="fa fa-check"></i><b>7.3.4</b> 每日/每月/每周成交量</a></li>
+<li class="chapter" data-level="7.3.5" data-path="nft-数据分析.html"><a href="nft-数据分析.html#当前持有人数总token数量holder的分布等"><i class="fa fa-check"></i><b>7.3.5</b> 当前持有人数，总token数量，holder的分布等</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html"><i class="fa fa-check"></i><b>8</b> 借贷协议数据分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的意义"><i class="fa fa-check"></i><b>8.1</b> 借贷协议的意义</a></li>
+<li class="chapter" data-level="8.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的运作模式"><i class="fa fa-check"></i><b>8.2</b> 借贷协议的运作模式</a></li>
+<li class="chapter" data-level="8.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#重点指标"><i class="fa fa-check"></i><b>8.3</b> 重点指标</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#总锁仓量-tvltotal-value-locked"><i class="fa fa-check"></i><b>8.3.1</b> 总锁仓量 TVL（Total Value Locked）</a></li>
+<li class="chapter" data-level="8.3.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#未偿贷款outstanding-loan"><i class="fa fa-check"></i><b>8.3.2</b> 未偿贷款（Outstanding Loan）</a></li>
+<li class="chapter" data-level="8.3.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#资本效率utilization-ratio"><i class="fa fa-check"></i><b>8.3.3</b> 资本效率（Utilization Ratio）</a></li>
+<li class="chapter" data-level="8.3.4" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#详细分类"><i class="fa fa-check"></i><b>8.3.4</b> 详细分类</a></li>
+<li class="chapter" data-level="8.3.5" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#基础指标"><i class="fa fa-check"></i><b>8.3.5</b> 基础指标</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="defi-数据分析.html"><a href="defi-数据分析.html"><i class="fa fa-check"></i><b>9</b> Defi 数据分析</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-表相关"><i class="fa fa-check"></i><b>9.1</b> Defi 表相关</a></li>
+<li class="chapter" data-level="9.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-行业分析"><i class="fa fa-check"></i><b>9.2</b> Defi 行业分析</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-概况"><i class="fa fa-check"></i><b>9.2.1</b> Defi 概况</a></li>
+<li class="chapter" data-level="9.2.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按项目的统计分析"><i class="fa fa-check"></i><b>9.2.2</b> 按项目的统计分析</a></li>
+<li class="chapter" data-level="9.2.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按代币交易对token-pair进行分类汇总"><i class="fa fa-check"></i><b>9.2.3</b> 按代币交易对（Token Pair）进行分类汇总</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#单个defi项目的分析"><i class="fa fa-check"></i><b>9.3</b> 单个DeFi项目的分析</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#交易次数活跃用户交易金额"><i class="fa fa-check"></i><b>9.3.1</b> 交易次数、活跃用户、交易金额</a></li>
+<li class="chapter" data-level="9.3.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃交易对分析"><i class="fa fa-check"></i><b>9.3.2</b> 活跃交易对分析</a></li>
+<li class="chapter" data-level="9.3.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃用户分析"><i class="fa fa-check"></i><b>9.3.3</b> 活跃用户分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mev数据分析.html"><a href="mev数据分析.html"><i class="fa fa-check"></i><b>10</b> MEV数据分析</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的提取过程"><i class="fa fa-check"></i><b>10.1</b> MEV的提取过程</a></li>
+<li class="chapter" data-level="10.2" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的分类"><i class="fa fa-check"></i><b>10.2</b> MEV的分类</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="mev数据分析.html"><a href="mev数据分析.html#套利"><i class="fa fa-check"></i><b>10.2.1</b> 套利</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mev数据分析.html"><a href="mev数据分析.html#清算"><i class="fa fa-check"></i><b>10.2.2</b> 清算</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mev数据分析.html"><a href="mev数据分析.html#frontrunningbackrunning-和-sandwiching"><i class="fa fa-check"></i><b>10.2.3</b> Frontrunning、Backrunning 和 Sandwich(ing)</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mev数据分析.html"><a href="mev数据分析.html#just-in-time-liquidity-attack"><i class="fa fa-check"></i><b>10.2.4</b> Just-in-Time liquidity attack</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="mev数据分析.html"><a href="mev数据分析.html#用dune做mev的分析"><i class="fa fa-check"></i><b>10.3</b> 用Dune做MEV的分析</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html"><i class="fa fa-check"></i><b>11</b> Uniswap多链数据对比分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总交易概况"><i class="fa fa-check"></i><b>11.1</b> 总交易概况</a></li>
+<li class="chapter" data-level="11.2" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日交易数据对比分析"><i class="fa fa-check"></i><b>11.2</b> 每日交易数据对比分析</a></li>
+<li class="chapter" data-level="11.3" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新用户对比分析"><i class="fa fa-check"></i><b>11.3</b> 每日新用户对比分析</a></li>
+<li class="chapter" data-level="11.4" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#年度新建流动资金池对比分析"><i class="fa fa-check"></i><b>11.4</b> 年度新建流动资金池对比分析</a></li>
+<li class="chapter" data-level="11.5" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新增流动资金池对比"><i class="fa fa-check"></i><b>11.5</b> 每日新增流动资金池对比</a></li>
+<li class="chapter" data-level="11.6" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总锁仓价值tvl对比分析"><i class="fa fa-check"></i><b>11.6</b> 总锁仓价值（TVL）对比分析</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="区块链网络分析.html"><a href="区块链网络分析.html"><i class="fa fa-check"></i><b>12</b> 区块链网络分析</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#什么是区块链网络分析"><i class="fa fa-check"></i><b>12.0.1</b> 什么是区块链网络分析？</a></li>
+<li class="chapter" data-level="12.0.2" data-path="区块链网络分析.html"><a href="区块链网络分析.html#区块链网络分析的核心方向"><i class="fa fa-check"></i><b>12.0.2</b> 区块链网络分析的核心方向</a></li>
+<li class="chapter" data-level="12.0.3" data-path="区块链网络分析.html"><a href="区块链网络分析.html#如何使用-dune-进行区块链网络分析"><i class="fa fa-check"></i><b>12.0.3</b> 如何使用 Dune 进行区块链网络分析？</a></li>
+<li class="chapter" data-level="12.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#获取网络数据"><i class="fa fa-check"></i><b>12.1</b> 获取网络数据</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html"><i class="fa fa-check"></i><b>13</b> 如何快速找到想要的魔法表</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#直接在-dune-的-data-explorer-搜索"><i class="fa fa-check"></i><b>13.1</b> 📌 1. 直接在 Dune 的 “Data Explorer” 搜索</a></li>
+<li class="chapter" data-level="13.2" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-sql-查询-information_schema.tables"><i class="fa fa-check"></i><b>13.2</b> 📌 2. 通过 SQL 查询 <code>information_schema.tables</code></a></li>
+<li class="chapter" data-level="13.3" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#查看-spellbook-文档"><i class="fa fa-check"></i><b>13.3</b> 📌 3. 查看 Spellbook 文档</a></li>
+<li class="chapter" data-level="13.4" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-show-tables-快速查找"><i class="fa fa-check"></i><b>13.4</b> 📌 4. 通过 <code>SHOW TABLES</code> 快速查找</a></li>
+<li class="chapter" data-level="13.5" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#在-dune-社区或-github-讨论区搜索"><i class="fa fa-check"></i><b>13.5</b> 📌 5. 在 Dune 社区或 GitHub 讨论区搜索</a></li>
+<li class="chapter" data-level="13.6" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结合-dune-dashboards"><i class="fa fa-check"></i><b>13.6</b> 📌 6. 结合 Dune Dashboards</a></li>
+<li class="chapter" data-level="13.7" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#示例查询"><i class="fa fa-check"></i><b>13.7</b> 📌 7. 示例查询</a></li>
+<li class="chapter" data-level="13.8" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结论"><i class="fa fa-check"></i><b>13.8</b> 📌 结论</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/liamamilin" target="blank">Liamamilin github</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">链上数据分析实战</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="借贷协议数据分析" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> 借贷协议数据分析<a href="借贷协议数据分析.html#借贷协议数据分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>去中心化金融（DeFi）是区块链的金融创新。通过各协议之间的可组合性、互操作性，DeFi乐高就此诞生。2020年6月，DeFi借贷协议Compound开启流动性挖矿，不仅拉开了DeFi Summer的序幕，也给DeFi借贷赛道注入新活力、新思路、新用户，借贷业务成为DeFi的三大核心之一。</p>
+<blockquote>
+<p>Defi summer: <a href="https://mirror.xyz/0x4a0d0Fc391096100C4Cfa39d3c1548Ac27D41D4A/6o4484zSbTrdimeWjPk19EmJ66Ygo7uXRBw7FvoMOBs?referrerAddress=0x4a0d0Fc391096100C4Cfa39d3c1548Ac27D41D4A" class="uri">https://mirror.xyz/0x4a0d0Fc391096100C4Cfa39d3c1548Ac27D41D4A/6o4484zSbTrdimeWjPk19EmJ66Ygo7uXRBw7FvoMOBs?referrerAddress=0x4a0d0Fc391096100C4Cfa39d3c1548Ac27D41D4A</a></p>
+</blockquote>
+<div id="借贷协议的意义" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> 借贷协议的意义<a href="借贷协议数据分析.html#借贷协议的意义" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>借贷协议是DeFi的银行。传统银行中，用户可以向银行存款收取利息，也可以向银行借款，最后连本带利一起归还。类似的，在DeFi的借贷协议中用户可以向协议存钱、借钱，不同的是没有了中心化的托管机构，而是用户和借贷协议的智能合约直接交互，靠代码的运行确保一切有条不紊地进行。CeFi中的借贷，贷款担保方式分为信用、保证以及抵押贷款。银行的风险偏好较低，抵押贷款在各类贷款中是占比最高的。得益于大数据信用体系建设，信用借贷越来越普遍，不过需要大量的审查、资质证明等。</p>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-e59da3184febd3d3d9735d820c933d05d2cc8c0c%252Fbank.jpeg%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=4ab2b7fa&amp;sv=2" /></p>
+<p>而DeFi中的借贷是匿名的，无需信任的。从模式上讲基本都处于抵押贷款方式，普遍采用的方式是超额抵押。也就是说，我抵押200块的资产，可以从借贷协议这借走不足200块的资金，这样就无需担心我借钱不还跑路，可以放心地借钱给我了。这种以币借币，甚至越借越少的行为看似非常愚蠢，但是实际上它解决的是市场切实存在的需求：</p>
+<ol style="list-style-type: decimal">
+<li>交易活动的需求：包括套利、杠杆、做市等交易活动。例如做市商需要借资金来满足大量的交易；在DEX上买币只能做多，但是通过借币可以做空；通过抵押资产加杠杆，甚至可以通过循环贷不断增加杠杆（抵押ETH借USDC买ETH再抵押再借再买…）</li>
+<li>获得被动收入：闲置资金/屯币党在屯币的过程中可以通过借出资产获得额外收益</li>
+<li>代币激励：除了流动性挖矿，头部 DeFi 协议推出基于其原生代币的质押服务，代币持有者可质押获得更多原生代币。代币激励是面对借贷协议所有参与者的，借方可以通过交互获得代币奖励，通过交易获得的代币，偿还一部分债务</li>
+</ol>
+<p>相比传统房车类型抵押贷款，需要人力验证资产所有人，还款违约还需要人力及时间进行资产拍卖。DeFi中的当铺模式只需要在抵押率过低停止抵押，对资产清算即可结束贷款合同。</p>
+</div>
+<div id="借贷协议的运作模式" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> 借贷协议的运作模式<a href="借贷协议数据分析.html#借贷协议的运作模式" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在区块链上抵押借贷，能借多少代币、什么时候清算，都是由智能合约中的一系列参数设定好的。</p>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-f4dc4c85e63b4b224ba911da8b13bf6acddc0348%252Floan.png%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=bd39adf&amp;sv=2" /></p>
+<ol style="list-style-type: decimal">
+<li>Max LTV（Loan to Value）：最大贷款价值比，决定借款发生时债务/ 抵押品价值的最大比例。</li>
+</ol>
+<ul>
+<li>最大可借金额=抵押品价值×Max LTV</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Liquidation threshold：清算门槛，是一个清算判定条件，债务/ 抵押品价值升至这个比例时发生清算。</li>
+</ol>
+<ul>
+<li>当借款的市场价值升至 Liquidation Threshold，意味着用户的抵押品不足以覆盖贷款风险，将会触发清算。</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Liquidation penalty：强平罚款，当清算发生时，以该资产为抵押品需要扣除的罚金比例。</li>
+</ol>
+<p>也就是说, 债务/抵押品价值超过 Liquidation Threshold（清算门槛） 后，协议会自动触发清算，清算人（Liquidator）可以买入部分抵押品 来偿还你的债务。加密资产的价格浮动往往会比较剧烈，借贷协议采用的超额抵押方式有助于避免资不抵债的情况发生，如下图所示：不同的抵押率对应不同的费率和质押要求。</p>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-82f0ca4ff8b96c78f60fed66ffa29fa0c58e532b%252F2.png%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=bab69dff&amp;sv=2" /></p>
+<p>当抵押资产或者借出资产发生大幅波动时到达一定程度时，借贷协议为了避免坏账要执行清算。 我们以AAVE为例，看借贷协议是如何进行清算的。 首先介绍一个概念叫健康因子（Health Factor），健康因子和账户的抵押物、借款金额有关，表达资不抵债的可能性。如何计算健康因子？</p>
+<ol style="list-style-type: decimal">
+<li>查看抵押物的清算线（LiquidationThreshold），比如此时USDC是0.89；</li>
+</ol>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-023f49819620c227b22bd84d80e14beac21505bf%252Fhf1.png%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=3f15f616&amp;sv=2" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>健康因子 = 抵押金额 * 清算线/ 借出资产，以此刻为例，5794 * 0.89/ 4929 = 1.046；</li>
+</ol>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-6a640fac08b44b325060a9bfd084b50eaf459bb9%252Fhf2.png%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=181e153c&amp;sv=2" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>如果抵押物价格下跌，或者借出资产价格上涨，导致健康因子&lt;1，则会执行清算Liquidation，具体清算过程如下：</li>
+</ol>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-92251b703fb1373375a372a666476cab62c42564%252Fhf3.png%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=72f04def&amp;sv=2" /></p>
+<p>那么实际的不等式是：借出资产金额 &lt;= 抵押金额 * LTV &lt; 抵押金额 * 清算线。 清算时，超出清算线的部分会拿去拍卖，清算者（liquidators）购买抵押物，拍卖获得的资金用于归还负债，多出部分就作为清算者的奖赏。 清算过程依赖于预言机的喂价，目前AAVE取的是Chainlink。</p>
+<p>有意思的是，虽然超额抵押的思路看起来非常靠谱，借贷协议应该没有坏账风险，但是实际上是这样吗？最近Eisenberg从AAVE V2借币做空CRV的事件中，就产生了约170 万美元的坏账。最主要的原因可能是该巨鲸的头寸过大，市场上并没有足够多的流动性让清算人买入。从下图可以看到，该巨鲸在Aave 中存入了5794 万USDC，借入了8342 万CRV。</p>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-031cff7b95101a90f83bbb050cd940ed6a4d2d09%252Fcrv1.jpg%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=ea8cb870&amp;sv=2" /></p>
+<p>而从CoinGecko 和区块链浏览器中可以看出，CRV 代币的流通量只有6.37 亿，巨鲸借出的CRV 数量高于所有外部帐户持有者。</p>
+<p><img src="https://tutorial.sixdegree.xyz/~gitbook/image?url=https%3A%2F%2F1629163311-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FbGxRE01f8LgrjVzD7rnT%252Fuploads%252Fgit-blob-3a1560b676a3187a80958fe19c22f201f95c008d%252Fcrv2.png%3Falt%3Dmedia&amp;width=768&amp;dpr=1&amp;quality=100&amp;sign=424c6110&amp;sv=2" /></p>
+<p>在DEX 中，Uniswap V3 的相关交易对中流动性最高的ETH/CRV 交易对中，流动性共176 万美元，只有148 万CRV。因此，市场上并没有足够的流动性供清算人买入，完成清算。简单总结，大部分的借贷协议目前采用的方式是超额抵押，当价格波动时由健康因子监控是否需要清算，以及清算多少。</p>
+<p>这里我们只讲了最简单最基本的借贷业务，实际上各个协议之间也各有特色，如Compound是去中心化的点对点模式，资金池运用模式使池内资金达到了极高的利用值；AAVE首先提出了闪电贷，借款+操作+还款在一个区块内完成，原子性决定了这笔交易要么全部成功，要么全部失败；AAVE V3更提出了资产跨链流动的功能；而Euler，Kashi和Rari等借贷平台通过无许可的借贷池更好地满足长尾资产的需求。</p>
+</div>
+<div id="重点指标" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> 重点指标<a href="借贷协议数据分析.html#重点指标" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>需要注意的是，在智能合约中资金的流动虽然只有入、出两个方向，但是所代表的意义有所不同，需要结合智能合约、区块链浏览器来辅助判断。</p>
+<div id="总锁仓量-tvltotal-value-locked" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> 总锁仓量 TVL（Total Value Locked）<a href="借贷协议数据分析.html#总锁仓量-tvltotal-value-locked" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>即有多少金额锁定在借贷协议的智能合约中，TVL代表了协议的流动性. 从DefiLlama 来看: <a href="https://defillama.com/protocols/lending" class="uri">https://defillama.com/protocols/lending</a> . 整体借贷市场TVL超过51B，前五的TVL总和约为35 B，其中AAVE独占21.8B。</p>
+<p><img src="chain27.jpg" /></p>
+<p>将AAVE智能合约中，定义为’Supply’的存入资金，减去定义为’Withdraw’的提取资金，就是锁定在合约中的总价值。打开Arbscan找到一笔AAVE的交易，点开log可以看到 topic0 = ‘0x2b627736bca15cd5381dcf80b0bf11fd197d01a037c52b927a881a10fb73ba61’ 对应智能合约中’Supply’的行为。</p>
+<p>类似的，topic0 = ‘0x3115d1449a7b732c986cba18244e897a450f61e1bb8d589cd2e69e6c8924f9f7’ 时对应’Withdraw’的行为（注，在Dune中topic1指的是etherscan中的topic0）。在Dune里，从Arbitrum的log表中选择发往AAVE V3合约的交易，根据topic定义“存入“和”提取“这两个动作（action_type）。存入为正提款为负，相加之后就是在合约内锁定的代币。用bytearray_ltrim(topic1)函数得到转账token的地址，用bytearray_to_uint256(bytearray_substring(data, 1 + 32,</p>
+<blockquote>
+<p>备注 : 不同的 topic0 代表不同的事件（Event）。在以太坊（以及 Polygon、Arbitrum 等 EVM 兼容链）的 智能合约事件日志（Event Logs） 中，topic0 是 事件签名（Event Signature） 经过 Keccak-256 哈希计算 后的值，每个事件都有一个唯一的 topic0。
+📌 如何在区块浏览器中使用 topic0？
+1. 在 Etherscan、Arbscan、Polygonscan 等区块浏览器中：
+打开一笔交易的 Logs（日志），你会看到 topic0。
+2. topic0 对应某个智能合约的某个事件（如 Supply 或 Withdraw）。
+3. 你可以用 topic0 筛选出所有该事件的交易，分析某个合约的行为。</p>
+</blockquote>
+<pre><code>with aave_v3_transactions as (
+    select &#39;Supply&#39; as action_type,
+        block_time,
+        bytearray_ltrim(topic1) as token_address,
+        bytearray_ltrim(topic2) as user_address,
+        cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+        tx_hash
+    from arbitrum.logs
+    where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and topic0 = 0x2b627736bca15cd5381dcf80b0bf11fd197d01a037c52b927a881a10fb73ba61 -- Supply
+        and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+    
+    union all
+    
+    select &#39;Withdraw&#39; as action_type,
+        block_time,
+        bytearray_ltrim(topic1) as token_address,
+        bytearray_ltrim(topic2) as user_address,
+        -1 * cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+        tx_hash
+    from arbitrum.logs
+    where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and topic0 = 0x3115d1449a7b732c986cba18244e897a450f61e1bb8d589cd2e69e6c8924f9f7 -- Withdraw
+        and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+),
+
+aave_v3_transactions_daily as (
+    select date_trunc(&#39;day&#39;, block_time) as block_date,
+        token_address,
+        sum(raw_amount) as raw_amount_summary
+    from aave_v3_transactions
+    group by 1, 2
+    order by 1, 2
+)
+
+select * from aave_v3_transactions_daily</code></pre>
+<p>到此我们得到了锁定在智能合约中的token数量，要得到美元计价的TVL，我们还需要将token和其价格匹配，这里我们手动选取了一些主流的币种：</p>
+<pre><code>token_mapping_to_ethereum(aave_token_address, ethereum_token_address, token_symbol) as (
+    values
+    (0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9, 0xdac17f958d2ee523a2206206994597c13d831ec7, &#39;USDT&#39;),
+    (0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f, 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599, &#39;WBTC&#39;),
+    (0xd22a58f79e9481d1a88e00c343885a588b34b68b, 0xdb25f211ab05b1c97d595516f45794528a807ad8, &#39;EURS&#39;),
+    (0xff970a61a04b1ca14834a43f5de4533ebddb5cc8, 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48, &#39;USDC&#39;),
+    (0xf97f4df75117a78c1a5a0dbb814af92458539fb4, 0x514910771af9ca656af840dff83e8264ecf986ca, &#39;LINK&#39;),
+    (0x82af49447d8a07e3bd95bd0d56f35241523fbab1, 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2, &#39;WETH&#39;),
+    (0xda10009cbd5d07dd0cecc66161fc93d7c9000da1, 0x6b175474e89094c44da98b954eedeac495271d0f, &#39;DAI&#39;),
+    (0xba5ddd1f9d7f570dc94a51479a000e3bce967196, 0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9, &#39;AAVE&#39;)
+),
+
+latest_token_price as (
+    select date_trunc(&#39;hour&#39;, minute) as price_date,
+        contract_address,
+        symbol,
+        decimals,
+        avg(price) as price
+    from prices.usd
+    where contract_address in (
+        select ethereum_token_address
+        from token_mapping_to_ethereum
+    )
+    and minute &gt; now() - interval &#39;1&#39; day
+    group by 1, 2, 3, 4
+),
+
+latest_token_price_row_num as (
+    select  price_date,
+        contract_address,
+        symbol,
+        decimals,
+        price,
+        row_number() over (partition by contract_address order by price_date desc) as row_num
+    from latest_token_price
+),
+
+current_token_price as (
+    select contract_address,
+        symbol,
+        decimals,
+        price
+    from latest_token_price_row_num
+    where row_num = 1
+),</code></pre>
+<p>用raw amount除以对应token的小数位（decimal）（例如ETH的decimal是18，USDT的是6），得到实际token有多少枚，再和对应价格相乘得到以usd为计价单位的金额，求和后得到总的TVL。</p>
+<pre><code>daily_liquidity_change as (
+    select d.block_date,
+        p.symbol,
+        d.token_address,
+        d.raw_amount_summary / power(10, coalesce(p.decimals, 0)) as original_amount,
+        d.raw_amount_summary / power(10, coalesce(p.decimals, 0)) * coalesce(p.price, 1) as usd_amount
+    from aave_v3_transactions_daily d
+    inner join token_mapping_to_ethereum m on d.token_address = m.aave_token_address
+    left join current_token_price p on m.ethereum_token_address = p.contract_address
+    order by 1, 2
+)
+
+select sum(usd_amount) / 1e6 as total_value_locked_usd
+from daily_liquidity_change</code></pre>
+</div>
+<div id="未偿贷款outstanding-loan" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> 未偿贷款（Outstanding Loan）<a href="借贷协议数据分析.html#未偿贷款outstanding-loan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>即外借出去尚未归还的金额。与计算TVL时类似，参考区块链浏览器的数据，找出topic0（1）所对应的合约功能，用借出的（‘Borrow’）减去已偿还（‘Repay’）的。</p>
+<pre><code> select &#39;Borrow&#39; as action_type,
+    block_time,
+    bytearray_ltrim(topic1) as token_address,
+    bytearray_ltrim(topic2) as user_address,
+    cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+    tx_hash
+from arbitrum.logs
+where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+    and topic0 = 0xb3d084820fb1a9decffb176436bd02558d15fac9b0ddfed8c465bc7359d7dce0 -- Borrow
+    and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+
+union all
+
+select &#39;Repay&#39; as action_type,
+    block_time,
+    bytearray_ltrim(topic1) as token_address,
+    bytearray_ltrim(topic2) as user_address,
+    -1 * cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+    tx_hash
+from arbitrum.logs
+where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+    and topic0 = 0xa534c8dbe71f871f9f3530e97a74601fea17b426cae02e1c5aee42c96c784051 -- Repay
+    and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+
+limit 100</code></pre>
+</div>
+<div id="资本效率utilization-ratio" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> 资本效率（Utilization Ratio）<a href="借贷协议数据分析.html#资本效率utilization-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>简单理解就是存入协议中的资金有多少被真正利用起来（借走）了</p>
+<pre><code>with aave_v3_transactions as (
+    select &#39;Supply&#39; as action_type,
+        block_time,
+        bytearray_ltrim(topic1) as token_address,
+        bytearray_ltrim(topic2) as user_address,
+        cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+        tx_hash
+    from arbitrum.logs
+    where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and topic0 = 0x2b627736bca15cd5381dcf80b0bf11fd197d01a037c52b927a881a10fb73ba61 -- Supply
+        and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+    
+    union all
+    
+    select &#39;Withdraw&#39; as action_type,
+        block_time,
+        bytearray_ltrim(topic1) as token_address,
+        bytearray_ltrim(topic2) as user_address,
+        -1 * cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+        tx_hash
+    from arbitrum.logs
+    where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and topic0 = 0x3115d1449a7b732c986cba18244e897a450f61e1bb8d589cd2e69e6c8924f9f7 -- Withdraw
+        and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+    
+    union all
+    
+    select &#39;Borrow&#39; as action_type,
+        block_time,
+        bytearray_ltrim(topic1) as token_address,
+        bytearray_ltrim(topic2) as user_address,
+        cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+        tx_hash
+    from arbitrum.logs
+    where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and topic0 = 0xb3d084820fb1a9decffb176436bd02558d15fac9b0ddfed8c465bc7359d7dce0 -- Borrow
+        and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+    
+    union all
+    
+    select &#39;Repay&#39; as action_type,
+        block_time,
+        bytearray_ltrim(topic1) as token_address,
+        bytearray_ltrim(topic2) as user_address,
+        -1 * cast(bytearray_to_uint256(bytearray_substring(data, 1 + 32, 32)) as decimal(38, 0)) as raw_amount,
+        tx_hash
+    from arbitrum.logs
+    where contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and topic0 = 0xa534c8dbe71f871f9f3530e97a74601fea17b426cae02e1c5aee42c96c784051 -- Repay
+        and block_time &gt; date(&#39;2022-03-16&#39;) -- First transaction date
+),
+
+aave_v3_transactions_daily as (
+    select date_trunc(&#39;hour&#39;, block_time) as block_date,
+        action_type,
+        token_address,
+        sum(raw_amount) as raw_amount_summary
+    from aave_v3_transactions
+    group by 1, 2, 3
+    order by 1, 2, 3
+),
+
+token_mapping_to_ethereum(aave_token_address, ethereum_token_address, token_symbol) as (
+    values
+    (0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9, 0xdac17f958d2ee523a2206206994597c13d831ec7, &#39;USDT&#39;),
+    (0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f, 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599, &#39;WBTC&#39;),
+    (0xd22a58f79e9481d1a88e00c343885a588b34b68b, 0xdb25f211ab05b1c97d595516f45794528a807ad8, &#39;EURS&#39;),
+    (0xff970a61a04b1ca14834a43f5de4533ebddb5cc8, 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48, &#39;USDC&#39;),
+    (0xf97f4df75117a78c1a5a0dbb814af92458539fb4, 0x514910771af9ca656af840dff83e8264ecf986ca, &#39;LINK&#39;),
+    (0x82af49447d8a07e3bd95bd0d56f35241523fbab1, 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2, &#39;WETH&#39;),
+    (0xda10009cbd5d07dd0cecc66161fc93d7c9000da1, 0x6b175474e89094c44da98b954eedeac495271d0f, &#39;DAI&#39;),
+    (0xba5ddd1f9d7f570dc94a51479a000e3bce967196, 0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9, &#39;AAVE&#39;)
+),
+
+latest_token_price as (
+    select date_trunc(&#39;hour&#39;, minute) as price_date,
+        contract_address,
+        symbol,
+        decimals,
+        avg(price) as price
+    from prices.usd
+    where contract_address in (
+        select ethereum_token_address
+        from token_mapping_to_ethereum
+    )
+    and minute &gt; now() - interval &#39;1&#39; day
+    group by 1, 2, 3, 4
+),
+
+latest_token_price_row_num as (
+    select  price_date,
+        contract_address,
+        symbol,
+        decimals,
+        price,
+        row_number() over (partition by contract_address order by price_date desc) as row_num
+    from latest_token_price
+),
+
+current_token_price as (
+    select contract_address,
+        symbol,
+        decimals,
+        price
+    from latest_token_price_row_num
+    where row_num = 1
+),
+
+daily_liquidity_change as (
+    select d.block_date,
+        d.action_type,
+        p.symbol,
+        d.token_address,
+        d.raw_amount_summary / power(10, coalesce(p.decimals, 0)) as original_amount,
+        d.raw_amount_summary / power(10, coalesce(p.decimals, 0)) * coalesce(p.price, 1) as usd_amount
+    from aave_v3_transactions_daily d
+    inner join token_mapping_to_ethereum m on d.token_address = m.aave_token_address
+    left join current_token_price p on m.ethereum_token_address = p.contract_address
+    order by 1, 2, 3
+),
+
+liqudity_summary_daily as (
+    select date_trunc(&#39;day&#39;, block_date) as block_date,
+        sum(case when action_type = &#39;Supply&#39; or action_type = &#39;Withdraw&#39; then usd_amount
+            else 0 end)as liquidity_change_usd_amount,
+        sum(case when action_type = &#39;Borrow&#39; or action_type = &#39;Repay&#39; then usd_amount
+            else 0 end) as debt_change_usd_amount
+    from daily_liquidity_change
+    group by 1
+    order by 1
+),
+
+liqudity_pool_balance as (
+    select block_date,
+        liquidity_change_usd_amount,
+        debt_change_usd_amount,
+        sum(liquidity_change_usd_amount) over (order by block_date) as liquidity_pool_usd_amount,
+        sum(debt_change_usd_amount) over (order by block_date) as debt_pool_usd_amount
+    from liqudity_summary_daily
+    order by block_date
+)
+
+select block_date,
+    liquidity_change_usd_amount,
+    debt_change_usd_amount,
+    liquidity_pool_usd_amount,
+    debt_pool_usd_amount,
+    debt_pool_usd_amount / liquidity_pool_usd_amount as debt_percentage,
+    liquidity_pool_usd_amount / debt_pool_usd_amount as collateral_percentage
+from liqudity_pool_balance
+order by block_date
+</code></pre>
+<p><img src="chain28.jpg" /></p>
+</div>
+<div id="详细分类" class="section level3 hasAnchor" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> 详细分类<a href="借贷协议数据分析.html#详细分类" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>包括合约锁定资产构成和用户行为分布</p>
+<pre><code>with aave_pool_action_type(topic, action_type) as (
+    values
+    (0xde6857219544bb5b7746f48ed30be6386fefc61b2f864cacf559893bf50fd951, &#39;Deposit&#39;),
+    (0x3115d1449a7b732c986cba18244e897a450f61e1bb8d589cd2e69e6c8924f9f7, &#39;Withdraw&#39;),
+    (0xb3d084820fb1a9decffb176436bd02558d15fac9b0ddfed8c465bc7359d7dce0, &#39;Borrow&#39;),
+    (0xa534c8dbe71f871f9f3530e97a74601fea17b426cae02e1c5aee42c96c784051, &#39;Repay&#39;),
+    (0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b, &#39;Upgraded&#39;),
+    (0x9f439ae0c81e41a04d3fdfe07aed54e6a179fb0db15be7702eb66fa8ef6f5300, &#39;RebalanceStableBorrowRate&#39;),
+    (0x7962b394d85a534033ba2efcf43cd36de57b7ebeb3de0ca4428965d9b3ddc481, &#39;swapBorrowRateMode&#39;),
+    (0x2b627736bca15cd5381dcf80b0bf11fd197d01a037c52b927a881a10fb73ba61, &#39;Supply&#39;),
+    (0xd728da875fc88944cbf17638bcbe4af0eedaef63becd1d1c57cc097eb4608d84, &#39;setUserEMode&#39;),
+    (0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37335533e005286, &#39;LiquidationCall&#39;),
+    (0x631042c832b07452973831137f2d73e395028b44b250dedc5abb0ee766e168ac, &#39;FlashLoan&#39;),
+    (0x804c9b842b2748a22bb64b345453a3de7ca54a6ca45ce00d415894979e22897a, &#39;ReserveDataUpdated&#39;),
+    (0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2, &#39;ReserveUsedAsCollateralEnabled&#39;),
+    (0x44c58d81365b66dd4b1a7f36c25aa97b8c71c361ee4937adc1a00000227db5dd, &#39;ReserveUsedAsCollateralDisabled&#39;)
+),
+
+aave_v3_users as (
+    select pat.action_type,
+        t.block_time,
+        t.&quot;from&quot; as address,
+        l.tx_hash
+    from arbitrum.logs l
+    inner join aave_pool_action_type pat on l.topic0 = pat.topic
+    inner join arbitrum.transactions t on l.tx_hash = t.hash
+    where l.contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+        and pat.action_type not in (&#39;ReserveDataUpdated&#39;, &#39;ReserveUsedAsCollateralEnabled&#39;, &#39;ReserveUsedAsCollateralDisabled&#39;)
+),
+
+aave_v3_users_by_action_type as (
+    select action_type,
+        count(distinct address) as user_count,
+        count(*) as transaction_count
+    from aave_v3_users
+    group by 1
+    order by 1
+)
+
+select u.action_type,
+    user_count,
+    transaction_count,
+    topic
+from aave_v3_users_by_action_type u
+inner join aave_pool_action_type pat on u.action_type = pat.action_type
+order by user_count desc
+    
+</code></pre>
+<p><img src="chain29.jpg" /></p>
+</div>
+<div id="基础指标" class="section level3 hasAnchor" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> 基础指标<a href="借贷协议数据分析.html#基础指标" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>如用户数，交易数，日均变化量情况</p>
+<pre><code>with aave_v3_users as (
+    select t.block_time,
+        t.&quot;from&quot; as address,
+        t.hash
+    from arbitrum.logs l
+    inner join arbitrum.transactions t on l.tx_hash = t.hash
+    where l.contract_address = 0x794a61358d6845594f94dc1db02a252b5b4814ad   -- Aave: Pool V3
+),
+
+aave_v3_users_total as (
+    select count(distinct address) as total_user_count,
+        count(*) as total_transaction_count
+    from aave_v3_users
+),
+
+aave_v3_users_daily as (
+    select date_trunc(&#39;day&#39;, block_time) as block_date,
+        count(distinct address) as user_count,
+        count(*) as transaction_count
+    from aave_v3_users
+    group by 1
+    order by 1
+)
+
+select block_date,
+    user_count,
+    transaction_count,
+    sum(user_count) over (order by block_date asc) as accumulate_user_count,
+    sum(transaction_count) over (order by block_date asc) as accumulate_transaction_count,
+    avg(user_count) over (order by block_date asc rows between 7 preceding and current row) as avg_user_count,
+    avg(transaction_count) over (order by block_date asc rows between 7 preceding and current row) as avg_transaction_count,
+    total_user_count,
+    total_transaction_count
+from aave_v3_users_daily
+inner join aave_v3_users_total on true
+order by block_date
+    
+</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nft-数据分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="defi-数据分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/liamamilin/07-references.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

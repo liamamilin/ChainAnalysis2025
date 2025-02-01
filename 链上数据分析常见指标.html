@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 链上数据分析常见指标 | 链上数据分析实战</title>
+  <meta name="description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 链上数据分析常见指标 | 链上数据分析实战" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 链上数据分析常见指标 | 链上数据分析实战" />
+  
+  <meta name="twitter:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+<meta name="author" content="米霖" />
+
+
+<meta name="date" content="2025-02-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dune-sql.html"/>
+<link rel="next" href="polygon区块链概况分析.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">链上数据分析</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 链上数据分析简介</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#什么是链上数据分析"><i class="fa fa-check"></i><b>1.1</b> 什么是链上数据分析</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#为什么要进行链上数据分析"><i class="fa fa-check"></i><b>1.2</b> 为什么要进行链上数据分析</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#谁需要做链上数据分析"><i class="fa fa-check"></i><b>1.3</b> 谁需要做链上数据分析</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#如何进行链上数据分析"><i class="fa fa-check"></i><b>1.4</b> 如何进行链上数据分析</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dune-简介.html"><a href="dune-简介.html"><i class="fa fa-check"></i><b>2</b> Dune 简介</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-核心功能"><i class="fa fa-check"></i><b>2.1</b> Dune 核心功能</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dune-简介.html"><a href="dune-简介.html#query-查询"><i class="fa fa-check"></i><b>2.1.1</b> Query 查询</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dune-简介.html"><a href="dune-简介.html#创建可视化结果"><i class="fa fa-check"></i><b>2.1.2</b> 创建可视化结果</a></li>
+<li class="chapter" data-level="2.1.3" data-path="dune-简介.html"><a href="dune-简介.html#创建dashboard"><i class="fa fa-check"></i><b>2.1.3</b> 创建dashboard</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dune-简介.html"><a href="dune-简介.html#dune-看板案例"><i class="fa fa-check"></i><b>2.2</b> Dune 看板案例</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-中-uniswap流动资金池表"><i class="fa fa-check"></i><b>2.2.1</b> Dune 中 Uniswap流动资金池表</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dune-简介.html"><a href="dune-简介.html#dune-数据表"><i class="fa fa-check"></i><b>2.3</b> Dune 数据表</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dune-简介.html"><a href="dune-简介.html#常用原始表包括"><i class="fa fa-check"></i><b>2.3.1</b> 常用原始表包括:</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dune-简介.html"><a href="dune-简介.html#常用的魔法表-spellbook"><i class="fa fa-check"></i><b>2.3.2</b> 常用的魔法表 spellbook</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dune-sql.html"><a href="dune-sql.html"><i class="fa fa-check"></i><b>3</b> Dune SQL</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见语法以及使用案例"><i class="fa fa-check"></i><b>3.1</b> Dune 常见语法以及使用案例</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dune-sql.html"><a href="dune-sql.html#排序"><i class="fa fa-check"></i><b>3.1.1</b> 排序</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dune-sql.html"><a href="dune-sql.html#聚合"><i class="fa fa-check"></i><b>3.1.2</b> 聚合</a></li>
+<li class="chapter" data-level="3.1.3" data-path="dune-sql.html"><a href="dune-sql.html#分组聚合"><i class="fa fa-check"></i><b>3.1.3</b> 分组聚合</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dune-sql.html"><a href="dune-sql.html#子查询"><i class="fa fa-check"></i><b>3.1.4</b> 子查询</a></li>
+<li class="chapter" data-level="3.1.5" data-path="dune-sql.html"><a href="dune-sql.html#current_timestamp和-current_date函数"><i class="fa fa-check"></i><b>3.1.5</b> CURRENT_TIMESTAMP和 CURRENT_DATE函数</a></li>
+<li class="chapter" data-level="3.1.6" data-path="dune-sql.html"><a href="dune-sql.html#dateadd-和datediff"><i class="fa fa-check"></i><b>3.1.6</b> dateadd 和datediff</a></li>
+<li class="chapter" data-level="3.1.7" data-path="dune-sql.html"><a href="dune-sql.html#interval"><i class="fa fa-check"></i><b>3.1.7</b> INTERVAL</a></li>
+<li class="chapter" data-level="3.1.8" data-path="dune-sql.html"><a href="dune-sql.html#条件判断"><i class="fa fa-check"></i><b>3.1.8</b> 条件判断</a></li>
+<li class="chapter" data-level="3.1.9" data-path="dune-sql.html"><a href="dune-sql.html#字符串处理"><i class="fa fa-check"></i><b>3.1.9</b> 字符串处理</a></li>
+<li class="chapter" data-level="3.1.10" data-path="dune-sql.html"><a href="dune-sql.html#窗口函数"><i class="fa fa-check"></i><b>3.1.10</b> 窗口函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见查询"><i class="fa fa-check"></i><b>3.2</b> Dune 常见查询</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dune-sql.html"><a href="dune-sql.html#erc20-代币价格"><i class="fa fa-check"></i><b>3.2.1</b> ERC20 代币价格</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dune-sql.html"><a href="dune-sql.html#代币持有者相关数据"><i class="fa fa-check"></i><b>3.2.2</b> 代币持有者相关数据</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dune-sql.html"><a href="dune-sql.html#查询代币持有者数量和代币的总流通量"><i class="fa fa-check"></i><b>3.2.3</b> 查询代币持有者数量和代币的总流通量</a></li>
+<li class="chapter" data-level="3.2.4" data-path="dune-sql.html"><a href="dune-sql.html#查询持有代币最多的地址"><i class="fa fa-check"></i><b>3.2.4</b> 查询持有代币最多的地址</a></li>
+<li class="chapter" data-level="3.2.5" data-path="dune-sql.html"><a href="dune-sql.html#查询不同代币持有者的持有金额分布"><i class="fa fa-check"></i><b>3.2.5</b> 查询不同代币持有者的持有金额分布</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dune-sql.html"><a href="dune-sql.html#其他常用查询"><i class="fa fa-check"></i><b>3.3</b> 其他常用查询</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dune-sql.html"><a href="dune-sql.html#使用cte自定义数据表"><i class="fa fa-check"></i><b>3.3.1</b> 使用CTE自定义数据表</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dune-sql.html"><a href="dune-sql.html#读取数组和结构体"><i class="fa fa-check"></i><b>3.3.2</b> 读取数组和结构体</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dune-sql.html"><a href="dune-sql.html#读取json数据"><i class="fa fa-check"></i><b>3.3.3</b> 读取JSON数据</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html"><i class="fa fa-check"></i><b>4</b> 链上数据分析常见指标</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#用户行为指标"><i class="fa fa-check"></i><b>4.1</b> 用户行为指标</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃地址数量"><i class="fa fa-check"></i><b>4.1.1</b> 活跃地址数量</a></li>
+<li class="chapter" data-level="4.1.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#新增地址数量"><i class="fa fa-check"></i><b>4.1.2</b> 新增地址数量</a></li>
+<li class="chapter" data-level="4.1.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#持仓地址数量"><i class="fa fa-check"></i><b>4.1.3</b> 持仓地址数量</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流动"><i class="fa fa-check"></i><b>4.2</b> 资金流动</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流入fund-inflow"><i class="fa fa-check"></i><b>4.2.1</b> 资金流入（Fund Inflow）</a></li>
+<li class="chapter" data-level="4.2.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流出fund-outflow"><i class="fa fa-check"></i><b>4.2.2</b> 资金流出（Fund Outflow）</a></li>
+<li class="chapter" data-level="4.2.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金净流量net-flow"><i class="fa fa-check"></i><b>4.2.3</b> 资金净流量（Net Flow）</a></li>
+<li class="chapter" data-level="4.2.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#巨鲸交易whale-transactions"><i class="fa fa-check"></i><b>4.2.4</b> 巨鲸交易（Whale Transactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#智能合约交互"><i class="fa fa-check"></i><b>4.3</b> 智能合约交互</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#合约调用次数smart-contract-calls"><i class="fa fa-check"></i><b>4.3.1</b> 合约调用次数（Smart Contract Calls）</a></li>
+<li class="chapter" data-level="4.3.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃智能合约active-smart-contracts"><i class="fa fa-check"></i><b>4.3.2</b> 活跃智能合约（Active Smart Contracts）</a></li>
+<li class="chapter" data-level="4.3.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#gas-消耗量gas-consumption"><i class="fa fa-check"></i><b>4.3.3</b> Gas 消耗量（Gas Consumption）</a></li>
+<li class="chapter" data-level="4.3.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#nft-铸造量nft-minting-volume"><i class="fa fa-check"></i><b>4.3.4</b> NFT 铸造量（NFT Minting Volume）</a></li>
+<li class="chapter" data-level="4.3.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#defi-交互量defi-interactions"><i class="fa fa-check"></i><b>4.3.5</b> DeFi 交互量（DeFi Interactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#市场表现"><i class="fa fa-check"></i><b>4.4</b> 市场表现</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#tvltotal-value-locked锁定总价值"><i class="fa fa-check"></i><b>4.4.1</b> TVL（Total Value Locked，锁定总价值）</a></li>
+<li class="chapter" data-level="4.4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#流通总量-circulating-supply"><i class="fa fa-check"></i><b>4.4.2</b> 流通总量 Circulating Supply</a></li>
+<li class="chapter" data-level="4.4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#总市值market-capitalization"><i class="fa fa-check"></i><b>4.4.3</b> 总市值（Market Capitalization）</a></li>
+<li class="chapter" data-level="4.4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#代币持仓分布token-distribution"><i class="fa fa-check"></i><b>4.4.4</b> 代币持仓分布（Token Distribution）</a></li>
+<li class="chapter" data-level="4.4.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#波动率volatility"><i class="fa fa-check"></i><b>4.4.5</b> 波动率（Volatility）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html"><i class="fa fa-check"></i><b>5</b> Polygon区块链概况分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块分析"><i class="fa fa-check"></i><b>5.1</b> 区块分析</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块总数和gas-总消耗总量"><i class="fa fa-check"></i><b>5.1.1</b> 区块总数和Gas 总消耗总量</a></li>
+<li class="chapter" data-level="5.1.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#周期内新区块生成趋势和gas消耗"><i class="fa fa-check"></i><b>5.1.2</b> 周期内新区块生成趋势和Gas消耗</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易和用户分析"><i class="fa fa-check"></i><b>5.2</b> 交易和用户分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易总量和用户总数-2024-05-至今"><i class="fa fa-check"></i><b>5.2.1</b> 交易总量和用户总数( 2024-05 至今)</a></li>
+<li class="chapter" data-level="5.2.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.2</b> 每月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.3</b> 月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#活跃用户和新用户统计分析"><i class="fa fa-check"></i><b>5.2.4</b> 活跃用户和新用户统计分析</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#原生代币分析"><i class="fa fa-check"></i><b>5.3</b> 原生代币分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#matic-价格走势"><i class="fa fa-check"></i><b>5.3.1</b> MATIC 价格走势</a></li>
+<li class="chapter" data-level="5.3.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#持有最多matic-token的地址"><i class="fa fa-check"></i><b>5.3.2</b> 持有最多MATIC Token的地址</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#智能合约分析"><i class="fa fa-check"></i><b>5.4</b> 智能合约分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#创建和已销毁的合约数量"><i class="fa fa-check"></i><b>5.4.1</b> 创建和已销毁的合约数量</a></li>
+<li class="chapter" data-level="5.4.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月创建和销毁数量"><i class="fa fa-check"></i><b>5.4.2</b> 每月创建和销毁数量</a></li>
+<li class="chapter" data-level="5.4.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易次数最多的智能合约统计"><i class="fa fa-check"></i><b>5.4.3</b> 交易次数最多的智能合约统计</a></li>
+<li class="chapter" data-level="5.4.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最活跃智能合约每日交易数量分析"><i class="fa fa-check"></i><b>5.4.4</b> 最活跃智能合约每日交易数量分析</a></li>
+<li class="chapter" data-level="5.4.5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最近30天最活跃智能合约"><i class="fa fa-check"></i><b>5.4.5</b> 最近30天最活跃智能合约</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lens-协议分析.html"><a href="lens-协议分析.html"><i class="fa fa-check"></i><b>6</b> Lens 协议分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#lens协议概览分析"><i class="fa fa-check"></i><b>6.1</b> Lens协议概览分析</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#总交易数量和总用户数量"><i class="fa fa-check"></i><b>6.1.1</b> 总交易数量和总用户数量</a></li>
+<li class="chapter" data-level="6.1.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#按天统计的交易数量和独立用户数量"><i class="fa fa-check"></i><b>6.1.2</b> 按天统计的交易数量和独立用户数量</a></li>
+<li class="chapter" data-level="6.1.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料profile数据分析"><i class="fa fa-check"></i><b>6.1.3</b> 创作者个人资料（Profile）数据分析</a></li>
+<li class="chapter" data-level="6.1.4" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料域名分析"><i class="fa fa-check"></i><b>6.1.4</b> 创作者个人资料域名分析</a></li>
+<li class="chapter" data-level="6.1.5" data-path="lens-协议分析.html"><a href="lens-协议分析.html#同一个地址创建多个profile分析"><i class="fa fa-check"></i><b>6.1.5</b> 同一个地址创建多个Profile分析</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖数据分析"><i class="fa fa-check"></i><b>6.2</b> 发帖数据分析</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖最多的账号数据分析"><i class="fa fa-check"></i><b>6.2.1</b> 发帖最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.2.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#每日新发帖数量统计"><i class="fa fa-check"></i><b>6.2.2</b> 每日新发帖数量统计</a></li>
+<li class="chapter" data-level="6.2.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#近30天发帖最活跃的profile统计"><i class="fa fa-check"></i><b>6.2.3</b> 近30天发帖最活跃的Profile统计</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论数据分析"><i class="fa fa-check"></i><b>6.3</b> 评论数据分析</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的账号数据分析"><i class="fa fa-check"></i><b>6.3.1</b> 评论最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的publication统计"><i class="fa fa-check"></i><b>6.3.2</b> 评论最多的Publication统计</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#收藏数据分析"><i class="fa fa-check"></i><b>6.3.3</b> 收藏数据分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="nft-数据分析.html"><a href="nft-数据分析.html"><i class="fa fa-check"></i><b>7</b> NFT 数据分析</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#nft-合约讲解"><i class="fa fa-check"></i><b>7.1</b> NFT 合约讲解</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#erc721合约"><i class="fa fa-check"></i><b>7.1.1</b> ERC721合约</a></li>
+<li class="chapter" data-level="7.1.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#交易市场合约"><i class="fa fa-check"></i><b>7.1.2</b> 交易市场合约</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#常用表说明"><i class="fa fa-check"></i><b>7.2</b> 常用表说明</a></li>
+<li class="chapter" data-level="7.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#核心指标"><i class="fa fa-check"></i><b>7.3</b> 核心指标</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交价格走势"><i class="fa fa-check"></i><b>7.3.1</b> 成交价格走势</a></li>
+<li class="chapter" data-level="7.3.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#地板价"><i class="fa fa-check"></i><b>7.3.2</b> 地板价</a></li>
+<li class="chapter" data-level="7.3.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交量总成交额度总交易笔数等24小时7天1月成交额度"><i class="fa fa-check"></i><b>7.3.3</b> 成交量、总成交额度、总交易笔数等、24小时/7天/1月成交额度</a></li>
+<li class="chapter" data-level="7.3.4" data-path="nft-数据分析.html"><a href="nft-数据分析.html#每日每月每周成交量"><i class="fa fa-check"></i><b>7.3.4</b> 每日/每月/每周成交量</a></li>
+<li class="chapter" data-level="7.3.5" data-path="nft-数据分析.html"><a href="nft-数据分析.html#当前持有人数总token数量holder的分布等"><i class="fa fa-check"></i><b>7.3.5</b> 当前持有人数，总token数量，holder的分布等</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html"><i class="fa fa-check"></i><b>8</b> 借贷协议数据分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的意义"><i class="fa fa-check"></i><b>8.1</b> 借贷协议的意义</a></li>
+<li class="chapter" data-level="8.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的运作模式"><i class="fa fa-check"></i><b>8.2</b> 借贷协议的运作模式</a></li>
+<li class="chapter" data-level="8.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#重点指标"><i class="fa fa-check"></i><b>8.3</b> 重点指标</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#总锁仓量-tvltotal-value-locked"><i class="fa fa-check"></i><b>8.3.1</b> 总锁仓量 TVL（Total Value Locked）</a></li>
+<li class="chapter" data-level="8.3.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#未偿贷款outstanding-loan"><i class="fa fa-check"></i><b>8.3.2</b> 未偿贷款（Outstanding Loan）</a></li>
+<li class="chapter" data-level="8.3.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#资本效率utilization-ratio"><i class="fa fa-check"></i><b>8.3.3</b> 资本效率（Utilization Ratio）</a></li>
+<li class="chapter" data-level="8.3.4" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#详细分类"><i class="fa fa-check"></i><b>8.3.4</b> 详细分类</a></li>
+<li class="chapter" data-level="8.3.5" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#基础指标"><i class="fa fa-check"></i><b>8.3.5</b> 基础指标</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="defi-数据分析.html"><a href="defi-数据分析.html"><i class="fa fa-check"></i><b>9</b> Defi 数据分析</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-表相关"><i class="fa fa-check"></i><b>9.1</b> Defi 表相关</a></li>
+<li class="chapter" data-level="9.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-行业分析"><i class="fa fa-check"></i><b>9.2</b> Defi 行业分析</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-概况"><i class="fa fa-check"></i><b>9.2.1</b> Defi 概况</a></li>
+<li class="chapter" data-level="9.2.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按项目的统计分析"><i class="fa fa-check"></i><b>9.2.2</b> 按项目的统计分析</a></li>
+<li class="chapter" data-level="9.2.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按代币交易对token-pair进行分类汇总"><i class="fa fa-check"></i><b>9.2.3</b> 按代币交易对（Token Pair）进行分类汇总</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#单个defi项目的分析"><i class="fa fa-check"></i><b>9.3</b> 单个DeFi项目的分析</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#交易次数活跃用户交易金额"><i class="fa fa-check"></i><b>9.3.1</b> 交易次数、活跃用户、交易金额</a></li>
+<li class="chapter" data-level="9.3.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃交易对分析"><i class="fa fa-check"></i><b>9.3.2</b> 活跃交易对分析</a></li>
+<li class="chapter" data-level="9.3.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃用户分析"><i class="fa fa-check"></i><b>9.3.3</b> 活跃用户分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mev数据分析.html"><a href="mev数据分析.html"><i class="fa fa-check"></i><b>10</b> MEV数据分析</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的提取过程"><i class="fa fa-check"></i><b>10.1</b> MEV的提取过程</a></li>
+<li class="chapter" data-level="10.2" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的分类"><i class="fa fa-check"></i><b>10.2</b> MEV的分类</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="mev数据分析.html"><a href="mev数据分析.html#套利"><i class="fa fa-check"></i><b>10.2.1</b> 套利</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mev数据分析.html"><a href="mev数据分析.html#清算"><i class="fa fa-check"></i><b>10.2.2</b> 清算</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mev数据分析.html"><a href="mev数据分析.html#frontrunningbackrunning-和-sandwiching"><i class="fa fa-check"></i><b>10.2.3</b> Frontrunning、Backrunning 和 Sandwich(ing)</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mev数据分析.html"><a href="mev数据分析.html#just-in-time-liquidity-attack"><i class="fa fa-check"></i><b>10.2.4</b> Just-in-Time liquidity attack</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="mev数据分析.html"><a href="mev数据分析.html#用dune做mev的分析"><i class="fa fa-check"></i><b>10.3</b> 用Dune做MEV的分析</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html"><i class="fa fa-check"></i><b>11</b> Uniswap多链数据对比分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总交易概况"><i class="fa fa-check"></i><b>11.1</b> 总交易概况</a></li>
+<li class="chapter" data-level="11.2" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日交易数据对比分析"><i class="fa fa-check"></i><b>11.2</b> 每日交易数据对比分析</a></li>
+<li class="chapter" data-level="11.3" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新用户对比分析"><i class="fa fa-check"></i><b>11.3</b> 每日新用户对比分析</a></li>
+<li class="chapter" data-level="11.4" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#年度新建流动资金池对比分析"><i class="fa fa-check"></i><b>11.4</b> 年度新建流动资金池对比分析</a></li>
+<li class="chapter" data-level="11.5" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新增流动资金池对比"><i class="fa fa-check"></i><b>11.5</b> 每日新增流动资金池对比</a></li>
+<li class="chapter" data-level="11.6" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总锁仓价值tvl对比分析"><i class="fa fa-check"></i><b>11.6</b> 总锁仓价值（TVL）对比分析</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="区块链网络分析.html"><a href="区块链网络分析.html"><i class="fa fa-check"></i><b>12</b> 区块链网络分析</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#什么是区块链网络分析"><i class="fa fa-check"></i><b>12.0.1</b> 什么是区块链网络分析？</a></li>
+<li class="chapter" data-level="12.0.2" data-path="区块链网络分析.html"><a href="区块链网络分析.html#区块链网络分析的核心方向"><i class="fa fa-check"></i><b>12.0.2</b> 区块链网络分析的核心方向</a></li>
+<li class="chapter" data-level="12.0.3" data-path="区块链网络分析.html"><a href="区块链网络分析.html#如何使用-dune-进行区块链网络分析"><i class="fa fa-check"></i><b>12.0.3</b> 如何使用 Dune 进行区块链网络分析？</a></li>
+<li class="chapter" data-level="12.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#获取网络数据"><i class="fa fa-check"></i><b>12.1</b> 获取网络数据</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html"><i class="fa fa-check"></i><b>13</b> 如何快速找到想要的魔法表</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#直接在-dune-的-data-explorer-搜索"><i class="fa fa-check"></i><b>13.1</b> 📌 1. 直接在 Dune 的 “Data Explorer” 搜索</a></li>
+<li class="chapter" data-level="13.2" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-sql-查询-information_schema.tables"><i class="fa fa-check"></i><b>13.2</b> 📌 2. 通过 SQL 查询 <code>information_schema.tables</code></a></li>
+<li class="chapter" data-level="13.3" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#查看-spellbook-文档"><i class="fa fa-check"></i><b>13.3</b> 📌 3. 查看 Spellbook 文档</a></li>
+<li class="chapter" data-level="13.4" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-show-tables-快速查找"><i class="fa fa-check"></i><b>13.4</b> 📌 4. 通过 <code>SHOW TABLES</code> 快速查找</a></li>
+<li class="chapter" data-level="13.5" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#在-dune-社区或-github-讨论区搜索"><i class="fa fa-check"></i><b>13.5</b> 📌 5. 在 Dune 社区或 GitHub 讨论区搜索</a></li>
+<li class="chapter" data-level="13.6" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结合-dune-dashboards"><i class="fa fa-check"></i><b>13.6</b> 📌 6. 结合 Dune Dashboards</a></li>
+<li class="chapter" data-level="13.7" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#示例查询"><i class="fa fa-check"></i><b>13.7</b> 📌 7. 示例查询</a></li>
+<li class="chapter" data-level="13.8" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结论"><i class="fa fa-check"></i><b>13.8</b> 📌 结论</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/liamamilin" target="blank">Liamamilin github</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">链上数据分析实战</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="链上数据分析常见指标" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 链上数据分析常见指标<a href="链上数据分析常见指标.html#链上数据分析常见指标" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>我们在这里梳理一下常用的指标.</p>
+<ol style="list-style-type: decimal">
+<li>用户行为</li>
+</ol>
+<ul>
+<li>活动地址数</li>
+<li>新增地址数量</li>
+<li>持仓地址数
+地址分布 : 持币者的财富分布, 是否存在巨鲸</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>资金流动</li>
+</ol>
+<ul>
+<li>资金流入 : 流入协议或地址资金量</li>
+<li>资金流出 : 流出协议或者地址大的资金量</li>
+<li>资金净流量 : 流入 - 流出, 判断市场趋势</li>
+<li>巨鲸交易 : 单笔交易金额超过阈值</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>智能合约交互</li>
+</ol>
+<ul>
+<li>合约调用次数</li>
+<li>活跃智能合约 : 一定时间内被调用的智能合约数量</li>
+<li>Gas 消耗量</li>
+<li>NFT铸造量</li>
+<li>DeFi交互量</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>市场表现</li>
+</ol>
+<ul>
+<li>TVL : DeFi 协议中锁定的总价值</li>
+<li>总市值</li>
+<li>代币持仓分布 : 代币的集中程度,是不是少数人拥有代币</li>
+<li>波动率 : 价格的波动程度</li>
+</ul>
+<div id="用户行为指标" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 用户行为指标<a href="链上数据分析常见指标.html#用户行为指标" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="活跃地址数量" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> 活跃地址数量<a href="链上数据分析常见指标.html#活跃地址数量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>活跃地址数（Active Addresses），是在特定时间范围内，发生了交易（发送或接收）的唯一钱包地址数量。
+这个指标反映了链上用户的活跃程度，可用于评估协议、DApp 或特定代币的用户参与度。长期趋势可以衡量区块链生态的健康度。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    COUNT(DISTINCT &quot;from&quot;) + COUNT(DISTINCT &quot;to&quot;) AS active_addresses
+FROM ethereum.transactions
+WHERE block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+
+
+</code></pre>
+</div>
+<div id="新增地址数量" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 新增地址数量<a href="链上数据分析常见指标.html#新增地址数量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>新增地址数（New Addresses），是在特定时间范围内，首次进行交易的钱包地址数量。
+这个指标反映了新用户进入区块链的情况，可用于衡量项目或协议的用户增长能力。较高的新增地址数表明用户群体在扩展，而下降趋势可能意味着用户增长放缓。</p>
+<pre><code>WITH first_tx AS (
+   SELECT 
+       &quot;from&quot;, 
+       MIN(block_time) AS first_seen
+   FROM ethereum.transactions
+   GROUP BY &quot;from&quot;
+)
+SELECT 
+   DATE_TRUNC(&#39;day&#39;, first_seen) AS day,
+   COUNT(&quot;from&quot;) AS new_addresses
+FROM first_tx
+WHERE first_seen &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; days
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+<div id="持仓地址数量" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> 持仓地址数量<a href="链上数据分析常见指标.html#持仓地址数量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>持仓地址数（Holding Addresses），是在特定时间范围内，持有某个代币（余额大于 0）的唯一地址数量。
+这个指标反映了代币的持有者分布情况，可用于评估项目的去中心化程度。持仓地址数的增长通常意味着代币的接受度提高，而下降可能表明用户流失或集中度增加。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, evt_block_time) AS day,
+    COUNT(DISTINCT to) AS holding_addresses
+FROM erc20_ethereum.evt_transfer
+WHERE contract_address = 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 -- USDC 合约地址
+AND evt_block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+</div>
+<div id="资金流动" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 资金流动<a href="链上数据分析常见指标.html#资金流动" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="资金流入fund-inflow" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> 资金流入（Fund Inflow）<a href="链上数据分析常见指标.html#资金流入fund-inflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>资金流入（Fund Inflow），是在特定时间范围内，流入某个协议或某个地址的资金总量。
+这个指标反映了市场对某个协议或资产的兴趣程度。较高的资金流入通常意味着用户对该协议或资产的需求增加，而低资金流入可能表示市场热度下降。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    SUM(value / 1e18) AS total_inflow
+FROM ethereum.transactions
+WHERE to = 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 --  Uniswap V2 Router
+AND block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;</code></pre>
+</div>
+<div id="资金流出fund-outflow" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> 资金流出（Fund Outflow）<a href="链上数据分析常见指标.html#资金流出fund-outflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>资金流出（Fund Outflow），是在特定时间范围内，从某个协议或某个地址流出的资金总量。
+这个指标可以反映资金是否在离开某个协议或链上应用，可能意味着用户在提取资金、流动性减少，或市场情绪趋向谨慎。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    SUM(value / 1e18) AS total_outflow
+FROM ethereum.transactions
+WHERE &quot;from&quot; = 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 -- 目标协议地址
+AND block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+<div id="资金净流量net-flow" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> 资金净流量（Net Flow）<a href="链上数据分析常见指标.html#资金净流量net-flow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>资金净流量（Net Flow），是在特定时间范围内，资金流入与资金流出的差值，即：</p>
+<p>资金净流量 = 资金流入 − 资金流出</p>
+<p>该指标用于判断市场趋势。如果资金净流量为正，表示资金流入大于流出，通常被视为市场增长信号；反之，如果净流量为负，可能意味着资金外流，市场情绪较为谨慎。</p>
+<pre><code>WITH inflow AS (
+    SELECT 
+        DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+        SUM(value / 1e18) AS total_inflow
+    FROM ethereum.transactions
+    WHERE to = 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+    GROUP BY 1
+),
+outflow AS (
+    SELECT 
+        DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+        SUM(value / 1e18) AS total_outflow
+    FROM ethereum.transactions
+    WHERE &quot;from&quot; = 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+    GROUP BY 1
+)
+SELECT 
+    inflow.day,
+    inflow.total_inflow,
+    outflow.total_outflow,
+    (inflow.total_inflow - outflow.total_outflow) AS net_flow
+FROM inflow
+JOIN outflow ON inflow.day = outflow.day
+WHERE inflow.day &gt;= CURRENT_DATE - INTERVAL &#39;30 days&#39;
+ORDER BY inflow.day;
+</code></pre>
+</div>
+<div id="巨鲸交易whale-transactions" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> 巨鲸交易（Whale Transactions）<a href="链上数据分析常见指标.html#巨鲸交易whale-transactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>巨鲸交易（Whale Transactions），是指单笔交易金额超过特定阈值的大额交易。
+这一指标通常用于监测大资金的流动，尤其是对市场可能产生重大影响的巨鲸（Whales）行为。例如，大额买入可能是市场信号，而大额卖出可能预示市场波动。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    COUNT(*) AS whale_tx_count,
+    SUM(value / 1e18) AS whale_tx_volume
+FROM ethereum.transactions
+WHERE value / 1e18 &gt; 100  -- 设定巨鲸交易阈值为 100 ETH
+AND block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;</code></pre>
+</div>
+</div>
+<div id="智能合约交互" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 智能合约交互<a href="链上数据分析常见指标.html#智能合约交互" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="合约调用次数smart-contract-calls" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> 合约调用次数（Smart Contract Calls）<a href="链上数据分析常见指标.html#合约调用次数smart-contract-calls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>合约调用次数（Smart Contract Calls），是在特定时间范围内，链上智能合约被调用的总次数。
+这个指标反映了智能合约的使用活跃度，可用于评估某个协议或 DApp 的用户交互情况。高调用次数通常表示某个智能合约被广泛使用，低调用次数可能表明用户活跃度降低。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    COUNT(*) AS contract_call_count
+FROM ethereum.traces
+WHERE to IS NOT NULL -- 确保是合约调用
+AND block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+<div id="活跃智能合约active-smart-contracts" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> 活跃智能合约（Active Smart Contracts）<a href="链上数据分析常见指标.html#活跃智能合约active-smart-contracts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>活跃智能合约（Active Smart Contracts），是在特定时间范围内，至少被调用过一次的唯一智能合约数量。
+这个指标反映了链上智能合约的生态活跃度，可以用于评估新项目的增长情况或老项目的用户留存。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    COUNT(DISTINCT to) AS active_contracts
+FROM ethereum.traces
+WHERE to IS NOT NULL -- 确保是合约调用
+AND block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+<div id="gas-消耗量gas-consumption" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Gas 消耗量（Gas Consumption）<a href="链上数据分析常见指标.html#gas-消耗量gas-consumption" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Gas 消耗量（Gas Consumption），是在特定时间范围内，所有智能合约交互消耗的 Gas 总量。
+这个指标反映了网络拥堵情况和智能合约的计算需求。高 Gas 消耗可能意味着网络繁忙，或者某些智能合约执行了复杂操作。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    SUM(gas_used) AS total_gas_used
+FROM ethereum.traces
+WHERE block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+<div id="nft-铸造量nft-minting-volume" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> NFT 铸造量（NFT Minting Volume）<a href="链上数据分析常见指标.html#nft-铸造量nft-minting-volume" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>NFT 铸造量（NFT Minting Volume），是在特定时间范围内，新创建（Mint）的 NFT 数量。
+这个指标反映了 NFT 市场的活跃程度，可用于分析 NFT 生态的增长情况。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, evt_block_time) AS day,
+    COUNT(*) AS nft_mint_count
+FROM erc721_ethereum.evt_transfer
+WHERE from = &#39;0x0000000000000000000000000000000000000000&#39; -- Minting 交易
+AND evt_block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+<div id="defi-交互量defi-interactions" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> DeFi 交互量（DeFi Interactions）<a href="链上数据分析常见指标.html#defi-交互量defi-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>DeFi 交互量（DeFi Interactions），是在特定时间范围内，用户与 DeFi 协议进行交互的次数，包括借贷、流动性提供、质押等。
+这个指标可以用来评估 DeFi 生态的活跃度，观察用户是否在持续参与 DeFi 协议。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, block_time) AS day,
+    COUNT(*) AS defi_interactions
+FROM ethereum.traces
+WHERE to IN (
+    SELECT address FROM labels.all WHERE   name like  &#39;Uniswap%&#39; -- 选择 Uniswap 相关合约
+)
+AND block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;
+</code></pre>
+</div>
+</div>
+<div id="市场表现" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 市场表现<a href="链上数据分析常见指标.html#市场表现" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tvltotal-value-locked锁定总价值" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> TVL（Total Value Locked，锁定总价值）<a href="链上数据分析常见指标.html#tvltotal-value-locked锁定总价值" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>TVL（Total Value Locked），是 DeFi 协议中锁定的总价值，通常指用户存入协议中的资金（例如流动性池、借贷市场中的存款）。
+这个指标反映了 DeFi 生态的整体健康状况和市场信任度。较高的 TVL 表明 DeFi 生态活跃，较低的 TVL 可能意味着资金流出或市场信心下降。</p>
+<p>TVL的计算逻辑比较简单，即统计出协议中所有相关代币的数目，再乘以每种代币的价格，最后求和得出。为了得到每一天的各个Pair的代币余额，我们要先整理出所有的交易明细记录：</p>
+<pre><code>with token_pairs as (
+    select 
+        coalesce(k1.symbol, &#39;AGI&#39;) || &#39;-&#39; || coalesce(k2.symbol, &#39;AGI&#39;) as pair_name,
+        p.pair,
+        p.evt_block_time,
+        p.token0,
+        p.token1,
+        p.stable
+    from auragi_arbitrum.PairFactory_evt_PairCreated p
+    left join tokens.erc20 k1 on p.token0 = k1.contract_address and k1.blockchain = &#39;arbitrum&#39;
+    left join tokens.erc20 k2 on p.token1 = k1.contract_address and k2.blockchain = &#39;arbitrum&#39;
+),
+
+token_transfer_detail as (
+    select date_trunc(&#39;minute&#39;, evt_block_time) as block_date,
+        evt_tx_hash as tx_hash,
+        contract_address,
+        &quot;to&quot; as user_address,
+        cast(value as decimal(38, 0)) as amount_raw
+    from erc20_arbitrum.evt_Transfer
+    where &quot;to&quot; in (select pair from token_pairs)
+        and evt_block_time &gt;= date(&#39;2023-04-04&#39;)
+
+    union all
+    
+    select date_trunc(&#39;minute&#39;, evt_block_time) as block_date,
+        evt_tx_hash as tx_hash,
+        contract_address,
+        &quot;from&quot; as user_address,
+        -1 * cast(value as decimal(38, 0)) as amount_raw
+    from erc20_arbitrum.evt_Transfer
+    where &quot;from&quot; in (select pair from token_pairs)
+        and evt_block_time &gt;= date(&#39;2023-04-04&#39;)
+),
+
+token_price as (
+    select date_trunc(&#39;minute&#39;, minute) as block_date,
+        contract_address,
+        decimals,
+        symbol,
+        avg(price) as price
+    from prices.usd
+    where blockchain = &#39;arbitrum&#39;
+        and contract_address in (select distinct contract_address from token_transfer_detail)
+        and minute &gt;= date(&#39;2023-04-04&#39;)
+    group by 1, 2, 3, 4
+    
+    union all
+    
+    -- AGI price from swap trade
+    select date_trunc(&#39;minute&#39;, block_time) as block_date,
+        0xFF191514A9baba76BfD19e3943a4d37E8ec9a111 as contract_address,
+        18 as decimals,
+        &#39;AGI&#39; as symbol,
+        avg(case when token_in_address = 0xFF191514A9baba76BfD19e3943a4d37E8ec9a111 then token_in_price else token_out_price end) as price
+    from query_2337808
+    group by 1, 2, 3, 4
+)
+
+select p.symbol,
+    d.block_date,
+    d.tx_hash,
+    d.user_address,
+    d.contract_address,
+    d.amount_raw,
+    (d.amount_raw / power(10, p.decimals) * p.price) as amount_usd
+from token_transfer_detail d
+inner join token_price p on d.contract_address = p.contract_address and d.block_date = p.block_date</code></pre>
+<p>在上面的交易详情查询结果基础上，我们就可以来统计计算每一天的TVL了。</p>
+<pre><code>with date_series as (
+    select block_date
+    from unnest(sequence(timestamp &#39;2023-04-01 00:00:00&#39;, localtimestamp, interval &#39;1&#39; hour)) as tbl(block_date)
+),
+
+pool_balance_change as (
+    select symbol,
+        date_trunc(&#39;hour&#39;, block_date) as block_date,
+        sum(amount_usd) as amount
+    from query_2339248
+    group by 1, 2
+),
+
+pool_balance_summary as (
+    select symbol,
+        block_date,
+        sum(amount) over (partition by symbol order by block_date) as balance_amount,
+        lead(block_date, 1, current_date) over (partition by symbol order by block_date) as next_date
+    from pool_balance_change
+    order by 1, 2
+)
+
+select d.block_date,
+    p.symbol,
+    p.balance_amount
+from pool_balance_summary p
+inner join date_series d on p.block_date &lt;= d.block_date and d.block_date &lt; p.next_date
+order by 1, 2</code></pre>
+</div>
+<div id="流通总量-circulating-supply" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> 流通总量 Circulating Supply<a href="链上数据分析常见指标.html#流通总量-circulating-supply" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>流通总量是当前市场中以及持币者掌握的流通的加密货币数量。它与总供应量(Total Supply)不同，它不会将无法交易流通的部分纳入统计，比如被锁定而无法交易的货币数量。由于这部分无法流通的加密货币通常并不会影响其价格，所以流通总量作为代币数量的度量较总供应量更为常用。对于不同的加密货币，其计算方式有所不同。比如一些线性释放的代币，他的供应量随时间增加。又如一些有通缩燃烧机制的代币，我们在计算流通总量的时候就要减去这一部分。这里我们以比特币为例，计算它的当前流通总量。</p>
+<pre><code>SELECT 
+    DATE_TRUNC(&#39;day&#39;, evt_block_time) AS day,
+    SUM(value) / 1e6 AS circulating_supply
+FROM erc20_ethereum.evt_transfer
+WHERE contract_address = 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 -- USDC 合约地址
+AND evt_block_time &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day
+GROUP BY 1
+ORDER BY 1;</code></pre>
+<p>比特币的流通总量计算逻辑较为简单，从起始周期每个区块产出50枚，每210000个区块进入一个减半周期。基于此，我们可以计算出它当前的流通总量：</p>
+<pre><code>SELECT SUM(50/POWER(2, ROUND(height/210000))) as Supply                      
+FROM bitcoin.blocks</code></pre>
+</div>
+<div id="总市值market-capitalization" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> 总市值（Market Capitalization）<a href="链上数据分析常见指标.html#总市值market-capitalization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>总市值（Market Capitalization），是代币的市场总价值，计算公式如下</p>
+<blockquote>
+<p>总市值=代币流通量×市场价格</p>
+</blockquote>
+<p>在股票市场，总市值是指在某特定时间内总股本数乘以当时股价得出的股票总价值。相应的在区块链领域，它是一种加密货币的流通总量(Circulating Supply）乘以该加密货币的价格得出的该加密货币总价值。因此计算总市值的关键是计算出我们刚刚学习的指标-流通总量。当我们计算出了流通总量，再乘以该加密货币的当前价格，就能得出其总市值。</p>
+<p>这个指标反映了代币的整体市场规模，并常用于与其他加密资产进行对比。</p>
+<p>比特币总市值:</p>
+<pre><code>SELECT SUM(50/POWER(2, ROUND(height/210000))) as Supply, 
+       SUM(50/POWER(2, ROUND(height/210000)) * p.price) /POWER(10, 9) AS &quot;Market Cap&quot;
+FROM bitcoin.blocks
+INNER JOIN (
+    SELECT price FROM prices.usd_latest
+    WHERE symbol=&#39;BTC&#39;
+        AND contract_address IS NULL
+) p ON TRUE</code></pre>
+</div>
+<div id="代币持仓分布token-distribution" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> 代币持仓分布（Token Distribution）<a href="链上数据分析常见指标.html#代币持仓分布token-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>代币持仓分布（Token Distribution），是衡量代币的集中程度，即代币是否被少数地址控制。
+通常会计算前 X% 地址持有的代币占比，例如前 10 个地址持有量、前 100 个地址持有量等。</p>
+<pre><code>SELECT 
+    SUM(balance) / (SELECT SUM(balance) FROM erc20_ethereum.balances WHERE contract_address = 0xTokenAddress) AS top_10_percentage
+FROM (
+    SELECT balance FROM erc20_ethereum.balances 
+    WHERE contract_address = 0xTokenAddress
+    ORDER BY balance DESC
+    LIMIT 10
+) top_holders;
+</code></pre>
+</div>
+<div id="波动率volatility" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> 波动率（Volatility）<a href="链上数据分析常见指标.html#波动率volatility" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>波动率（Volatility），是衡量代币价格在一定时间内的变动幅度。
+计算方法通常是标准差或最大涨跌幅：</p>
+<blockquote>
+<p>波动率=标准差(每日回报率)</p>
+</blockquote>
+<pre><code>WITH price_data AS (
+    SELECT 
+        day,
+        price
+    FROM prices.usd_daily
+    WHERE symbol = &#39;ETH&#39;
+)
+SELECT 
+    STDDEV(price) AS price_volatility
+FROM price_data
+WHERE day &gt;= CURRENT_DATE - INTERVAL &#39;30&#39; day;
+</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dune-sql.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="polygon区块链概况分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/liamamilin/03-parts.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

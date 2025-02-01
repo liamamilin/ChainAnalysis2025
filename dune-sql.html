@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Dune SQL | 链上数据分析实战</title>
+  <meta name="description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Dune SQL | 链上数据分析实战" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Dune SQL | 链上数据分析实战" />
+  
+  <meta name="twitter:description" content="<p>随着区块链技术的快速发展，链上数据分析（On-chain Data Analytics）已成为研究加密货币市场、DeFi（去中心化金融）、NFT、DAO 以及各种区块链应用的核心工具。本书《链上数据分析：入门到精通》从基础概念到高级实践，系统性地讲解如何利用链上数据进行深入的分析和应用，帮助读者从零开始，逐步掌握这一领域的核心技能。
+本书内容涵盖区块链数据结构、智能合约交互、链上交易模式、钱包行为分析、Dune Analytics 数据查询、可视化技术，以及 DeFi 经济指标建模等主题。书中不仅讲解 SQL 在链上数据分析中的应用，还探讨了如何使用 Python 进行数据处理、建模和预测。此外，本书还结合多个真实案例，带领读者实战分析加密货币市场、追踪巨鲸钱包动向、评估 DeFi 协议健康度，并探索链上数据如何影响 Web3 生态的未来发展。<br />
+本书适合区块链开发者、数据分析师、金融科技研究人员，以及对 Web3 领域感兴趣的投资者。无论你是数据分析新手，还是希望深入理解链上数据的专业人士，本书都能为你提供全面且深入的指导，助你成为 Web3 时代的链上数据分析专家</p>" />
+  
+
+<meta name="author" content="米霖" />
+
+
+<meta name="date" content="2025-02-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dune-简介.html"/>
+<link rel="next" href="链上数据分析常见指标.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">链上数据分析</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> cover-image: path to the social sharing image like images/cover.jpg</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#什么是链上数据分析"><i class="fa fa-check"></i><b>1.1</b> 什么是链上数据分析</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#为什么要进行链上数据分析"><i class="fa fa-check"></i><b>1.2</b> 为什么要进行链上数据分析</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#谁需要做链上数据分析"><i class="fa fa-check"></i><b>1.3</b> 谁需要做链上数据分析</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#如何进行链上数据分析"><i class="fa fa-check"></i><b>1.4</b> 如何进行链上数据分析</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dune-简介.html"><a href="dune-简介.html"><i class="fa fa-check"></i><b>2</b> Dune 简介</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-核心功能"><i class="fa fa-check"></i><b>2.1</b> Dune 核心功能</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dune-简介.html"><a href="dune-简介.html#query-查询"><i class="fa fa-check"></i><b>2.1.1</b> Query 查询</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dune-简介.html"><a href="dune-简介.html#创建可视化结果"><i class="fa fa-check"></i><b>2.1.2</b> 创建可视化结果</a></li>
+<li class="chapter" data-level="2.1.3" data-path="dune-简介.html"><a href="dune-简介.html#创建dashboard"><i class="fa fa-check"></i><b>2.1.3</b> 创建dashboard</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dune-简介.html"><a href="dune-简介.html#dune-看板案例"><i class="fa fa-check"></i><b>2.2</b> Dune 看板案例</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dune-简介.html"><a href="dune-简介.html#dune-中-uniswap流动资金池表"><i class="fa fa-check"></i><b>2.2.1</b> Dune 中 Uniswap流动资金池表</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="dune-简介.html"><a href="dune-简介.html#dune-数据表"><i class="fa fa-check"></i><b>2.3</b> Dune 数据表</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dune-简介.html"><a href="dune-简介.html#常用原始表包括"><i class="fa fa-check"></i><b>2.3.1</b> 常用原始表包括:</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dune-简介.html"><a href="dune-简介.html#常用的魔法表-spellbook"><i class="fa fa-check"></i><b>2.3.2</b> 常用的魔法表 spellbook</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dune-简介.html"><a href="dune-简介.html#社区数据"><i class="fa fa-check"></i><b>2.4</b> 社区数据</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dune-sql.html"><a href="dune-sql.html"><i class="fa fa-check"></i><b>3</b> Dune SQL</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见语法以及使用案例"><i class="fa fa-check"></i><b>3.1</b> Dune 常见语法以及使用案例</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dune-sql.html"><a href="dune-sql.html#排序"><i class="fa fa-check"></i><b>3.1.1</b> 排序</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dune-sql.html"><a href="dune-sql.html#聚合"><i class="fa fa-check"></i><b>3.1.2</b> 聚合</a></li>
+<li class="chapter" data-level="3.1.3" data-path="dune-sql.html"><a href="dune-sql.html#分组聚合"><i class="fa fa-check"></i><b>3.1.3</b> 分组聚合</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dune-sql.html"><a href="dune-sql.html#子查询"><i class="fa fa-check"></i><b>3.1.4</b> 子查询</a></li>
+<li class="chapter" data-level="3.1.5" data-path="dune-sql.html"><a href="dune-sql.html#current_timestamp和-current_date函数"><i class="fa fa-check"></i><b>3.1.5</b> CURRENT_TIMESTAMP和 CURRENT_DATE函数</a></li>
+<li class="chapter" data-level="3.1.6" data-path="dune-sql.html"><a href="dune-sql.html#dateadd-和datediff"><i class="fa fa-check"></i><b>3.1.6</b> dateadd 和datediff</a></li>
+<li class="chapter" data-level="3.1.7" data-path="dune-sql.html"><a href="dune-sql.html#interval"><i class="fa fa-check"></i><b>3.1.7</b> INTERVAL</a></li>
+<li class="chapter" data-level="3.1.8" data-path="dune-sql.html"><a href="dune-sql.html#条件判断"><i class="fa fa-check"></i><b>3.1.8</b> 条件判断</a></li>
+<li class="chapter" data-level="3.1.9" data-path="dune-sql.html"><a href="dune-sql.html#字符串处理"><i class="fa fa-check"></i><b>3.1.9</b> 字符串处理</a></li>
+<li class="chapter" data-level="3.1.10" data-path="dune-sql.html"><a href="dune-sql.html#窗口函数"><i class="fa fa-check"></i><b>3.1.10</b> 窗口函数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dune-sql.html"><a href="dune-sql.html#dune-常见查询"><i class="fa fa-check"></i><b>3.2</b> Dune 常见查询</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dune-sql.html"><a href="dune-sql.html#erc20-代币价格"><i class="fa fa-check"></i><b>3.2.1</b> ERC20 代币价格</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dune-sql.html"><a href="dune-sql.html#代币持有者相关数据"><i class="fa fa-check"></i><b>3.2.2</b> 代币持有者相关数据</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dune-sql.html"><a href="dune-sql.html#查询代币持有者数量和代币的总流通量"><i class="fa fa-check"></i><b>3.2.3</b> 查询代币持有者数量和代币的总流通量</a></li>
+<li class="chapter" data-level="3.2.4" data-path="dune-sql.html"><a href="dune-sql.html#查询持有代币最多的地址"><i class="fa fa-check"></i><b>3.2.4</b> 查询持有代币最多的地址</a></li>
+<li class="chapter" data-level="3.2.5" data-path="dune-sql.html"><a href="dune-sql.html#查询不同代币持有者的持有金额分布"><i class="fa fa-check"></i><b>3.2.5</b> 查询不同代币持有者的持有金额分布</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dune-sql.html"><a href="dune-sql.html#其他常用查询"><i class="fa fa-check"></i><b>3.3</b> 其他常用查询</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="dune-sql.html"><a href="dune-sql.html#使用cte自定义数据表"><i class="fa fa-check"></i><b>3.3.1</b> 使用CTE自定义数据表</a></li>
+<li class="chapter" data-level="3.3.2" data-path="dune-sql.html"><a href="dune-sql.html#读取数组和结构体"><i class="fa fa-check"></i><b>3.3.2</b> 读取数组和结构体</a></li>
+<li class="chapter" data-level="3.3.3" data-path="dune-sql.html"><a href="dune-sql.html#读取json数据"><i class="fa fa-check"></i><b>3.3.3</b> 读取JSON数据</a></li>
+<li class="chapter" data-level="3.3.4" data-path="dune-sql.html"><a href="dune-sql.html#erc20-代币在合约中的流入流出情况"><i class="fa fa-check"></i><b>3.3.4</b> ERC20 代币在合约中的流入流出情况</a></li>
+<li class="chapter" data-level="3.3.5" data-path="dune-sql.html"><a href="dune-sql.html#追踪特定钱包地址余额和流入流出情况"><i class="fa fa-check"></i><b>3.3.5</b> 追踪特定钱包地址余额和流入流出情况</a></li>
+<li class="chapter" data-level="3.3.6" data-path="dune-sql.html"><a href="dune-sql.html#追踪-nft-代币erc721-或-erc1155在合约中的流入流出情况"><i class="fa fa-check"></i><b>3.3.6</b> 追踪 NFT 代币（ERC721 或 ERC1155）在合约中的流入流出情况</a></li>
+<li class="chapter" data-level="3.3.7" data-path="dune-sql.html"><a href="dune-sql.html#监控指定地址如大户或特定用户的-nft-代币余额变化"><i class="fa fa-check"></i><b>3.3.7</b> 监控指定地址（如大户或特定用户）的 NFT 代币余额变化</a></li>
+<li class="chapter" data-level="3.3.8" data-path="dune-sql.html"><a href="dune-sql.html#追踪-去中心化交易所dex-上的-erc20-代币交易数据"><i class="fa fa-check"></i><b>3.3.8</b> 追踪 去中心化交易所（DEX） 上的 ERC20 代币交易数据</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html"><i class="fa fa-check"></i><b>4</b> 链上数据分析常见指标</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#用户行为指标"><i class="fa fa-check"></i><b>4.1</b> 用户行为指标</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃地址数量"><i class="fa fa-check"></i><b>4.1.1</b> 活跃地址数量</a></li>
+<li class="chapter" data-level="4.1.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#新增地址数量"><i class="fa fa-check"></i><b>4.1.2</b> 新增地址数量</a></li>
+<li class="chapter" data-level="4.1.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#持仓地址数量"><i class="fa fa-check"></i><b>4.1.3</b> 持仓地址数量</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流动"><i class="fa fa-check"></i><b>4.2</b> 资金流动</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流入fund-inflow"><i class="fa fa-check"></i><b>4.2.1</b> 资金流入（Fund Inflow）</a></li>
+<li class="chapter" data-level="4.2.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金流出fund-outflow"><i class="fa fa-check"></i><b>4.2.2</b> 资金流出（Fund Outflow）</a></li>
+<li class="chapter" data-level="4.2.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#资金净流量net-flow"><i class="fa fa-check"></i><b>4.2.3</b> 资金净流量（Net Flow）</a></li>
+<li class="chapter" data-level="4.2.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#巨鲸交易whale-transactions"><i class="fa fa-check"></i><b>4.2.4</b> 巨鲸交易（Whale Transactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#智能合约交互"><i class="fa fa-check"></i><b>4.3</b> 智能合约交互</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#合约调用次数smart-contract-calls"><i class="fa fa-check"></i><b>4.3.1</b> 合约调用次数（Smart Contract Calls）</a></li>
+<li class="chapter" data-level="4.3.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#活跃智能合约active-smart-contracts"><i class="fa fa-check"></i><b>4.3.2</b> 活跃智能合约（Active Smart Contracts）</a></li>
+<li class="chapter" data-level="4.3.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#gas-消耗量gas-consumption"><i class="fa fa-check"></i><b>4.3.3</b> Gas 消耗量（Gas Consumption）</a></li>
+<li class="chapter" data-level="4.3.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#nft-铸造量nft-minting-volume"><i class="fa fa-check"></i><b>4.3.4</b> NFT 铸造量（NFT Minting Volume）</a></li>
+<li class="chapter" data-level="4.3.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#defi-交互量defi-interactions"><i class="fa fa-check"></i><b>4.3.5</b> DeFi 交互量（DeFi Interactions）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#市场表现"><i class="fa fa-check"></i><b>4.4</b> 市场表现</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#tvltotal-value-locked锁定总价值"><i class="fa fa-check"></i><b>4.4.1</b> TVL（Total Value Locked，锁定总价值）</a></li>
+<li class="chapter" data-level="4.4.2" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#流通总量-circulating-supply"><i class="fa fa-check"></i><b>4.4.2</b> 流通总量 Circulating Supply</a></li>
+<li class="chapter" data-level="4.4.3" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#总市值market-capitalization"><i class="fa fa-check"></i><b>4.4.3</b> 总市值（Market Capitalization）</a></li>
+<li class="chapter" data-level="4.4.4" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#代币持仓分布token-distribution"><i class="fa fa-check"></i><b>4.4.4</b> 代币持仓分布（Token Distribution）</a></li>
+<li class="chapter" data-level="4.4.5" data-path="链上数据分析常见指标.html"><a href="链上数据分析常见指标.html#波动率volatility"><i class="fa fa-check"></i><b>4.4.5</b> 波动率（Volatility）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html"><i class="fa fa-check"></i><b>5</b> Polygon区块链概况分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块分析"><i class="fa fa-check"></i><b>5.1</b> 区块分析</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#区块总数和gas-总消耗总量"><i class="fa fa-check"></i><b>5.1.1</b> 区块总数和Gas 总消耗总量</a></li>
+<li class="chapter" data-level="5.1.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#周期内新区块生成趋势和gas消耗"><i class="fa fa-check"></i><b>5.1.2</b> 周期内新区块生成趋势和Gas消耗</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易和用户分析"><i class="fa fa-check"></i><b>5.2</b> 交易和用户分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易总量和用户总数-2024-05-至今"><i class="fa fa-check"></i><b>5.2.1</b> 交易总量和用户总数( 2024-05 至今)</a></li>
+<li class="chapter" data-level="5.2.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.2</b> 每月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#月交易和活跃用户分析"><i class="fa fa-check"></i><b>5.2.3</b> 月交易和活跃用户分析</a></li>
+<li class="chapter" data-level="5.2.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#活跃用户和新用户统计分析"><i class="fa fa-check"></i><b>5.2.4</b> 活跃用户和新用户统计分析</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#原生代币分析"><i class="fa fa-check"></i><b>5.3</b> 原生代币分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#matic-价格走势"><i class="fa fa-check"></i><b>5.3.1</b> MATIC 价格走势</a></li>
+<li class="chapter" data-level="5.3.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#持有最多matic-token的地址"><i class="fa fa-check"></i><b>5.3.2</b> 持有最多MATIC Token的地址</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#智能合约分析"><i class="fa fa-check"></i><b>5.4</b> 智能合约分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#创建和已销毁的合约数量"><i class="fa fa-check"></i><b>5.4.1</b> 创建和已销毁的合约数量</a></li>
+<li class="chapter" data-level="5.4.2" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#每月创建和销毁数量"><i class="fa fa-check"></i><b>5.4.2</b> 每月创建和销毁数量</a></li>
+<li class="chapter" data-level="5.4.3" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#交易次数最多的智能合约统计"><i class="fa fa-check"></i><b>5.4.3</b> 交易次数最多的智能合约统计</a></li>
+<li class="chapter" data-level="5.4.4" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最活跃智能合约每日交易数量分析"><i class="fa fa-check"></i><b>5.4.4</b> 最活跃智能合约每日交易数量分析</a></li>
+<li class="chapter" data-level="5.4.5" data-path="polygon区块链概况分析.html"><a href="polygon区块链概况分析.html#最近30天最活跃智能合约"><i class="fa fa-check"></i><b>5.4.5</b> 最近30天最活跃智能合约</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lens-协议分析.html"><a href="lens-协议分析.html"><i class="fa fa-check"></i><b>6</b> Lens 协议分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#lens协议概览分析"><i class="fa fa-check"></i><b>6.1</b> Lens协议概览分析</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#总交易数量和总用户数量"><i class="fa fa-check"></i><b>6.1.1</b> 总交易数量和总用户数量</a></li>
+<li class="chapter" data-level="6.1.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#按天统计的交易数量和独立用户数量"><i class="fa fa-check"></i><b>6.1.2</b> 按天统计的交易数量和独立用户数量</a></li>
+<li class="chapter" data-level="6.1.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料profile数据分析"><i class="fa fa-check"></i><b>6.1.3</b> 创作者个人资料（Profile）数据分析</a></li>
+<li class="chapter" data-level="6.1.4" data-path="lens-协议分析.html"><a href="lens-协议分析.html#创作者个人资料域名分析"><i class="fa fa-check"></i><b>6.1.4</b> 创作者个人资料域名分析</a></li>
+<li class="chapter" data-level="6.1.5" data-path="lens-协议分析.html"><a href="lens-协议分析.html#同一个地址创建多个profile分析"><i class="fa fa-check"></i><b>6.1.5</b> 同一个地址创建多个Profile分析</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖数据分析"><i class="fa fa-check"></i><b>6.2</b> 发帖数据分析</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#发帖最多的账号数据分析"><i class="fa fa-check"></i><b>6.2.1</b> 发帖最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.2.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#每日新发帖数量统计"><i class="fa fa-check"></i><b>6.2.2</b> 每日新发帖数量统计</a></li>
+<li class="chapter" data-level="6.2.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#近30天发帖最活跃的profile统计"><i class="fa fa-check"></i><b>6.2.3</b> 近30天发帖最活跃的Profile统计</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论数据分析"><i class="fa fa-check"></i><b>6.3</b> 评论数据分析</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的账号数据分析"><i class="fa fa-check"></i><b>6.3.1</b> 评论最多的账号数据分析</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lens-协议分析.html"><a href="lens-协议分析.html#评论最多的publication统计"><i class="fa fa-check"></i><b>6.3.2</b> 评论最多的Publication统计</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lens-协议分析.html"><a href="lens-协议分析.html#收藏数据分析"><i class="fa fa-check"></i><b>6.3.3</b> 收藏数据分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="nft-数据分析.html"><a href="nft-数据分析.html"><i class="fa fa-check"></i><b>7</b> NFT 数据分析</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#nft-合约讲解"><i class="fa fa-check"></i><b>7.1</b> NFT 合约讲解</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#erc721合约"><i class="fa fa-check"></i><b>7.1.1</b> ERC721合约</a></li>
+<li class="chapter" data-level="7.1.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#交易市场合约"><i class="fa fa-check"></i><b>7.1.2</b> 交易市场合约</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#常用表说明"><i class="fa fa-check"></i><b>7.2</b> 常用表说明</a></li>
+<li class="chapter" data-level="7.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#核心指标"><i class="fa fa-check"></i><b>7.3</b> 核心指标</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交价格走势"><i class="fa fa-check"></i><b>7.3.1</b> 成交价格走势</a></li>
+<li class="chapter" data-level="7.3.2" data-path="nft-数据分析.html"><a href="nft-数据分析.html#地板价"><i class="fa fa-check"></i><b>7.3.2</b> 地板价</a></li>
+<li class="chapter" data-level="7.3.3" data-path="nft-数据分析.html"><a href="nft-数据分析.html#成交量总成交额度总交易笔数等24小时7天1月成交额度"><i class="fa fa-check"></i><b>7.3.3</b> 成交量、总成交额度、总交易笔数等、24小时/7天/1月成交额度</a></li>
+<li class="chapter" data-level="7.3.4" data-path="nft-数据分析.html"><a href="nft-数据分析.html#每日每月每周成交量"><i class="fa fa-check"></i><b>7.3.4</b> 每日/每月/每周成交量</a></li>
+<li class="chapter" data-level="7.3.5" data-path="nft-数据分析.html"><a href="nft-数据分析.html#当前持有人数总token数量holder的分布等"><i class="fa fa-check"></i><b>7.3.5</b> 当前持有人数，总token数量，holder的分布等</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html"><i class="fa fa-check"></i><b>8</b> 借贷协议数据分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的意义"><i class="fa fa-check"></i><b>8.1</b> 借贷协议的意义</a></li>
+<li class="chapter" data-level="8.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#借贷协议的运作模式"><i class="fa fa-check"></i><b>8.2</b> 借贷协议的运作模式</a></li>
+<li class="chapter" data-level="8.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#重点指标"><i class="fa fa-check"></i><b>8.3</b> 重点指标</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#总锁仓量-tvltotal-value-locked"><i class="fa fa-check"></i><b>8.3.1</b> 总锁仓量 TVL（Total Value Locked）</a></li>
+<li class="chapter" data-level="8.3.2" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#未偿贷款outstanding-loan"><i class="fa fa-check"></i><b>8.3.2</b> 未偿贷款（Outstanding Loan）</a></li>
+<li class="chapter" data-level="8.3.3" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#资本效率utilization-ratio"><i class="fa fa-check"></i><b>8.3.3</b> 资本效率（Utilization Ratio）</a></li>
+<li class="chapter" data-level="8.3.4" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#详细分类"><i class="fa fa-check"></i><b>8.3.4</b> 详细分类</a></li>
+<li class="chapter" data-level="8.3.5" data-path="借贷协议数据分析.html"><a href="借贷协议数据分析.html#基础指标"><i class="fa fa-check"></i><b>8.3.5</b> 基础指标</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="defi-数据分析.html"><a href="defi-数据分析.html"><i class="fa fa-check"></i><b>9</b> Defi 数据分析</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-表相关"><i class="fa fa-check"></i><b>9.1</b> Defi 表相关</a></li>
+<li class="chapter" data-level="9.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-行业分析"><i class="fa fa-check"></i><b>9.2</b> Defi 行业分析</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#defi-概况"><i class="fa fa-check"></i><b>9.2.1</b> Defi 概况</a></li>
+<li class="chapter" data-level="9.2.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按项目的统计分析"><i class="fa fa-check"></i><b>9.2.2</b> 按项目的统计分析</a></li>
+<li class="chapter" data-level="9.2.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#按代币交易对token-pair进行分类汇总"><i class="fa fa-check"></i><b>9.2.3</b> 按代币交易对（Token Pair）进行分类汇总</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#单个defi项目的分析"><i class="fa fa-check"></i><b>9.3</b> 单个DeFi项目的分析</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="defi-数据分析.html"><a href="defi-数据分析.html#交易次数活跃用户交易金额"><i class="fa fa-check"></i><b>9.3.1</b> 交易次数、活跃用户、交易金额</a></li>
+<li class="chapter" data-level="9.3.2" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃交易对分析"><i class="fa fa-check"></i><b>9.3.2</b> 活跃交易对分析</a></li>
+<li class="chapter" data-level="9.3.3" data-path="defi-数据分析.html"><a href="defi-数据分析.html#活跃用户分析"><i class="fa fa-check"></i><b>9.3.3</b> 活跃用户分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="mev数据分析.html"><a href="mev数据分析.html"><i class="fa fa-check"></i><b>10</b> MEV数据分析</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的提取过程"><i class="fa fa-check"></i><b>10.1</b> MEV的提取过程</a></li>
+<li class="chapter" data-level="10.2" data-path="mev数据分析.html"><a href="mev数据分析.html#mev的分类"><i class="fa fa-check"></i><b>10.2</b> MEV的分类</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="mev数据分析.html"><a href="mev数据分析.html#套利"><i class="fa fa-check"></i><b>10.2.1</b> 套利</a></li>
+<li class="chapter" data-level="10.2.2" data-path="mev数据分析.html"><a href="mev数据分析.html#清算"><i class="fa fa-check"></i><b>10.2.2</b> 清算</a></li>
+<li class="chapter" data-level="10.2.3" data-path="mev数据分析.html"><a href="mev数据分析.html#frontrunningbackrunning-和-sandwiching"><i class="fa fa-check"></i><b>10.2.3</b> Frontrunning、Backrunning 和 Sandwich(ing)</a></li>
+<li class="chapter" data-level="10.2.4" data-path="mev数据分析.html"><a href="mev数据分析.html#just-in-time-liquidity-attack"><i class="fa fa-check"></i><b>10.2.4</b> Just-in-Time liquidity attack</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="mev数据分析.html"><a href="mev数据分析.html#用dune做mev的分析"><i class="fa fa-check"></i><b>10.3</b> 用Dune做MEV的分析</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html"><i class="fa fa-check"></i><b>11</b> Uniswap多链数据对比分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总交易概况"><i class="fa fa-check"></i><b>11.1</b> 总交易概况</a></li>
+<li class="chapter" data-level="11.2" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日交易数据对比分析"><i class="fa fa-check"></i><b>11.2</b> 每日交易数据对比分析</a></li>
+<li class="chapter" data-level="11.3" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新用户对比分析"><i class="fa fa-check"></i><b>11.3</b> 每日新用户对比分析</a></li>
+<li class="chapter" data-level="11.4" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#年度新建流动资金池对比分析"><i class="fa fa-check"></i><b>11.4</b> 年度新建流动资金池对比分析</a></li>
+<li class="chapter" data-level="11.5" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#每日新增流动资金池对比"><i class="fa fa-check"></i><b>11.5</b> 每日新增流动资金池对比</a></li>
+<li class="chapter" data-level="11.6" data-path="uniswap多链数据对比分析.html"><a href="uniswap多链数据对比分析.html#总锁仓价值tvl对比分析"><i class="fa fa-check"></i><b>11.6</b> 总锁仓价值（TVL）对比分析</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="区块链网络分析.html"><a href="区块链网络分析.html"><i class="fa fa-check"></i><b>12</b> 区块链网络分析</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#什么是区块链网络分析"><i class="fa fa-check"></i><b>12.0.1</b> 什么是区块链网络分析？</a></li>
+<li class="chapter" data-level="12.0.2" data-path="区块链网络分析.html"><a href="区块链网络分析.html#区块链网络分析的核心方向"><i class="fa fa-check"></i><b>12.0.2</b> 区块链网络分析的核心方向</a></li>
+<li class="chapter" data-level="12.0.3" data-path="区块链网络分析.html"><a href="区块链网络分析.html#如何使用-dune-进行区块链网络分析"><i class="fa fa-check"></i><b>12.0.3</b> 如何使用 Dune 进行区块链网络分析？</a></li>
+<li class="chapter" data-level="12.1" data-path="区块链网络分析.html"><a href="区块链网络分析.html#获取网络数据"><i class="fa fa-check"></i><b>12.1</b> 获取网络数据</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html"><i class="fa fa-check"></i><b>13</b> 如何快速找到想要的魔法表</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#直接在-dune-的-data-explorer-搜索"><i class="fa fa-check"></i><b>13.1</b> 📌 1. 直接在 Dune 的 “Data Explorer” 搜索</a></li>
+<li class="chapter" data-level="13.2" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-sql-查询-information_schema.tables"><i class="fa fa-check"></i><b>13.2</b> 📌 2. 通过 SQL 查询 <code>information_schema.tables</code></a></li>
+<li class="chapter" data-level="13.3" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#查看-spellbook-文档"><i class="fa fa-check"></i><b>13.3</b> 📌 3. 查看 Spellbook 文档</a></li>
+<li class="chapter" data-level="13.4" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#通过-show-tables-快速查找"><i class="fa fa-check"></i><b>13.4</b> 📌 4. 通过 <code>SHOW TABLES</code> 快速查找</a></li>
+<li class="chapter" data-level="13.5" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#在-dune-社区或-github-讨论区搜索"><i class="fa fa-check"></i><b>13.5</b> 📌 5. 在 Dune 社区或 GitHub 讨论区搜索</a></li>
+<li class="chapter" data-level="13.6" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结合-dune-dashboards"><i class="fa fa-check"></i><b>13.6</b> 📌 6. 结合 Dune Dashboards</a></li>
+<li class="chapter" data-level="13.7" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#示例查询"><i class="fa fa-check"></i><b>13.7</b> 📌 7. 示例查询</a></li>
+<li class="chapter" data-level="13.8" data-path="如何快速找到想要的魔法表.html"><a href="如何快速找到想要的魔法表.html#结论"><i class="fa fa-check"></i><b>13.8</b> 📌 结论</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/liamamilin" target="blank">Liamamilin github</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">链上数据分析实战</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dune-sql" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Dune SQL<a href="dune-sql.html#dune-sql" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Dune 的 SQL 查询引擎主要依赖 Trino（前身为 PrestoSQL）,Trino（PrestoSQL） 是一种高效的分布式查询引擎，专门用于处理大规模数据集。它适用于 OLAP（在线分析处理）场景，能够高效查询存储在 Dune 数据仓库中的链上数据。</p>
+<div id="dune-常见语法以及使用案例" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Dune 常见语法以及使用案例<a href="dune-sql.html#dune-常见语法以及使用案例" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="排序" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 排序<a href="dune-sql.html#排序" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>假设我想要查看某一个地址在2024年的ETH大额转出.</p>
+<pre><code>select --Select后跟着需要查询的字段，多个字段用英文逗号分隔
+    block_time 
+    ,&quot;from&quot;
+    ,&quot;to&quot;
+    ,hash
+    ,value /power(10,18) as value --通过将value除以/power(10,18)来换算精度，18是以太坊的精度
+from ethereum.transactions --从 ethereum.transactions表中获取数据
+where block_time &gt; date(&#39;2024-01-01&#39;)  --限制Transfer时间是在2024年1月1日之后
+and &quot;from&quot; = 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296 --限制孙哥的钱包
+and value /power(10,18) &gt;1000 --限制ETH Transfer量大于1000
+order by block_time --基于blocktime做升序排列，如果想降序排列需要在末尾加desc
+</code></pre>
+</div>
+<div id="聚合" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 聚合<a href="dune-sql.html#聚合" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>通过聚合函数计算某一个统计量</p>
+<pre><code>select 
+    sum( value /power(10,18) ) as value --对符合要求的数据的value字段求和
+    ,max( value /power(10,18) ) as max_value --求最大值
+    ,min( value /power(10,18) )  as min_value--求最小值
+    ,count( hash ) as tx_count --对符合要求的数据计数，统计有多少条
+    ,count( distinct to ) as tx_to_address_count --对符合要求的数据计数，统计有多少条(按照去向地址to去重)
+from ethereum.transactions --从 ethereum.transactions表中获取数据
+where block_time &gt; date(&#39;2024-01-01&#39;)  --限制Transfer时间是在2024年1月1日之后
+and &quot;from&quot; = 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296
+and value /power(10,18) &gt; 1000 --限制ETH Transfer量大于1000</code></pre>
+</div>
+<div id="分组聚合" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> 分组聚合<a href="dune-sql.html#分组聚合" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>按照时间维度来查看某一个指标的趋势.</p>
+<p>第一步, 将时间戳转换成为不同格式</p>
+<pre><code>-- 把粒度到秒的时间转化为天/小时/分钟(为了方便后续按照天或者小时聚合)
+select --Select后跟着需要查询的字段，多个字段用空格隔开
+    block_time --transactions发生的时间
+    ,date_trunc(&#39;hour&#39;,block_time) as stat_hour --转化成小时的粒度
+    ,date_trunc(&#39;day&#39;,block_time) as stat_date --转化成天的粒度
+    ,date_trunc(&#39;week&#39;,block_time) as stat_week--转化成week的粒度
+    ,&quot;from&quot;
+    ,&quot;to&quot;
+    ,hash
+    ,value /power(10,18) as value --通过将value除以/power(10,18)来换算精度，18是以太坊的精度
+from ethereum.transactions --从 ethereum.transactions表中获取数据
+where block_time &gt; date(&#39;2024-01-01&#39;)  --限制Transfer时间是在2024年1月1日之后
+and &quot;from&quot; = 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296
+and value /power(10,18) &gt;1000 --限制ETH Transfer量大于1000
+order by block_time --基于blocktime做升序排列，如果想降序排列需要在末尾加desc</code></pre>
+<p>第二步 , 基于处理之后的时间, 进行聚合</p>
+<pre><code>select 
+    date_trunc(&#39;day&#39;,block_time) as stat_date
+    ,sum( value /power(10,18) ) as value --对符合要求的数据的value字段求和
+from ethereum.transactions --从 ethereum.transactions表中获取数据
+where block_time &gt; date(&#39;2024-01-01&#39;)  --限制Transfer时间是在2024年1月1日之后
+and &quot;from&quot; = 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296
+and value /power(10,18) &gt; 1000 --限制ETH Transfer量大于1000
+group by  1
+order by 1</code></pre>
+</div>
+<div id="子查询" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> 子查询<a href="dune-sql.html#子查询" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>首先, 查看花费的ETH价值多少USD</p>
+<pre><code>
+select
+     block_time
+     ,transactions_info.stat_minute  as stat_minute
+    ,&quot;from&quot;
+    ,&quot;to&quot;
+    ,hash
+    ,eth_amount --通过将value除以/power(10,18)来换算精度，18是以太坊的精度
+    ,price
+    ,eth_amount * price as usd_value
+from 
+(
+    select --Select后跟着需要查询的字段，多个字段用空格隔开
+        block_time
+        ,date_trunc(&#39;minute&#39;,block_time) as stat_minute --把block_time用date_trunc处理成分钟，方便作为主键去关联
+        ,&quot;from&quot;
+        ,&quot;to&quot;
+        ,hash
+        ,value /power(10,18) as eth_amount --通过将value除以/power(10,18)来换算精度，18是以太坊的精度
+    from ethereum.transactions --从 ethereum.transactions表中获取数据
+    where block_time &gt; date(&#39;2024-01-01&#39;)  --限制Transfer时间是在2024年1月1日之后
+    and &quot;from&quot; = 0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296
+    and value /power(10,18) &gt;1000 --限制ETH Transfer量大于1000
+    order by block_time --基于blocktime做升序排列，如果想降序排列需要在末尾加desc
+) transactions_info
+left join --讲transactions_info与price_info的数据关联，关联方式为 left join
+(
+    --prices.usd表里存的是分钟级别的价格数据
+    select
+        date_trunc(&#39;minute&#39;,minute) as stat_minute --把minute用date_trunc处理成分钟，方便作为主键去关联
+        ,price
+    from prices.usd
+    where blockchain = &#39;ethereum&#39; --取以太坊上的价格数据
+    and symbol = &#39;WETH&#39; --取WETH的数据
+) price_info on  transactions_info.stat_minute = price_info.stat_minute --left join关联的主键为stat_minute</code></pre>
+<p>大部分情况下我们需要的数据不是在同一张表里，比如transaction表存储的就是只有transaction数据，没有价格数据。如果我们希望能够计算出transaction对应USD 价值，那就需要用联表查询把价格数据给关联进来.</p>
+</div>
+<div id="current_timestamp和-current_date函数" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> CURRENT_TIMESTAMP和 CURRENT_DATE函数<a href="dune-sql.html#current_timestamp和-current_date函数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>CURRENT_TIMESTAMP和 可以获取当前系统的日期和时间值, CURRENT_DATE 用于获取当前的日期.</p>
+<pre><code>SELECT
+  CURRENT_TIMESTAMP, /* 当前系统日期和时间 */
+  CURRENT_DATE, /* 当前系统日期 */
+  CURRENT_DATE, /* 可以省略括号 */
+  DATE_TRUNC(&#39;day&#39;, CURRENT_TIMESTAMP) /* 与current_date相同 */</code></pre>
+</div>
+<div id="dateadd-和datediff" class="section level3 hasAnchor" number="3.1.6">
+<h3><span class="header-section-number">3.1.6</span> dateadd 和datediff<a href="dune-sql.html#dateadd-和datediff" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>函数dateadd(unit, value, expr)在一个日期表达式上添加一个的日期时间单位。 函数date_sub(startDate, numDays)作用类似，但表示的意思正好相反，即负数表示返回之后的日期，正数表示之前的日期。</p>
+<pre><code>select date_add(&#39;MONTH&#39;, 2, current_date) -- 当前日期加2个月后的日期
+    ,date_add(&#39;HOUR&#39;, 12, now()) -- 当前日期时间加12小时
+    ,date_add(&#39;DAY&#39;, -2, current_date) -- 当前日期减去2天
+    ,date_add(&#39;DAY&#39;, 2, current_date) -- 当前日期加上2天
+    ,date_add(&#39;DAY&#39;, -5, current_date) -- 当前日期加上-5天，相当于减去5天
+    ,date_diff(&#39;DAY&#39;, date(&#39;2022-11-22&#39;), date(&#39;2022-11-25&#39;)) -- 结束日期早于开始日期，返回负值
+    ,date_diff(&#39;DAY&#39;, date(&#39;2022-11-25&#39;), date(&#39;2022-11-22&#39;)) -- 结束日期晚于开始日期，返回正值</code></pre>
+</div>
+<div id="interval" class="section level3 hasAnchor" number="3.1.7">
+<h3><span class="header-section-number">3.1.7</span> INTERVAL<a href="dune-sql.html#interval" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Interval是一种数据类型，以指定的日期时间单位表示某个时间间隔。</p>
+<pre><code>select now() - interval &#39;2&#39; hour -- 2个小时之前
+    ,current_date - interval &#39;7&#39; day -- 7天之前
+    ,now() + interval &#39;1&#39; month -- 一个月之后的当前时刻</code></pre>
+</div>
+<div id="条件判断" class="section level3 hasAnchor" number="3.1.8">
+<h3><span class="header-section-number">3.1.8</span> 条件判断<a href="dune-sql.html#条件判断" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>首先是CASE 语句 :</p>
+<pre><code>-- ...省略部分代码...
+
+profiles_summary as (
+    select (
+            case
+                when length(short_name) &gt;= 20 then 20 -- 域名长度大于20时，视为20对待
+                else length(short_name) -- 域名长度小于20，直接使用其长度值
+            end) as name_length, -- 将case语句评估返回的结果命名为一个新的字段
+        handle_type,
+        count(*) as name_count
+    from profile_created
+    group by 1, 2
+),
+
+profiles_total as (
+    select count(*) as total_profile_count,
+        sum(case
+                when handle_type = &#39;Pure Digits&#39; then 1 -- 类型值等于给定值，返回1
+                else 0  -- 类型值不等于给定值，返回 0
+            end
+        ) as pure_digit_profile_count,
+        sum(case 
+                when handle_type = &#39;Pure Letters&#39; then 1  -- 类型值等于给定值，返回1
+                else 0  -- 类型值不等于给定值，返回 0
+            end
+        ) as pure_letter_profile_count
+    from profile_created
+)
+
+-- ...省略部分代码...</code></pre>
+<p>其次是if 表达式</p>
+<pre><code>select if(1 &lt; 2, &#39;a&#39;, &#39;b&#39;) -- 条件评估结果为真，返回第一个表达式
+    ,if(&#39;a&#39; = &#39;A&#39;, &#39;case-insensitive&#39;, &#39;case-sensitive&#39;) -- 字符串值区分大小写</code></pre>
+</div>
+<div id="字符串处理" class="section level3 hasAnchor" number="3.1.9">
+<h3><span class="header-section-number">3.1.9</span> 字符串处理<a href="dune-sql.html#字符串处理" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>字符串截取 : substring</li>
+</ol>
+<pre><code>SELECT
+  SUBSTRING(&#39;apple&#39;, 1, 2)
+// ap</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>字符串拼接</li>
+</ol>
+<p>字符串的拼接可以使用 concat 和 || 关键字</p>
+<pre><code>select concat(&#39;a&#39;, &#39; &#39;, &#39;b&#39;, &#39; c&#39;) -- 连接多个字符串
+    , &#39;a&#39; || &#39; &#39; || &#39;b&#39; || &#39; c&#39; -- 与concat()功能相同</code></pre>
+</div>
+<div id="窗口函数" class="section level3 hasAnchor" number="3.1.10">
+<h3><span class="header-section-number">3.1.10</span> 窗口函数<a href="dune-sql.html#窗口函数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>多行数据的组合成为窗口（Window）。对窗口中的一组行进行操作并根据该组行计算每一行的返回值的函数叫窗口函数。窗口函数对于处理任务很有用，例如计算移动平均值、计算累积统计量或在给定当前行的相对位置的情况下访问行的值。</p>
+<pre><code>    select  price_date,
+        contract_address,
+        symbol,
+        decimals,
+        price,
+        row_number() over (partition by contract_address order by price_date desc) as row_num -- 按分区单独生成行号
+    from latest_token_price</code></pre>
+<p>参考 : <a href="https://trino.io/docs/current/functions.html" class="uri">https://trino.io/docs/current/functions.html</a></p>
+</div>
+</div>
+<div id="dune-常见查询" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Dune 常见查询<a href="dune-sql.html#dune-常见查询" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="erc20-代币价格" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> ERC20 代币价格<a href="dune-sql.html#erc20-代币价格" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>查询ERC29代币的最新价格</li>
+</ol>
+<p>prices.usd表中的价格是按分钟记录的，我们只需要根据代币的符号及其归属的区块链取最新的一条记录即可，如果有合约地址，也可以使用合约地址来查询。usd_latest表中则记录了每种代币的最新价格，每个代币只有一行记录。</p>
+<p>因为价格信息按每分钟每个代币一条记录的方式保存，具体到每一个代币其记录数量也很庞大，我们通过限制读取最新的部分数据来提高查询的效率。由于偶尔可能会存在一定的延迟，下面的实例中我们从过去6小时的记录里面读取最新的一条，确保能取到价格。</p>
+<p>查询某一个大笔的最新价格 , 这里查询的是WETH的价格:</p>
+<pre><code>select * from prices.usd
+where symbol = &#39;WETH&#39;
+    and blockchain = &#39;ethereum&#39; 
+    and minute &gt;= now() - interval &#39;6&#39; hour
+order by minute desc
+limit 1</code></pre>
+<p>也可以使用合约地址来查询价格:</p>
+<pre><code>
+select * from prices.usd
+where contract_address = 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2   -- WETH
+    and minute &gt;= now() - interval &#39;6&#39; hour
+order by minute desc
+limit 1</code></pre>
+<p>从prices.usd_latest表读取最新价格信息：</p>
+<pre><code>select * from prices.usd_latest
+where symbol = &#39;WETH&#39;
+    and blockchain = &#39;ethereum&#39;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>查询多个ERC20代币的最新价格</li>
+</ol>
+<p>从prices.usd_latest表读取多个代币的最新价格信息：</p>
+<pre><code>select * from prices.usd_latest
+where symbol in (&#39;WETH&#39;, &#39;WBTC&#39;, &#39;USDC&#39;)
+    and blockchain = &#39;ethereum&#39;</code></pre>
+<p>从prices.usd表读取多个代币的最新价格信息：</p>
+<pre><code>select symbol, decimals, price, minute
+from (
+    select row_number() over (partition by symbol order by minute desc) as row_num, *
+    from prices.usd
+    where symbol in (&#39;WETH&#39;, &#39;WBTC&#39;, &#39;USDC&#39;)
+        and blockchain = &#39;ethereum&#39;
+        and minute &gt;= now() - interval &#39;6&#39; hour
+    order by minute desc
+) p
+where row_num = 1</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>查询ERC20 代币的平均每日价格</li>
+</ol>
+<p>当我们需要查询某个ERC20代币每一天的平均价格时，只能使用prices.usd表来实现。通过设置要查询价格的日期范围（或者不加日期范围取全部日期的数据），按天汇总，使用avg()函数求得平均值，就可以得到按天的价格数据。SQL如下:</p>
+<pre><code>select date_trunc(&#39;day&#39;, minute) as block_date,
+    avg(price) as price
+from prices.usd
+where symbol = &#39;WETH&#39;
+    and blockchain = &#39;ethereum&#39;
+    and minute &gt;= date(&#39;2023-01-01&#39;)
+group by 1
+order by 1</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>从DeFi兑换记录中计算价格</li>
+</ol>
+<p>une上的价格数据表prices.usd是通过spellbook来维护的，里面并没有包括所有支持的区块链上面的所有代币的价格信息。特别是当某个新的ERC20代币新发行上市，在DEX交易所进行流通（比如XEN），此时Dune的价格表并没有这个代币的数据。此时，我们可以读取DeFi项目中的兑换数据，比如Uniswap中的Swap数据，将对应代币与USDC（或者WETH）之间的兑换价格计算出来，再通过USDC或WETH的价格数据换算得到美元价格。</p>
+<pre><code>with xen_price_in_usdc as (
+    select date_trunc(&#39;hour&#39;, evt_block_time) as block_date,
+        &#39;XEN&#39; as symbol,
+        &#39;0x06450dee7fd2fb8e39061434babcfc05599a6fb8&#39; as contract_address, -- XEN
+        18 as decimals,
+        avg(amount1 / amount0) / pow(10, (6-18)) as price   --USDC: 6 decimals, XEN: 18 decimals
+    from (
+        select contract_address,
+            abs(amount0) as amount0,
+            abs(amount1) as amount1,
+            evt_tx_hash,
+            evt_block_time
+        from uniswap_v3_ethereum.Pair_evt_Swap
+        where contract_address = &#39;0x353bb62ed786cdf7624bd4049859182f3c1e9e5d&#39;   -- XEN-USDC 1.00% Pair
+            and evt_block_time &gt; &#39;2022-10-07&#39;
+            and evt_block_time &gt; now() - interval &#39;30 days&#39;
+    ) s
+    group by 1, 2, 3, 4
+),
+
+usdc_price as (
+    select date_trunc(&#39;hour&#39;, minute) as block_date,
+        avg(price) as price
+    from prices.usd
+    where contract_address = &#39;0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&#39;   -- USDC
+        and minute &gt; &#39;2022-10-07&#39;
+        and minute &gt; now() - interval &#39;30 days&#39;
+    group by 1
+)
+
+select x.block_date,
+    x.price * u.price as price_usd
+from xen_price_in_usdc x
+inner join usdc_price u on x.block_date = u.block_date
+order by x.block_date</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>从DeFi交易魔法表计算价格</li>
+</ol>
+<p>如果相应的DeFi交易数据已经集成到了dex.trades表中，那么使用该表来计算价格会更加简单。我们可以将amount_usd与token_bought_amount或者token_sold_amount相除，得到对应代币的USD价格。</p>
+<pre><code>with trade_detail as (
+    select block_time,
+        tx_hash,
+        amount_usd,
+        token_bought_amount,
+        token_bought_symbol,
+        token_sold_amount,
+        token_sold_symbol
+    from dex.trades
+    where project_contract_address = 0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8
+        and block_date &gt;= now() - interval &#39;3&#39; day
+    order by block_time desc
+    limit 1000
+)
+
+select avg(
+    case when token_bought_symbol = &#39;WETH&#39; then amount_usd / token_bought_amount
+        else amount_usd / token_sold_amount
+    end
+    ) as price
+from trade_detail</code></pre>
+</div>
+<div id="代币持有者相关数据" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> 代币持有者相关数据<a href="dune-sql.html#代币持有者相关数据" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>有时候, 我们还需要查询某个代币的持有者数量、代币总供应量（流通量）、各持有者的账户余额（例如持有最多的账号的余额）等相关信息。</p>
+<p>与比特币通过未花费的交易产出（UTXO）来跟踪账户余额不同，以Ethereum为代表的EVM兼容区块链使用了账户余额的模型。每个账号地址有针对每种ERC20代币的转入记录和转出记录，将这些转入和转出数据汇总到一起，就可以得到账户的当前余额。</p>
+<p>要查询单个ERC20代币的账户余额信息，首先我们需要知道对应代币的合约地址。这个可以通过查询tokens.erc20表来获得。 假设我们想要知道DOGE合约的地址:</p>
+<pre><code>select * from tokens.erc20 
+where symbol = &#39;DOGE&#39;
+    and blockchain = &#39;bnb&#39;
+
+ </code></pre>
+<p>地址为: 0xba2ae424d960c26247dd6c32edc70b295c744c43</p>
+</div>
+<div id="查询代币持有者数量和代币的总流通量" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> 查询代币持有者数量和代币的总流通量<a href="dune-sql.html#查询代币持有者数量和代币的总流通量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>不管是要计算某个账户下某个代币的余额，还是计算某个代币全部持有者账户下的余额，我们都需要将转入转出数据合并到一起。对于转入数据，我们取to为用户的地址，金额为正数。对于转出数据，则取from为用户地址，同时金额乘以“-1”使其变成负数。</p>
+<pre><code>select * from (
+    select evt_block_time,
+        evt_tx_hash,
+        contract_address,
+        &quot;to&quot; as address,
+        cast(value as decimal(38, 0)) as amount
+    from erc20_ethereum.evt_Transfer
+    where contract_address = 0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9
+
+    union all
+    
+    select evt_block_time,
+        evt_tx_hash,
+        contract_address,
+        &quot;from&quot; as address,
+        -1 * cast(value as decimal(38, 0)) as amount
+    from erc20_ethereum.evt_Transfer
+    where contract_address = 0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9
+)
+limit 10    -- for performance</code></pre>
+<p>在上面的查询中，我们使用union all将每个账户地址中转入的和转出的FTT Token合并到一起，并且只取了10条样本数据。注意我们使用value::decimal(38, 0)对value字段对值进行了强制转换，因为现在这个字段是以字符串形式保存的，不做转换会在计算时遇到一些问题。</p>
+<p>这里合并到一起的是明细转账数据，我们需要计算的账户余额是汇总数据，可以在上述查询基础上，将其放入一个CTE定义中，然后针对CTE执行汇总统计。考虑到很多代币的持有人地址数量可能很多（几万甚至更多），我们通常关注的是总持有人数、总流通量和持有量最多的那部分地址，我们可以将按地址汇总的查询也放入一个CTE中，方便在此基础上根据需要做进一步的统计。这里我们首先统计持有者总数，查询时排除那些当前代币余额为0的地址。</p>
+<pre><code>with transfer_detail as (
+    select evt_block_time,
+        evt_tx_hash,
+        contract_address,
+        &quot;to&quot; as address,
+        cast(value as decimal(38, 0)) as amount
+    from erc20_ethereum.evt_Transfer
+    where contract_address = 0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9
+    
+    union all
+    
+    select evt_block_time,
+        evt_tx_hash,
+        contract_address,
+        &quot;from&quot; as address,
+        -1 * cast(value as decimal(38, 0)) as amount
+    from erc20_ethereum.evt_Transfer
+    where contract_address = 0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9
+),
+
+address_balance as (
+    select address,
+        sum(amount) as balance_amount
+    from transfer_detail
+    group by address
+)
+
+select count(*) as holder_count,
+    sum(balance_amount / 1e18) as supply_amount
+from address_balance
+where balance_amount &gt; 0</code></pre>
+<p>上面的查询中，我们在address_balance这个CTE里面按地址统计了账户余额，然后在最后的查询中计算当前余额大于0的地址数量（持有者数量）和所有账户的余额汇总（流通总量）。因为FTT代币的小数位数是18位，我们在计算supply_amount时，将原始金额除以1e18就换算成了带有小数位数的金额，这个就是FTT代币的总流通量。需要注意，不同的ERC20代币有不同的小数位数，前面查询tokens.erc20表的返回结果有这个数据。1e18是power(10, 18)的一种等价缩写，表示求10的18次方。由于FTT代币有2万多个持有地址，这个查询相对耗时较长，可能需要几分钟才能执行完毕。</p>
+</div>
+<div id="查询持有代币最多的地址" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> 查询持有代币最多的地址<a href="dune-sql.html#查询持有代币最多的地址" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>因为我们查询的是单个代币，我们可以将硬编码的代币地址替换为一个查询参数{{token_contract_address}}，并将上面FTT代币的合约地址设置为默认值，这样就可以灵活地查询任意代币的数据了。下面的查询返回持有代币数量最多的100个地址：</p>
+<pre><code>  with transfer_detail as (
+      select evt_block_time,
+          evt_tx_hash,
+          contract_address,
+          &quot;to&quot; as address,
+          cast(value as decimal(38, 0)) as amount
+      from erc20_ethereum.evt_Transfer
+      where contract_address = {{token_contract_address}}
+      
+      union all
+      
+      select evt_block_time,
+          evt_tx_hash,
+          contract_address,
+          &quot;from&quot; as address,
+          -1 * cast(value as decimal(38, 0)) as amount
+      from erc20_ethereum.evt_Transfer
+      where contract_address = {{token_contract_address}}
+  ),
+  
+  address_balance as (
+      select address,
+          sum(amount / 1e18) as balance_amount
+      from transfer_detail
+      group by address
+  )
+  
+  select address,
+      balance_amount
+  from address_balance
+  order by 2 desc
+  limit 100
+</code></pre>
+<p>这里查看了持有金额最大的前100持有者.</p>
+<p><img src="chain22.jpg" /></p>
+<p>我们可以看到, 几个地址占据了大量的DOGE币.</p>
+</div>
+<div id="查询不同代币持有者的持有金额分布" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> 查询不同代币持有者的持有金额分布<a href="dune-sql.html#查询不同代币持有者的持有金额分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>按经验法则统计分布情况： 因为统计的是金额的区间分布（统计数量分布时也类似）我们可以选择典型的金额进行分区：10000以上，1000-10000之间，500-1000之间，100-500之间，10-100之间，1-10之间，以及小于1等。</p>
+<pre><code>with transfer_detail as (
+    -- Same as previous sample
+),
+
+address_balance as (
+    select address,
+        sum(amount / 1e18) as balance_amount
+    from transfer_detail
+    group by address
+)
+
+select (case when balance_amount &gt;= 10000 then &#39;&gt;= 10000&#39;
+            when balance_amount &gt;= 1000 then &#39;&gt;= 1000&#39;
+            when balance_amount &gt;= 500 then &#39;&gt;= 500&#39;
+            when balance_amount &gt;= 100 then &#39;&gt;= 100&#39;
+            when balance_amount &gt;= 10 then &#39;&gt;= 10&#39;
+            when balance_amount &gt;= 1 then &#39;&gt;= 1&#39;
+            else &#39;&lt; 1.0&#39;
+        end) as amount_area_type,
+        (case when balance_amount &gt;= 10000 then 10000
+            when balance_amount &gt;= 1000 then 1000
+            when balance_amount &gt;= 500 then 500
+            when balance_amount &gt;= 100 then 100
+            when balance_amount &gt;= 10 then 10
+            when balance_amount &gt;= 1 then 1
+            else 0
+        end) as amount_area_id,
+    count(address) as holder_count,
+    avg(balance_amount) as average_balance_amount
+from address_balance
+group by 1, 2
+order by 2 desc</code></pre>
+<p>这样就可以查询出, 不同金额区间内, 有多少的人.</p>
+</div>
+</div>
+<div id="其他常用查询" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 其他常用查询<a href="dune-sql.html#其他常用查询" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="使用cte自定义数据表" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> 使用CTE自定义数据表<a href="dune-sql.html#使用cte自定义数据表" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>对于一些来源外部数据源的数据或者手动整理的少量数据，我们可以考虑在查询内使用CTE来生成自定义数据列表</p>
+<pre><code>with raydium_lp_pairs(account_key, pair_name) as (
+    values
+    (&#39;58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2&#39;, &#39;SOL/USDC&#39;),
+    (&#39;7XawhbbxtsRcQA8KTkHT9f9nc6d69UwqCDh6U5EEbEmX&#39;, &#39;SOL/USDT&#39;),
+    (&#39;AVs9TA4nWDzfPJE9gGVNJMVhcQy3V9PGazuz33BfG2RA&#39;, &#39;RAY/SOL&#39;),
+    (&#39;6UmmUiYoBjSrhakAobJw8BvkmJtDVxaeBtbt7rxWo1mg&#39;, &#39;RAY/USDC&#39;),
+    (&#39;DVa7Qmb5ct9RCpaU7UTpSaf3GVMYz17vNVU67XpdCRut&#39;, &#39;RAY/USDT&#39;),
+    (&#39;GaqgfieVmnmY4ZsZHHA6L5RSVzCGL3sKx4UgHBaYNy8m&#39;, &#39;RAY/SRMSOL&#39;),
+    (&#39;6a1CsrpeZubDjEJE9s1CMVheB6HWM5d7m1cj2jkhyXhj&#39;, &#39;STSOL/USDC&#39;),
+    (&#39;43UHp4TuwQ7BYsaULN1qfpktmg7GWs9GpR8TDb8ovu9c&#39;, &#39;APEX4/USDC&#39;)
+)
+
+select * from raydium_lp_pairs</code></pre>
+</div>
+<div id="读取数组和结构体" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 读取数组和结构体<a href="dune-sql.html#读取数组和结构体" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>select evt_tx_hash, deltas, token   -- 返回拆分后的字段
+from balancer_v2_arbitrum.Vault_evt_PoolBalanceChanged
+cross join unnest(tokens) as tbl1(token)   -- 拆分为多行，新字段命名为 token
+where evt_tx_hash = 0x65a4f35d81fd789d93d79f351dc3f8c7ed220ab66cb928d2860329322ffff32c</code></pre>
+</div>
+<div id="读取json数据" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 读取JSON数据<a href="dune-sql.html#读取json数据" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>select  json_value(vars, &#39;lax $.to&#39;) as user_address, -- 读取json字符串中的用户地址
+     json_value(vars, &#39;lax $.handle&#39;) as handle_name, -- 读取json字符串中的用户昵称
+    call_block_time,
+    output_0 as profile_id,
+    call_tx_hash
+from lens_polygon.LensHub_call_createProfile
+where call_success = true   
+limit 100</code></pre>
+</div>
+<div id="erc20-代币在合约中的流入流出情况" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> ERC20 代币在合约中的流入流出情况<a href="dune-sql.html#erc20-代币在合约中的流入流出情况" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>追踪 ERC20 代币在合约中的流入流出情况。它可以帮助你分析特定 ERC20 代币的流动性以及它进入合约的频率。</p>
+<pre><code>WITH
+    -- 选择代币信息，获取合约地址和区块链类型
+    selected_tokens AS (
+        SELECT
+            symbol, contract_address, blockchain, decimals
+        FROM (
+            SELECT 
+                upper(tk.symbol) AS symbol,   -- 将代币符号转换为大写，确保符号匹配
+                tk.contract_address, 
+                tk.blockchain, 
+                tk.decimals, 
+                COALESCE(count(*),0) AS transfers  -- 计算过去 5 天内的转账数量，若没有则为 0
+            FROM tokens.erc20 tk  -- 从 ERC20 代币表中选择代币
+            LEFT JOIN evms.erc20_transfers tr 
+                ON tk.blockchain = tr.blockchain  -- 匹配相同区块链
+                AND tk.contract_address = tr.contract_address  -- 匹配相同代币合约地址
+                AND tr.evt_block_time &gt; now() - interval &#39;5&#39; day  -- 过滤过去 5 天的转账数据
+                AND tr.blockchain = &#39;{{3. Blockchain}}&#39;  -- 仅限指定的区块链
+            WHERE (&#39;{{1. Token Symbol}}&#39; = upper(tk.symbol) 
+                OR try(from_hex(&#39;{{2. Token Contract}}&#39;)) = tk.contract_address)  -- 根据代币符号或合约地址过滤
+                AND tk.blockchain = &#39;{{3. Blockchain}}&#39;  -- 确保符合指定区块链
+            GROUP BY 1,2,3,4
+            ORDER BY count(*) DESC  -- 按转账数量降序排列
+            LIMIT 1  -- 只选择符合条件的第一个代币
+        )
+        UNION ALL
+        -- 如果用户输入了多个地址或没有找到代币，则直接解析输入的合约地址
+        SELECT 
+            NULL AS symbol,
+            from_hex(trim(c.address)) AS contract_address,  -- 将输入的地址字符串转换为合约地址
+            &#39;{{3. Blockchain}}&#39; AS blockchain, 
+            18 AS decimals  -- 默认代币小数位为 18
+        FROM unnest(split(&#39;{{2. Token Contract}}&#39;,&#39;,&#39;)) AS c(address)  -- 处理多个合约地址
+        WHERE try(from_hex(trim(c.address))) IS NOT NULL 
+            AND lower(c.address) != &#39;none&#39;  -- 排除无效地址
+            AND try(from_hex(trim(c.address))) NOT IN (SELECT DISTINCT contract_address FROM tokens.erc20)  -- 排除已存在的 ERC20 合约地址
+    ),
+    
+    -- 获取代币的余额和转账数据
+    erc20_balances AS (
+        WITH erc20_in AS (  -- 计算代币存入的金额
+            SELECT 
+                to AS address,
+                SUM(tr.value/pow(10, tk.decimals)) AS tokens_funded,  -- 计算存入的代币数量
+                SUM(CASE WHEN tr.evt_block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day THEN tr.value ELSE cast(0 AS uint256) END)/pow(10, tk.decimals) AS tokens_funded_days  -- 过去 N 天的存款金额
+            FROM evms.erc20_transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain AND tk.contract_address = tr.contract_address
+            GROUP BY 1
+        ),
+        
+        erc20_out AS (  -- 计算代币支出的金额
+            SELECT  
+                &quot;from&quot; AS address,
+                SUM(tr.value/pow(10, tk.decimals)) AS tokens_spent,  -- 计算支出的代币数量
+                SUM(CASE WHEN tr.evt_block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day THEN tr.value ELSE cast(0 AS uint256) END)/pow(10, tk.decimals) AS tokens_spent_days  -- 过去 N 天的支出金额
+            FROM evms.erc20_transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain AND tk.contract_address = tr.contract_address
+            GROUP BY 1
+        )
+        
+        -- 计算每个地址的代币余额变化：存入、支出及总余额
+        SELECT
+            erc20_in.address,
+            CAST(tokens_funded AS double) - COALESCE(CAST(tokens_spent AS double), 0) AS balance,  -- 计算当前余额
+            COALESCE(CAST(tokens_funded_days AS double), 0) AS balance_in,  -- 计算过去 N 天的存款金额
+            -1 * COALESCE(CAST(tokens_spent_days AS double), 0) AS balance_out  -- 计算过去 N 天的支出金额
+        FROM erc20_in
+        LEFT JOIN erc20_out ON erc20_in.address = erc20_out.address
+        WHERE CAST(tokens_funded AS double) - COALESCE(CAST(tokens_spent AS double), 0) &gt; 0  -- 只保留余额大于 0 的地址
+    )
+    
+    -- 查询最终结果，展示代币的余额变化和合约名称等信息
+    SELECT 
+        c.name AS contract_name,  -- 合约名称
+        get_href(get_chain_explorer(&#39;{{3. Blockchain}}&#39;) || &#39;/address/&#39; || CAST(b.address AS varchar), CAST(b.address AS varchar)) AS address,  -- 获取合约地址的区块浏览器链接
+        ROUND(b.balance, 3) AS balance,  -- 当前余额（保留三位小数）
+        ROUND(b.balance - (b.balance_in + b.balance_out), 3) AS balance_last_period,  -- 上一个时间段的余额
+        &#39;||&#39; AS split,  -- 分隔符
+        b.balance_in AS tokens_in,  -- 当前时间段的存款
+        b.balance_out AS tokens_out,  -- 当前时间段的支出
+        (b.balance_in + b.balance_out) AS balance_changed  -- 当前时间段的余额变化（存款和支出的总和）
+    FROM erc20_balances b
+    LEFT JOIN evms.creation_traces cre ON cre.blockchain = &#39;{{3. Blockchain}}&#39; AND cre.address = b.address  -- 匹配合约创建信息
+    LEFT JOIN safe.safes_all sf ON sf.blockchain = &#39;{{3. Blockchain}}&#39; AND sf.address = b.address  -- 排除 safes 钱包
+    LEFT JOIN (SELECT address, blockchain, max_by(name, updated_at) AS name FROM labels.contracts GROUP BY 1,2) c ON c.blockchain = &#39;{{3. Blockchain}}&#39; AND c.address = b.address  -- 获取合约名称
+    WHERE 
+        (cre.address IS NOT NULL AND sf.address IS NULL)  -- 排除 safes 和 EOa 钱包
+    AND 
+        (  -- 保留符合余额阈值的地址
+            b.balance &gt;= {{5. Minimum Balance Threshold}}  
+            OR b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}}  
+        )
+    ORDER BY (b.balance_in + b.balance_out) DESC;  -- 按进出量排序，找出最大的代币变化
+</code></pre>
+<p>此查询的主要目的是监控某个 ERC20 代币在指定时间段内的流动情况，识别出大户、钱包余额变化以及合约的活动。</p>
+</div>
+<div id="追踪特定钱包地址余额和流入流出情况" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> 追踪特定钱包地址余额和流入流出情况<a href="dune-sql.html#追踪特定钱包地址余额和流入流出情况" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>追踪特定钱包地址（包括顶级持有者或指定的地址列表）的 ERC20 代币余额变化和流入流出。适用于监测代币流动性，尤其是大户的活动。</p>
+<pre><code>WITH
+    -- 获取符合输入参数条件的代币信息（包括合约地址和区块链）
+    selected_tokens AS (
+        SELECT
+            symbol, contract_address, blockchain, decimals
+        FROM (
+            SELECT 
+                upper(tk.symbol) AS symbol,   -- 将代币符号转换为大写，确保符号匹配
+                tk.contract_address, 
+                tk.blockchain, 
+                tk.decimals, 
+                COALESCE(count(*), 0) AS transfers  -- 计算过去5天内的转账次数，若无则为 0
+            FROM tokens.erc20 tk  -- 从 tokens.erc20 表中获取代币数据
+            LEFT JOIN evms.erc20_transfers tr 
+                ON tk.blockchain = tr.blockchain  -- 匹配相同区块链
+                AND tk.contract_address = tr.contract_address  -- 匹配相同代币合约地址
+                AND tr.evt_block_time &gt; now() - interval &#39;5&#39; day  -- 仅限过去 5 天的转账数据
+                AND tr.blockchain = &#39;{{3. Blockchain}}&#39;  -- 匹配指定的区块链
+            WHERE (&#39;{{1. Token Symbol}}&#39; = upper(tk.symbol) 
+                OR try(from_hex(&#39;{{2. Token Contract}}&#39;)) = tk.contract_address)  -- 按代币符号或合约地址过滤
+                AND tk.blockchain = &#39;{{3. Blockchain}}&#39;  -- 确保匹配指定区块链
+            GROUP BY 1, 2, 3, 4
+            ORDER BY count(*) DESC  -- 按转账次数降序排列
+            LIMIT 1  -- 只选择匹配的第一个代币
+        )
+        UNION ALL
+        -- 如果没有找到匹配的代币，则解析输入的合约地址
+        SELECT 
+            NULL AS symbol,
+            from_hex(trim(c.address)) AS contract_address,  -- 将输入的地址字符串转换为合约地址
+            &#39;{{3. Blockchain}}&#39; AS blockchain, 
+            18 AS decimals  -- 默认代币小数位为 18
+        FROM unnest(split(&#39;{{2. Token Contract}}&#39;,&#39;,&#39;)) AS c(address)  -- 处理可能传入的多个合约地址
+        WHERE try(from_hex(trim(c.address))) IS NOT NULL 
+            AND lower(c.address) != &#39;none&#39;  -- 排除无效地址
+            AND try(from_hex(trim(c.address))) NOT IN (SELECT DISTINCT contract_address FROM tokens.erc20)  -- 排除已存在的 ERC20 合约地址
+    ),
+
+    -- 获取每个地址的代币余额和转账数据
+    erc20_balances AS (
+        WITH erc20_in AS (  -- 计算代币的存款
+            SELECT 
+                to AS address,
+                SUM(tr.value / pow(10, tk.decimals)) AS tokens_funded,  -- 计算存入的代币数量
+                SUM(CASE WHEN tr.evt_block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day THEN tr.value ELSE CAST(0 AS uint256) END) / pow(10, tk.decimals) AS tokens_funded_days  -- 过去 N 天内的存款
+            FROM evms.erc20_transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain AND tk.contract_address = tr.contract_address
+            GROUP BY 1
+        ),
+        
+        erc20_out AS (  -- 计算代币的支出
+            SELECT  
+                &quot;from&quot; AS address,
+                SUM(tr.value / pow(10, tk.decimals)) AS tokens_spent,  -- 计算支出的代币数量
+                SUM(CASE WHEN tr.evt_block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day THEN tr.value ELSE CAST(0 AS uint256) END) / pow(10, tk.decimals) AS tokens_spent_days  -- 过去 N 天内的支出
+            FROM evms.erc20_transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain AND tk.contract_address = tr.contract_address
+            GROUP BY 1
+        )
+        
+        -- 计算每个地址的代币余额（存入减去支出）
+        SELECT
+            erc20_in.address,
+            CAST(tokens_funded AS double) - COALESCE(CAST(tokens_spent AS double), 0) AS balance,  -- 当前余额（存入 - 支出）
+            COALESCE(CAST(tokens_funded_days AS double), 0) AS balance_in,  -- 当前时间段的存款
+            -1 * COALESCE(CAST(tokens_spent_days AS double), 0) AS balance_out  -- 当前时间段的支出
+        FROM erc20_in
+        LEFT JOIN erc20_out ON erc20_in.address = erc20_out.address
+        WHERE CAST(tokens_funded AS double) - COALESCE(CAST(tokens_spent AS double), 0) &gt; 0  -- 只保留余额大于 0 的地址
+    )
+
+    -- 最终结果查询：展示代币的余额、进出变化以及钱包类型等信息
+    SELECT 
+        CASE
+            WHEN b.balance &gt;= {{5. Minimum Balance Threshold}} AND b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}} 
+                THEN &#39;⚪ old&#39;  -- 如果当前余额和余额变化都大于阈值，标记为 &#39;old&#39;
+            WHEN b.balance &lt; {{5. Minimum Balance Threshold}} AND b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}} 
+                THEN &#39;🔻 removed&#39;  -- 如果余额低于阈值且余额变化大于阈值，标记为 &#39;removed&#39;
+            WHEN b.balance &gt;= {{5. Minimum Balance Threshold}} AND b.balance - (b.balance_in + b.balance_out) &lt; {{5. Minimum Balance Threshold}} 
+                THEN &#39;🟢 new&#39;  -- 如果当前余额大于阈值但余额变化小于阈值，标记为 &#39;new&#39;
+            ELSE &#39;✅ manually tracked&#39;  -- 如果是手动跟踪的地址，标记为 &#39;manually tracked&#39;
+        END AS address_type,  -- 钱包类型（基于余额情况）
+        
+        CASE 
+            WHEN sf.address IS NOT NULL THEN &#39;Multisig&#39;  -- 如果是多签钱包，标记为 &#39;Multisig&#39;
+            WHEN cex.address IS NOT NULL THEN &#39;CEX&#39;  -- 如果是中心化交易所地址，标记为 &#39;CEX&#39;
+            ELSE &#39;EOA Wallet&#39;  -- 否则，标记为普通外部拥有账户（EOA）
+        END AS wallet_type,  -- 钱包类型（Multisig、CEX 或 EOA）
+        
+        ens.name AS ens,  -- 显示钱包的 ENS 名称（如果有）
+        get_href(get_chain_explorer(&#39;{{3. Blockchain}}&#39;) || &#39;/address/&#39; || CAST(b.address AS varchar), CAST(b.address AS varchar)) AS address,  -- 生成区块链地址的链接
+        ROUND(b.balance, 3) AS balance,  -- 当前余额（保留三位小数）
+        ROUND(b.balance - (b.balance_in + b.balance_out), 3) AS balance_last_period,  -- 上一周期的余额（基于存款和支出变化）
+        &#39;||&#39; AS split,  -- 分隔符
+        b.balance_in AS tokens_in,  -- 当前时间段的存款
+        b.balance_out AS tokens_out,  -- 当前时间段的支出
+        (b.balance_in + b.balance_out) AS balance_changed  -- 当前时间段的余额变化（存款 + 支出）
+    FROM erc20_balances b
+    LEFT JOIN evms.creation_traces cre ON cre.blockchain = &#39;{{3. Blockchain}}&#39; AND cre.address = b.address  -- 匹配合约创建信息
+    LEFT JOIN safe.safes_all sf ON sf.blockchain = &#39;{{3. Blockchain}}&#39; AND sf.address = b.address  -- 排除 safes 钱包
+    LEFT JOIN labels.ens ens ON ens.address = b.address  -- 获取 ENS 地址
+    LEFT JOIN labels.cex cex ON cex.address = b.address AND cex.blockchain = &#39;{{3. Blockchain}}&#39;  -- 获取中心化交易所信息
+    WHERE 
+        (cre.address IS NULL OR sf.address IS NOT NULL)  -- 排除普通合约，除非它是一个 safes 钱包
+    AND 
+        (  -- 保留符合余额阈值或手动跟踪的地址
+            b.balance &gt;= {{5. Minimum Balance Threshold}}  
+            OR b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}}  
+            OR contains(split(replace(&#39;{{6. Manually Tracked Addresses}}&#39;,&#39; &#39;,&#39;&#39;),&#39;,&#39;), CAST(b.address AS varchar))
+        )
+    ORDER BY (b.balance_in + b.balance_out) DESC;  -- 按进出量排序，找出最活跃的地址
+</code></pre>
+</div>
+<div id="追踪-nft-代币erc721-或-erc1155在合约中的流入流出情况" class="section level3 hasAnchor" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> 追踪 NFT 代币（ERC721 或 ERC1155）在合约中的流入流出情况<a href="dune-sql.html#追踪-nft-代币erc721-或-erc1155在合约中的流入流出情况" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>追踪 NFT 代币（ERC721 或 ERC1155）在合约中的流入流出情况。该模板适用于监控 NFT 资产的流动。</p>
+<pre><code></code></pre>
+</div>
+<div id="监控指定地址如大户或特定用户的-nft-代币余额变化" class="section level3 hasAnchor" number="3.3.7">
+<h3><span class="header-section-number">3.3.7</span> 监控指定地址（如大户或特定用户）的 NFT 代币余额变化<a href="dune-sql.html#监控指定地址如大户或特定用户的-nft-代币余额变化" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>监控指定地址（如大户或特定用户）的 NFT 代币余额变化，帮助分析 NFT 持有者的变化情况和流动性。</p>
+<pre><code>with 
+    --this is all to get the contract_address and blockchain of the inputted params
+    selected_tokens as (
+        SELECT
+            name, contract_address, blockchain, standard
+        FROM (
+            SELECT 
+                COALESCE(upper(tk.name), upper(tk.symbol)) as name
+                , tk.contract_address
+                , tk.blockchain
+                , tk.standard
+                , sum(COALESCE(amount_usd,0)) as trade_value
+            FROM tokens.nft tk
+            LEFT JOIN nft.trades trd ON tk.blockchain = trd.blockchain 
+                AND tk.contract_address = trd.nft_contract_address
+                AND trd.block_time &gt; now() - interval &#39;5&#39; day --should be good enough time filter
+                AND trd.blockchain = &#39;{{3. Blockchain}}&#39;
+            WHERE 
+                (
+                &#39;{{1. NFT Collection Name}}&#39; = COALESCE(upper(tk.name), upper(tk.symbol)) 
+                OR 
+                try(from_hex(&#39;{{2. NFT Contract}}&#39;)) = tk.contract_address
+                )
+                and tk.blockchain = &#39;{{3. Blockchain}}&#39;
+            group by 1,2,3,4
+            order by count(*) desc
+            limit 1
+        )
+            
+        UNION ALL
+            
+        SELECT 
+            null as name
+            , from_hex(trim(c.address)) as contract_address
+            , &#39;{{3. Blockchain}}&#39; as blockchain
+            , case when (SELECt distinct contract_address FROM nft.transfers 
+                            WHERE blockchain = &#39;{{3. Blockchain}}&#39; 
+                            and contract_address = from_hex(trim(c.address))
+                            and token_standard = &#39;erc1155&#39;
+                            ) is not null
+                            then &#39;erc1155&#39;
+                            else &#39;erc721&#39;
+                            end as standard
+        FROM unnest(split(&#39;{{2. NFT Contract}}&#39;,&#39;,&#39;)) as c(address)
+        WHERE try(from_hex(trim(c.address))) is not null 
+        and lower(c.address) != &#39;none&#39;
+        and try(from_hex(trim(c.address))) not in (SELECT distinct contract_address FROM tokens.nft)
+    )
+    
+    --now we grab balances and latest transfers for a set of tokens
+    , nft_balances as (
+        WITH nft_in as (
+            SELECT 
+                to as address
+                , sum(amount) as tokens_funded
+                , SUM(case when tr.block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day then amount else cast(0 as uint256) end) as tokens_funded_days
+            FROM nft.transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain and tk.contract_address = tr.contract_address
+            GROUP BY 1
+        ),
+        
+        nft_out as (
+            SELECT  
+                &quot;from&quot; as address
+                , sum(amount) as tokens_spent
+                , SUM(case when tr.block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day then amount else cast(0 as uint256) end) as tokens_spent_days
+            FROM nft.transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain and tk.contract_address = tr.contract_address
+            GROUP BY 1
+        )
+        
+        SELECT
+            nft_in.address
+            , cast(tokens_funded as double) - COALESCE(cast(tokens_spent as double), 0) as balance
+            , COALESCE(cast(tokens_funded_days as double),0) as balance_in
+            , -1*COALESCE(cast(tokens_spent_days as double), 0) as balance_out
+        FROM nft_in
+        LEFT JOIN nft_out ON nft_in.address = nft_out.address
+        WHERE cast(tokens_funded as double) - COALESCE(cast(tokens_spent as double), 0) &gt; 0
+    )
+    
+SELECT 
+case
+    when b.balance &gt;= {{5. Minimum Balance Threshold}} and b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}}
+        then &#39;⚪ old&#39;
+    when b.balance &lt; {{5. Minimum Balance Threshold}} and b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}}
+        then &#39;🔻 removed&#39;
+    when b.balance &gt;= {{5. Minimum Balance Threshold}} and b.balance - (b.balance_in + b.balance_out) &lt; {{5. Minimum Balance Threshold}}
+        then &#39;🟢 new&#39;
+    else &#39;✅ manually tracked&#39;
+end as address_type
+, case when sf.address is null then &#39;EOA wallet&#39; else &#39;Multisig&#39; end as wallet_type
+, ens.name as ens
+, get_href(get_chain_explorer(&#39;{{3. Blockchain}}&#39;) || &#39;/address/&#39; || cast(b.address as varchar), cast(b.address as varchar)) as address
+, round(b.balance,3) as balance
+, round(b.balance - (b.balance_in + b.balance_out),3) as balance_last_period
+, &#39;||&#39; as split
+, b.balance_in as tokens_in
+, b.balance_out as tokens_out
+, (b.balance_in + b.balance_out) as balance_changed
+FROM nft_balances b
+LEFT JOIN evms.creation_traces cre ON cre.blockchain = &#39;{{3. Blockchain}}&#39; and cre.address = b.address
+LEFT JOIN safe.safes_all sf ON sf.blockchain = &#39;{{3. Blockchain}}&#39; and sf.address = b.address
+LEFT JOIN labels.ens ens ON ens.address = b.address
+WHERE 
+(cre.address is null or sf.address is not null) --remove contracts unless it is a safe
+AND 
+--keep all wallets that either are a whale this period or last, or are manually tracked
+(
+b.balance &gt;= {{5. Minimum Balance Threshold}}
+OR b.balance - (b.balance_in + b.balance_out) &gt;= {{5. Minimum Balance Threshold}}
+OR contains(split(replace(&#39;{{6. Manually Tracked Addresses}}&#39;,&#39; &#39;,&#39;&#39;),&#39;,&#39;), cast(b.address as varchar))
+)
+order by (b.balance_in + b.balance_out) desc</code></pre>
+</div>
+<div id="追踪-去中心化交易所dex-上的-erc20-代币交易数据" class="section level3 hasAnchor" number="3.3.8">
+<h3><span class="header-section-number">3.3.8</span> 追踪 去中心化交易所（DEX） 上的 ERC20 代币交易数据<a href="dune-sql.html#追踪-去中心化交易所dex-上的-erc20-代币交易数据" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>追踪 去中心化交易所（DEX） 上的 ERC20 代币交易数据。它能够提供 交易价格、交易量、交易者 和 CEX（中心化交易所） 的资金流向数据。此模板适用于市场分析和交易量监测。</p>
+<pre><code>with 
+    --this is all to get the contract_address and blockchain of the inputted params
+    selected_tokens as (
+        SELECT 
+            distinct symbol, contract_address, blockchain, decimals
+        FROM (
+            SELECT
+                symbol
+                , blockchain
+                , max_by(contract_address, transfers) as contract_address
+                , max_by(decimals, transfers) as decimals
+            FROM (
+                SELECT 
+                    upper(tk.symbol) as symbol
+                    , tk.contract_address
+                    , tk.blockchain
+                    , tk.decimals
+                    , COALESCE(count(*),0) as transfers
+                FROM tokens.erc20 tk
+                LEFT JOIN evms.erc20_transfers tr ON tk.blockchain = tr.blockchain 
+                    AND tk.contract_address = tr.contract_address
+                    AND tr.evt_block_time &gt; now() - interval &#39;5&#39; day --should be good enough time filter
+                    AND tr.blockchain = &#39;{{3. Blockchain}}&#39;
+                WHERE contains(split(replace(&#39;{{1. Token Symbols}}&#39;,&#39; &#39;,&#39;&#39;),&#39;,&#39;), upper(tk.symbol))
+                    and tk.blockchain = &#39;{{3. Blockchain}}&#39;
+                group by 1,2,3,4
+            ) group by 1,2
+                
+            UNION ALL
+                
+            SELECT 
+                tk.symbol
+                , &#39;{{3. Blockchain}}&#39; as blockchain
+                , from_hex(trim(c.address)) as contract_address
+                , COALESCE(tk.decimals, 18) as decimals
+            FROM unnest(split(&#39;{{2. Token Contracts}}&#39;,&#39;,&#39;)) as c(address)
+            LEFT JOIN tokens.erc20 tk ON tk.contract_address = try(from_hex(trim(c.address))) AND tk.blockchain = &#39;{{3. Blockchain}}&#39;
+            WHERE try(from_hex(trim(c.address))) is not null 
+            and lower(c.address) != &#39;none&#39;
+            and try(from_hex(trim(c.address))) not in (SELECT distinct contract_address FROM tokens.erc20)
+        )
+    )
+    
+    , dex_trades as (
+        SELECT 
+            d.token_bought_address as token_address, 
+            case when token_bought_amount != cast(token_bought_amount as double) then d.amount_usd/d.token_bought_amount
+                else d.amount_usd/(cast(d.token_bought_amount as double))
+                end as price, 
+            &#39;buy&#39; as action,
+            d.token_bought_amount as amount,
+            d.tx_from as trader,
+            d.block_time, 
+            d.blockchain
+        FROM dex.trades d
+        WHERE d.amount_usd &gt; 0 
+            AND cast(d.token_bought_amount as double) &gt; 0
+            AND blockchain = &#39;{{3. Blockchain}}&#39;
+            AND block_time &gt; now() - interval &#39;{{4. Days}}&#39; day
+    
+        UNION ALL
+    
+        SELECT 
+            d.token_sold_address as token_address, 
+            case when token_sold_amount != cast(token_sold_amount as double) then d.amount_usd/d.token_sold_amount
+                else d.amount_usd/(cast(d.token_sold_amount as double))
+                end as price,
+            &#39;sell&#39; as action,
+            d.token_sold_amount as amount,
+            d.tx_from as trader,
+            d.block_time, 
+            d.blockchain
+        FROM dex.trades d
+        WHERE d.amount_usd &gt; 0 
+            AND cast(d.token_sold_amount as double) &gt; 0 
+            AND blockchain = &#39;{{3. Blockchain}}&#39;
+            AND block_time &gt; now() - interval &#39;{{4. Days}}&#39; day
+    )
+    
+        , dex_trades_prev as (
+        SELECT 
+            d.token_bought_address as token_address, 
+            case when token_bought_amount != cast(token_bought_amount as double) then d.amount_usd/d.token_bought_amount
+                else d.amount_usd/(cast(d.token_bought_amount as double))
+                end as price, 
+            &#39;buy&#39; as action,
+            d.token_bought_amount as amount,
+            d.tx_from as trader,
+            d.block_time, 
+            d.blockchain
+        FROM dex.trades d
+        WHERE d.amount_usd &gt; 0 
+            AND cast(d.token_bought_amount as double) &gt; 0
+            AND blockchain = &#39;{{3. Blockchain}}&#39;
+            AND block_time &lt;= now() - interval &#39;{{4. Days}}&#39; day
+            AND block_time &gt; now() - interval &#39;{{4. Days}}&#39; day - interval &#39;{{4. Days}}&#39; day 
+    
+        UNION ALL
+    
+        SELECT 
+            d.token_sold_address as token_address, 
+            case when token_sold_amount != cast(token_sold_amount as double) then d.amount_usd/d.token_sold_amount
+                else d.amount_usd/(cast(d.token_sold_amount as double))
+                end as price,
+            &#39;sell&#39; as action,
+            d.token_sold_amount as amount,
+            d.tx_from as trader,
+            d.block_time, 
+            d.blockchain
+        FROM dex.trades d
+        WHERE d.amount_usd &gt; 0 
+            AND cast(d.token_sold_amount as double) &gt; 0 
+            AND blockchain = &#39;{{3. Blockchain}}&#39;
+            AND block_time &lt;= now() - interval &#39;{{4. Days}}&#39; day
+            AND block_time &gt; now() - interval &#39;{{4. Days}}&#39; day - interval &#39;{{4. Days}}&#39; day 
+    )
+    
+    
+    , erc20_trade_summary as (
+        SELECT 
+            get_href(get_chain_explorer(&#39;{{3. Blockchain}}&#39;) || &#39;/address/&#39; || cast(tk.contract_address as varchar)
+                , COALESCE(tk.symbol, cast(tk.contract_address as varchar))
+                ) as symbol
+            , tk.contract_address
+            , approx_percentile(tr.price,0.5) as median_price
+            , case when approx_percentile(tr_p.price,0.5) = 0 then 0 
+                else (approx_percentile(tr.price,0.5) - approx_percentile(tr_p.price,0.5)) / approx_percentile(tr_p.price,0.5)  
+            end as median_price_change
+            , sum(tr.amount*tr.price) as volume_usd
+            , case when sum(tr_p.amount*tr_p.price) = 0 then 0 
+                else (sum(tr.amount*tr.price) - sum(tr_p.amount*tr_p.price)) / sum(tr_p.amount*tr_p.price)
+            end as volume_usd_change
+            , sum(case when tr.action = &#39;buy&#39; then 1 else 0 end) as buys
+            , sum(case when tr.action = &#39;sell&#39; then 1 else 0 end) as sells
+            , count(distinct tr.trader) as traders
+        FROM dex_trades tr
+        JOIN selected_tokens tk ON tr.blockchain = tk.blockchain AND tr.token_address = tk.contract_address
+        JOIN dex_trades_prev tr_p ON tr_p.blockchain = tk.blockchain AND tr_p.token_address = tk.contract_address
+        group by 1,2
+    )
+    
+    , erc20_cex as (
+         WITH erc20_in as ( 
+            SELECT 
+                split(cex.name,&#39; &#39;)[1] as cex
+                , tr.contract_address
+                , SUM(tr.value/pow(10,tk.decimals)) as tokens_funded
+            FROM evms.erc20_transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain and tk.contract_address = tr.contract_address
+            JOIN labels.cex cex ON cex.address = tr.to AND cex.blockchain = &#39;{{3. Blockchain}}&#39;
+            WHERE tr.evt_block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day
+            GROUP BY 1,2
+        ),
+        
+        erc20_out as (
+            SELECT  
+                split(cex.name,&#39; &#39;)[1] as cex
+                , tr.contract_address
+                , SUM(tr.value/pow(10,tk.decimals)) as tokens_spent
+            FROM evms.erc20_transfers tr
+            JOIN selected_tokens tk ON tk.blockchain = tr.blockchain and tk.contract_address = tr.contract_address
+            JOIN labels.cex cex ON cex.address = tr.&quot;from&quot; AND cex.blockchain = &#39;{{3. Blockchain}}&#39;
+            WHERE tr.evt_block_time &gt;= now() - interval &#39;{{4. Days}}&#39; day
+            GROUP BY 1,2
+        )
+        
+        SELECT
+            -- COALESCE(erc20_in.cex, erc20_out.cex) as cex
+            &#39;all&#39; as cex
+            , COALESCE(erc20_in.contract_address,erc20_out.contract_address) as contract_address
+            , sum(COALESCE(cast(tokens_funded as double),0) - COALESCE(cast(tokens_spent as double), 0)) as cex_net_flow
+            , sum(COALESCE(cast(tokens_funded as double),0)) as cex_inflow
+            , sum(-1*COALESCE(cast(tokens_spent as double), 0)) as cex_outflow
+        FROM erc20_in
+        FULL OUTER JOIN erc20_out ON erc20_in.cex = erc20_out.cex AND erc20_in.contract_address = erc20_out.contract_address
+        group by 1,2
+    )
+    
+SELECT 
+    tr.*
+    , &#39;||&#39; as split
+    , c.cex_inflow*median_price as cex_inflow
+    , c.cex_outflow*median_price as cex_outflow
+    , c.cex_net_flow*median_price as cex_net_flow
+FROM erc20_trade_summary tr
+LEFT JOIN erc20_cex c ON tr.contract_address = c.contract_address
+order by volume_usd desc</code></pre>
+<blockquote>
+<p>其他参考: <a href="https://tutorial.sixdegree.xyz/zh/zhong-ji-jiao-cheng/ch15-dunesql-introduction" class="uri">https://tutorial.sixdegree.xyz/zh/zhong-ji-jiao-cheng/ch15-dunesql-introduction</a></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dune-简介.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="链上数据分析常见指标.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/liamamilin/02-cross-refs.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
